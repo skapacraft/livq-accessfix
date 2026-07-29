@@ -1,9 +1,14 @@
 /*
- * EAA Developer Guard - Frontend Accessibility Stylesheet
+ * LivQ AccessFix - Frontend Accessibility Stylesheet
  *
- * This file is provided as a standalone reference/override entry point.
- * The canonical styles are injected inline via wp_add_inline_style()
- * in LIVQACEA_Frontend::enqueue_inline_styles() to avoid an HTTP request.
+ * This file is provided as a standalone reference/override entry point and is
+ * intentionally never enqueued. The canonical styles are injected inline via
+ * wp_add_inline_style() in LIVQACEA_Frontend::enqueue_inline_styles() to avoid
+ * an HTTP request; keep the two in sync when editing either.
+ *
+ * The screen-reader-text block below ships whenever the skip link or the
+ * external-link notice is active; the focus-visible block only when the
+ * "Inject High-Contrast Focus CSS" module is enabled.
  *
  * Theme developers who wish to override specific rules can enqueue this
  * file after the plugin, or reference it as a starting point.

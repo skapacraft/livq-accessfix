@@ -4,7 +4,7 @@
  *
  * Responsibilities
  * ----------------
- * 1. Adds a "Impostazioni" shortcut link in the plugin row on plugins.php.
+ * 1. Adds a "Settings" shortcut link in the plugin row on plugins.php.
  *    Hook: plugin_action_links_{basename}  (dynamic, resolved at init time
  *    using LIVQACEA_PLUGIN_FILE so it works even if the folder is renamed).
  *
@@ -64,10 +64,10 @@ class LIVQACEA_Plugin_Links {
 	// -----------------------------------------------------------------------
 
 	/**
-	 * Prepends a "Impostazioni" link to the plugin's action links row.
+	 * Prepends a "Settings" link to the plugin's action links row.
 	 *
 	 * The link is prepended (array_unshift) so it appears first - before
-	 * "Disattiva" - which is the standard convention for Settings links.
+	 * "Deactivate" - which is the standard convention for Settings links.
 	 *
 	 * The page slug references LIVQACEA_Backend::PAGE_SLUG directly (single
 	 * source of truth) rather than a hardcoded literal, so this link can
@@ -167,9 +167,10 @@ class LIVQACEA_Plugin_Links {
 			<?php
 			echo wp_kses_post(
 				sprintf(
-					/* translators: %s: LivQ brand link (HTML anchor tag) */
-					__( 'An open source project by %s.', 'livq-accessfix' ),
-					'<a href="https://livq.it" target="_blank" rel="noopener noreferrer" style="color:#2271b1;">LivQ</a>'
+					/* translators: 1: LivQ brand link (HTML anchor tag), 2: SkapaCraft brand link (HTML anchor tag) */
+					__( 'An open source project by %1$s and %2$s.', 'livq-accessfix' ),
+					'<a href="https://livq.it" target="_blank" rel="noopener noreferrer" style="color:#2271b1;">LivQ</a>',
+					'<a href="https://skapacraft.com" target="_blank" rel="noopener noreferrer" style="color:#2271b1;">SkapaCraft</a>'
 				)
 			);
 			?>

@@ -29,6 +29,16 @@ class LIVQACEA_WooCommerce {
 	private $options;
 
 	/**
+	 * Cached result of the WooCommerce page check for this request.
+	 *
+	 * Resolved once on template_redirect, while the main query is unambiguous,
+	 * and reused by the output-buffer filter which runs at shutdown.
+	 *
+	 * @var bool|null
+	 */
+	private $is_wc_page = null;
+
+	/**
 	 * Constructor - registers hooks when the module is enabled.
 	 *
 	 * @param array<string, mixed> $options Plugin options from LIVQACEA_Main.
@@ -40,12 +50,25 @@ class LIVQACEA_WooCommerce {
 			return;
 		}
 
+		// Resolve the WooCommerce context early, before any buffering happens.
+		add_action( 'template_redirect', array( $this, 'detect_context' ), 5 );
+
 		// Hook into the output buffer after all generic fixes have run.
 		add_filter( 'livqacea_sanitized_html', array( $this, 'fix_woocommerce_html' ) );
 
 		// Live region markup + its script - only on WooCommerce pages.
 		add_action( 'wp_footer', array( $this, 'render_announcer' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+	}
+
+	/**
+	 * Caches whether the current request is a WooCommerce page.
+	 *
+	 * @return void
+	 */
+	public function detect_context(): void {
+		$this->is_wc_page = function_exists( 'is_woocommerce' )
+			&& ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() );
 	}
 
 	// -----------------------------------------------------------------------
@@ -60,6 +83,13 @@ class LIVQACEA_WooCommerce {
 	 */
 	public function fix_woocommerce_html( string $html ): string {
 		if ( empty( $html ) ) {
+			return $html;
+		}
+
+		// These rules key off generic class names ("plus", "minus"), so they must
+		// never run outside a WooCommerce page - a theme carousel with
+		// class="plus" would otherwise be announced as "Increase quantity".
+		if ( ! $this->is_woocommerce_page() ) {
 			return $html;
 		}
 
@@ -84,9 +114,10 @@ class LIVQACEA_WooCommerce {
 	 * @return string Modified HTML.
 	 */
 	private function fix_qty_buttons( string $html ): string {
-		// Minus button - skip if aria-label already present.
-		$html = preg_replace_callback(
-			'/<button\b([^>]*\bclass=["\'][^"\']*\bminus\b[^"\']*["\'][^>]*)>/i',
+		// The lookarounds require a real class-token boundary: \bminus\b also
+		// matched "qty-minus" or "minus-icon", labelling unrelated buttons.
+		$html = self::safe_replace(
+			'/<button\b([^>]*\bclass=["\'][^"\']*(?<![\w-])minus(?![\w-])[^"\']*["\'][^>]*)>/i',
 			static function ( array $m ): string {
 				if ( preg_match( '/\baria-label=/i', $m[1] ) ) {
 					return $m[0];
@@ -99,8 +130,8 @@ class LIVQACEA_WooCommerce {
 		);
 
 		// Plus button.
-		$html = preg_replace_callback(
-			'/<button\b([^>]*\bclass=["\'][^"\']*\bplus\b[^"\']*["\'][^>]*)>/i',
+		$html = self::safe_replace(
+			'/<button\b([^>]*\bclass=["\'][^"\']*(?<![\w-])plus(?![\w-])[^"\']*["\'][^>]*)>/i',
 			static function ( array $m ): string {
 				if ( preg_match( '/\baria-label=/i', $m[1] ) ) {
 					return $m[0];
@@ -113,6 +144,23 @@ class LIVQACEA_WooCommerce {
 		);
 
 		return $html;
+	}
+
+	/**
+	 * preg_replace_callback() that falls back to the original subject.
+	 *
+	 * PCRE returns null on failure (PREG_BACKTRACK_LIMIT_ERROR on large pages);
+	 * propagating that null would blank the whole page.
+	 *
+	 * @param string   $pattern  Regex pattern.
+	 * @param callable $callback Replacement callback.
+	 * @param string   $subject  Subject string.
+	 * @return string
+	 */
+	private static function safe_replace( string $pattern, callable $callback, string $subject ): string {
+		$result = preg_replace_callback( $pattern, $callback, $subject );
+
+		return is_string( $result ) ? $result : $subject;
 	}
 
 	/**
@@ -266,7 +314,10 @@ class LIVQACEA_WooCommerce {
 	 * @return bool
 	 */
 	private function is_woocommerce_page(): bool {
-		return function_exists( 'is_woocommerce' )
-			&& ( is_woocommerce() || is_cart() || is_checkout() );
+		if ( null === $this->is_wc_page ) {
+			$this->detect_context();
+		}
+
+		return (bool) $this->is_wc_page;
 	}
 }

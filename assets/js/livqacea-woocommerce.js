@@ -52,7 +52,11 @@
 
 	jQuery( document.body ).on( 'updated_cart_totals wc-blocks-cart:renderComplete', function () {
 		jQuery( 'input.qty' ).each( function () {
-			if ( ! this.getAttribute( 'aria-label' ) && ! this.labels.length ) {
+			// HTMLInputElement.labels is null on non-labelable inputs - notably
+			// type="hidden", which WooCommerce renders for "sold individually"
+			// products. Reading .length off it threw and killed the handler.
+			var labels = this.labels;
+			if ( ! this.getAttribute( 'aria-label' ) && ( ! labels || ! labels.length ) ) {
 				this.setAttribute( 'aria-label', strings.quantity );
 			}
 		} );

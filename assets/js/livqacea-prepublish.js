@@ -1,5 +1,5 @@
 /**
- * EAA Developer Guard - Gutenberg Pre-Publish Accessibility Panel
+ * LivQ AccessFix - Gutenberg Pre-Publish Accessibility Panel
  *
  * Registers a PluginPrePublishPanel that runs two real-time accessibility
  * checks on the current post content before the editor clicks "Publish":
@@ -131,8 +131,8 @@
 				key:  'img-alt',
 				icon: '🖼️',
 				text: imagesWithoutAlt === 1
-					? __( '1 image missing alternative text (alt). Screen reader users will not be able to perceive the image content (WCAG 1.1.1).', 'eaa-developer-guard' )
-					: imagesWithoutAlt + ' ' + __( 'images missing alternative text (alt). Screen reader users will not be able to perceive the content (WCAG 1.1.1).', 'eaa-developer-guard' ),
+					? __( '1 image missing alternative text (alt). Screen reader users will not be able to perceive the image content (WCAG 1.1.1).', 'livq-accessfix' )
+					: imagesWithoutAlt + ' ' + __( 'images missing alternative text (alt). Screen reader users will not be able to perceive the content (WCAG 1.1.1).', 'livq-accessfix' ),
 			} );
 		}
 
@@ -157,19 +157,19 @@
 				key:  'naked-url',
 				icon: '🔗',
 				text: nakedLinkCount === 1
-					? __( '1 link uses a URL as clickable text. Replace the URL with a meaningful description of the action or destination (WCAG 2.4.4).', 'eaa-developer-guard' )
-					: nakedLinkCount + ' ' + __( 'links use a URL as clickable text. Replace them with meaningful descriptions (WCAG 2.4.4).', 'eaa-developer-guard' ),
+					? __( '1 link uses a URL as clickable text. Replace the URL with a meaningful description of the action or destination (WCAG 2.4.4).', 'livq-accessfix' )
+					: nakedLinkCount + ' ' + __( 'links use a URL as clickable text. Replace them with meaningful descriptions (WCAG 2.4.4).', 'livq-accessfix' ),
 			} );
 		}
 
 		/* -------- Panel title changes depending on result --------------- */
 
 		var panelTitle = issues.length === 0
-			? __( 'Accessibility - No issues', 'eaa-developer-guard' )
-			: __( 'Accessibility', 'eaa-developer-guard' ) + ' - ' + issues.length + ' ' +
+			? __( 'Accessibility - No issues', 'livq-accessfix' )
+			: __( 'Accessibility', 'livq-accessfix' ) + ' - ' + issues.length + ' ' +
 			  ( issues.length === 1
-			    ? __( 'warning', 'eaa-developer-guard' )
-			    : __( 'warnings', 'eaa-developer-guard' ) );
+			    ? __( 'warning', 'livq-accessfix' )
+			    : __( 'warnings', 'livq-accessfix' ) );
 
 		/* -------- Render ------------------------------------------------ */
 
@@ -198,7 +198,7 @@
 						},
 					},
 					createElement( 'span', { style: { fontSize: '16px' } }, '✓' ),
-					__( 'No accessibility issues detected in this document.', 'eaa-developer-guard' )
+					__( 'No accessibility issues detected in this document.', 'livq-accessfix' )
 				)
 
 				/* Issue list */

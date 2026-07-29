@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:       LivQ AccessFix – EAA & A11y AutoFix
- * Plugin URI:        https://github.com/livqtech/livq-accessfix
+ * Plugin URI:        https://skapacraft.com/tools/plugins/livq-accessfix/
  * Description:       Automated WCAG 2.2 AA & European Accessibility Act (EAA) remediation for WordPress: focus styles, external link labels, skip links, alt attributes, heading hierarchy, ARIA menus, and Gutenberg pre-publish checks - zero configuration required.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            LivQ
- * Author URI:        https://livq.it
+ * Author URI:        https://skapacraft.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       livq-accessfix
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 // ---------------------------------------------------------------------------
 // Constants - single point of truth for paths and version.
 // ---------------------------------------------------------------------------
-define( 'LIVQACEA_VERSION', '1.0.0' );
+define( 'LIVQACEA_VERSION', '1.0.1' );
 define( 'LIVQACEA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LIVQACEA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LIVQACEA_PLUGIN_FILE', __FILE__ );

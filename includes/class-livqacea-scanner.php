@@ -17,11 +17,30 @@ defined( 'ABSPATH' ) || exit;
  */
 class LIVQACEA_Scanner {
 
-	const CACHE_KEY = 'livqacea_scan_results_v1';
+	// v2: issue records carry a three-state 'status' instead of the old boolean
+	// 'auto_fixed'. Bumping the key discards incompatible cached payloads.
+	const CACHE_KEY = 'livqacea_scan_results_v2';
 	const CACHE_TTL = DAY_IN_SECONDS;
 	const PAGE_SLUG = 'livqacea-scanner';
 	const NONCE_KEY = 'livqacea_scan_nonce';
 	const CRON_HOOK = 'livqacea_daily_scan';
+
+	/**
+	 * Per-request timeout for a single template fetch, in seconds.
+	 *
+	 * @var int
+	 */
+	const FETCH_TIMEOUT = 10;
+
+	/**
+	 * Wall-clock budget for one background scan, in seconds.
+	 *
+	 * A full run used to be able to sit for 15 templates x 20s = 300s and get
+	 * killed halfway by max_execution_time, leaving a half-written cache.
+	 *
+	 * @var int
+	 */
+	const CRON_TIME_BUDGET = 60;
 
 	/**
 	 * Hook suffix of this page, captured from add_submenu_page().
@@ -95,8 +114,9 @@ class LIVQACEA_Scanner {
 				'cachedData' => $cache ? $cache : null,
 				'strings'    => array(
 					'noIssues'         => __( 'No issues detected', 'livq-accessfix' ),
-					'autoFixed'        => __( 'Auto-fixed', 'livq-accessfix' ),
-					'manualFix'        => __( 'Manual fix', 'livq-accessfix' ),
+					'statusManual'     => __( '✗ Manual fix', 'livq-accessfix' ),
+					'statusFixable'    => __( '◻ Enable the matching module', 'livq-accessfix' ),
+					'statusUnresolved' => __( '⚠ Module active - still detected', 'livq-accessfix' ),
 					'severity'         => __( 'Severity', 'livq-accessfix' ),
 					'wcag'             => __( 'WCAG', 'livq-accessfix' ),
 					'issue'            => __( 'Issue', 'livq-accessfix' ),
@@ -383,7 +403,7 @@ class LIVQACEA_Scanner {
 			array(
 				'timeout'    => 20,
 				'user-agent' => 'LivqaceaA11yScanner/1.0 WordPress/' . get_bloginfo( 'version' ),
-				'sslverify'  => false,
+				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
 			)
 		);
 
@@ -447,14 +467,20 @@ class LIVQACEA_Scanner {
 		$templates = self::discover_templates();
 		$options   = get_option( 'livqacea_options', array() );
 		$cache     = array();
+		$started   = microtime( true );
 
 		foreach ( $templates as $tpl ) {
+			// Stop cleanly before PHP's own execution limit kills the run.
+			if ( ( microtime( true ) - $started ) > self::CRON_TIME_BUDGET ) {
+				break;
+			}
+
 			$response = wp_remote_get(
 				$tpl['url'],
 				array(
-					'timeout'    => 20,
+					'timeout'    => self::FETCH_TIMEOUT,
 					'user-agent' => 'LivqaceaA11yScanner/1.0',
-					'sslverify'  => false,
+					'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
 				)
 			);
 			if ( is_wp_error( $response ) ) {
@@ -505,7 +531,7 @@ class LIVQACEA_Scanner {
 				'message'    => __( 'Page language not declared on &lt;html&gt; element.', 'livq-accessfix' ),
 				'count'      => 1,
 				'sample'     => self::snippet( $html, '<html' ),
-				'auto_fixed' => true,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -518,7 +544,7 @@ class LIVQACEA_Scanner {
 				'message'    => __( 'No skip link found. Keyboard users cannot bypass navigation.', 'livq-accessfix' ),
 				'count'      => 1,
 				'sample'     => '',
-				'auto_fixed' => ! empty( $options['inject_skip_link'] ),
+				'status'     => self::issue_status( 'inject_skip_link', $options ),
 			);
 		}
 
@@ -536,7 +562,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $m[0] ),
 				'sample'     => substr( $m[0][0], 0, 200 ),
-				'auto_fixed' => ! empty( $options['fix_image_alt'] ),
+				'status'     => self::issue_status( 'fix_image_alt', $options ),
 			);
 		}
 
@@ -569,7 +595,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $nameless_links ),
 				'sample'     => $nameless_links[0],
-				'auto_fixed' => ! empty( $options['fix_nameless_links'] ),
+				'status'     => self::issue_status( 'fix_nameless_links', $options ),
 			);
 		}
 
@@ -602,7 +628,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $nameless_btns ),
 				'sample'     => $nameless_btns[0],
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -635,7 +661,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $unlabeled ),
 				'sample'     => $unlabeled[0],
-				'auto_fixed' => ! empty( $options['fix_input_labels'] ),
+				'status'     => self::issue_status( 'fix_input_labels', $options ),
 			);
 		}
 
@@ -653,7 +679,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $m[0] ),
 				'sample'     => substr( $m[0][0], 0, 200 ),
-				'auto_fixed' => ! empty( $options['fix_iframe_titles'] ),
+				'status'     => self::issue_status( 'fix_iframe_titles', $options ),
 			);
 		}
 
@@ -677,7 +703,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $blank_no_sr ),
 				'sample'     => $blank_no_sr[0],
-				'auto_fixed' => ! empty( $options['fix_external_links'] ),
+				'status'     => self::issue_status( 'fix_external_links', $options ),
 			);
 		}
 
@@ -704,7 +730,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $skips ),
 				'sample'     => implode( ', ', $unique_skips ),
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -722,7 +748,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => $h1_count,
 				'sample'     => '',
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -740,7 +766,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $m[0] ),
 				'sample'     => substr( $m[0][0], 0, 200 ),
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -764,7 +790,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'      => count( $tables_no_th ),
 				'sample'     => $tables_no_th[0],
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -777,7 +803,7 @@ class LIVQACEA_Scanner {
 				'message'    => __( 'No &lt;main&gt; landmark found. Screen reader users cannot jump directly to main content.', 'livq-accessfix' ),
 				'count'      => 1,
 				'sample'     => '',
-				'auto_fixed' => false,
+				'status'     => self::issue_status( '', $options ),
 			);
 		}
 
@@ -796,12 +822,64 @@ class LIVQACEA_Scanner {
 					),
 					'count'      => count( $m[0] ),
 					'sample'     => substr( $m[0][0], 0, 200 ),
-					'auto_fixed' => false,
+					'status'     => self::issue_status( 'woocommerce_a11y', $options ),
 				);
 			}
 		}
 
 		return $issues;
+	}
+
+	/**
+	 * Classifies an issue against the module that is supposed to cover it.
+	 *
+	 * The scanner fetches the site's *live* HTML, which the output buffer has
+	 * already remediated. An issue that still shows up therefore survived the
+	 * module - flagging it "Auto-fixed" (the previous behaviour) told the exact
+	 * opposite of the truth. Three honest states instead:
+	 *
+	 *  - 'manual'     no module covers this check; a human has to fix it.
+	 *  - 'fixable'    a module covers it but is currently switched off.
+	 *  - 'unresolved' the module is on and the issue is still present.
+	 *
+	 * @param string               $module  Option key covering the issue, or ''.
+	 * @param array<string, mixed> $options Current plugin options.
+	 * @return string One of 'manual', 'fixable', 'unresolved'.
+	 */
+	private static function issue_status( string $module, array $options ): string {
+		if ( '' === $module ) {
+			return 'manual';
+		}
+
+		return empty( $options[ $module ] ) ? 'fixable' : 'unresolved';
+	}
+
+	/**
+	 * Returns the CSS class and label for an issue status.
+	 *
+	 * @param string $status One of 'manual', 'fixable', 'unresolved'.
+	 * @return array{class:string, text:string}
+	 */
+	private static function status_label( string $status ): array {
+		switch ( $status ) {
+			case 'unresolved':
+				return array(
+					'class' => 'livqacea-tag-unresolved',
+					'text'  => __( '⚠ Module active - still detected', 'livq-accessfix' ),
+				);
+
+			case 'fixable':
+				return array(
+					'class' => 'livqacea-tag-fixable',
+					'text'  => __( '◻ Enable the matching module', 'livq-accessfix' ),
+				);
+
+			default:
+				return array(
+					'class' => 'livqacea-tag-manual',
+					'text'  => __( '✗ Manual fix', 'livq-accessfix' ),
+				);
+		}
 	}
 
 	// -----------------------------------------------------------------------
@@ -872,6 +950,10 @@ class LIVQACEA_Scanner {
 	 * @return void
 	 */
 	public static function render_admin_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$templates = self::discover_templates();
 		$cache     = get_transient( self::CACHE_KEY );
 		$cache     = is_array( $cache ) ? $cache : array();
@@ -903,7 +985,7 @@ class LIVQACEA_Scanner {
 			<span><strong id="livqacea-cnt-critical" style="color:#dc3232;">0</strong> <?php esc_html_e( 'Critical', 'livq-accessfix' ); ?></span>
 			<span><strong id="livqacea-cnt-high" style="color:#f56e28;">0</strong> <?php esc_html_e( 'High', 'livq-accessfix' ); ?></span>
 			<span><strong id="livqacea-cnt-warning" style="color:#dba617;">0</strong> <?php esc_html_e( 'Warnings', 'livq-accessfix' ); ?></span>
-			<span><strong id="livqacea-cnt-fixed" style="color:#46b450;">0</strong> <?php esc_html_e( 'Auto-fixed by plugin', 'livq-accessfix' ); ?></span>
+			<span><strong id="livqacea-cnt-fixed" style="color:#2271b1;">0</strong> <?php esc_html_e( 'Fixable by enabling a module', 'livq-accessfix' ); ?></span>
 		</div>
 		<button id="livqacea-btn-csv" class="button" style="margin-left:auto;"><?php esc_html_e( 'Export CSV', 'livq-accessfix' ); ?></button>
 	</div>
@@ -949,13 +1031,13 @@ class LIVQACEA_Scanner {
 				<td id="livqacea-date-<?php echo esc_attr( $tpl['key'] ); ?>"><?php echo esc_html( $date ); ?></td>
 			</tr>
 				<?php if ( $c && ! empty( $c['issues'] ) ) : ?>
-			<tr class="livqacea-detail-row">
+			<tr class="livqacea-detail-row" id="livqacea-detail-<?php echo esc_attr( $tpl['key'] ); ?>">
 				<td colspan="5" style="padding:0;background:#f9f9f9;">
 					<?php self::render_issues_table( $c['issues'] ); ?>
 				</td>
 			</tr>
 			<?php elseif ( $c ) : ?>
-			<tr class="livqacea-detail-row">
+			<tr class="livqacea-detail-row" id="livqacea-detail-<?php echo esc_attr( $tpl['key'] ); ?>">
 				<td colspan="5" style="padding:8px 10px;background:#f9f9f9;color:#46b450;">
 					✓ <?php esc_html_e( 'No issues detected', 'livq-accessfix' ); ?>
 				</td>
@@ -988,9 +1070,8 @@ class LIVQACEA_Scanner {
 		echo '</tr></thead><tbody>';
 		foreach ( $issues as $iss ) {
 			$sev_key = sanitize_html_class( $iss['severity'] );
-			$status  = $iss['auto_fixed']
-				? '<span class="livqacea-tag-fixed">✓ ' . esc_html__( 'Auto-fixed', 'livq-accessfix' ) . '</span>'
-				: '<span class="livqacea-tag-manual">✗ ' . esc_html__( 'Manual fix', 'livq-accessfix' ) . '</span>';
+			$tag     = self::status_label( isset( $iss['status'] ) ? (string) $iss['status'] : 'manual' );
+			$status  = '<span class="' . esc_attr( $tag['class'] ) . '">' . esc_html( $tag['text'] ) . '</span>';
 			$sample  = ! empty( $iss['sample'] )
 				? '<code class="livqacea-sample">' . esc_html( $iss['sample'] ) . '</code>'
 				: '';

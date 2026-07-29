@@ -21,6 +21,16 @@
 		return '#dc3232';
 	}
 
+	function statusTag( status ) {
+		if ( status === 'unresolved' ) {
+			return '<span class="livqacea-tag-unresolved">' + strings.statusUnresolved + '</span>';
+		}
+		if ( status === 'fixable' ) {
+			return '<span class="livqacea-tag-fixable">' + strings.statusFixable + '</span>';
+		}
+		return '<span class="livqacea-tag-manual">' + strings.statusManual + '</span>';
+	}
+
 	function refreshSummary() {
 		var c = 0, h = 0, w = 0, f = 0, scoreSum = 0, n = 0;
 		Object.values( results ).forEach( function ( r ) {
@@ -29,7 +39,7 @@
 				if ( i.severity === 'critical' ) c += cnt;
 				else if ( i.severity === 'high' ) h += cnt;
 				else w += cnt;
-				if ( i.auto_fixed ) f += cnt;
+				if ( i.status === 'fixable' ) f += cnt;
 			} );
 			scoreSum += r.score; n++;
 		} );
@@ -49,9 +59,7 @@
 		}
 		var rows = issues.map( function ( iss ) {
 			var sev = '<span class="livqacea-badge livqacea-badge-' + iss.severity + '">' + iss.severity.charAt( 0 ).toUpperCase() + iss.severity.slice( 1 ) + '</span>';
-			var status = iss.auto_fixed
-				? '<span class="livqacea-tag-fixed">✓ ' + strings.autoFixed + '</span>'
-				: '<span class="livqacea-tag-manual">✗ ' + strings.manualFix + '</span>';
+			var status = statusTag( iss.status );
 			var sample = iss.sample ? '<code class="livqacea-sample">' + $( '<div>' ).text( iss.sample ).html() + '</code>' : '';
 			return '<tr>' +
 				'<td>' + sev + '</td>' +
@@ -81,8 +89,11 @@
 			$( '#livqacea-score-' + d.key ).text( d.score + '/100' ).css( { 'font-weight': '700', color: scoreColor( d.score ) } );
 			$( '#livqacea-issues-' + d.key ).text( d.issues.length );
 			$( '#livqacea-date-' + d.key ).text( new Date().toLocaleString() );
-			row.nextAll( '.livqacea-detail-row' ).first().remove();
-			row.after( '<tr class="livqacea-detail-row"><td colspan="5" style="padding:0;background:#f9f9f9;">' + buildIssueTable( d.issues ) + '</td></tr>' );
+			// Target this template's own detail row by id. nextAll() walked
+			// forward across the whole table and, when the current row had no
+			// detail row yet, deleted the one belonging to another template.
+			$( '#livqacea-detail-' + d.key ).remove();
+			row.after( '<tr class="livqacea-detail-row" id="livqacea-detail-' + d.key + '"><td colspan="5" style="padding:0;background:#f9f9f9;">' + buildIssueTable( d.issues ) + '</td></tr>' );
 			refreshSummary();
 			cb();
 		} ).fail( function () { cb(); } );
@@ -106,7 +117,7 @@
 	} );
 
 	$( '#livqacea-btn-csv' ).on( 'click', function () {
-		var rows = [ [ 'Template', 'URL', 'Score', 'Severity', 'WCAG', 'Issue', 'Auto-fixed' ] ];
+		var rows = [ [ 'Template', 'URL', 'Score', 'Severity', 'WCAG', 'Issue', 'Status' ] ];
 		templates.forEach( function ( tpl ) {
 			var r = results[ tpl.key ];
 			if ( ! r ) return;
@@ -114,12 +125,19 @@
 				rows.push( [ tpl.label, tpl.url, r.score, '', '', 'No issues', '' ] );
 			} else {
 				r.issues.forEach( function ( iss ) {
-					rows.push( [ tpl.label, tpl.url, r.score, iss.severity, iss.wcag, iss.message, iss.auto_fixed ? 'yes' : 'no' ] );
+					rows.push( [ tpl.label, tpl.url, r.score, iss.severity, iss.wcag, iss.message, iss.status || 'manual' ] );
 				} );
 			}
 		} );
 		var csv = '﻿' + rows.map( function ( r ) {
-			return r.map( function ( c ) { return '"' + String( c ).replace( /"/g, '""' ) + '"'; } ).join( ',' );
+			return r.map( function ( c ) {
+				var cell = String( c );
+				// Neutralise spreadsheet formula injection.
+				if ( cell && '=+-@'.indexOf( cell.charAt( 0 ) ) !== -1 ) {
+					cell = "'" + cell;
+				}
+				return '"' + cell.replace( /"/g, '""' ) + '"';
+			} ).join( ',' );
 		} ).join( '\n' );
 		var a = document.createElement( 'a' );
 		a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent( csv );

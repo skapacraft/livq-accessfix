@@ -6,6 +6,8 @@
 .livqacea-badge-critical { background:#fce8e8;color:#8b1a1a;border:1px solid #f5b8b8; }
 .livqacea-badge-high     { background:#fef0e7;color:#7a3500;border:1px solid #f8cfa8; }
 .livqacea-badge-warning  { background:#fef9e7;color:#6b4f00;border:1px solid #f5e6a0; }
-.livqacea-tag-fixed  { display:inline-flex;align-items:center;gap:3px;background:#edfaee;color:#1e8325;border:1px solid #b3dfb5;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
-.livqacea-tag-manual { display:inline-flex;align-items:center;gap:3px;background:#fce8e8;color:#8b1a1a;border:1px solid #f0b3b3;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
+.livqacea-tag-fixed      { display:inline-flex;align-items:center;gap:3px;background:#edfaee;color:#1e8325;border:1px solid #b3dfb5;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
+.livqacea-tag-manual     { display:inline-flex;align-items:center;gap:3px;background:#fce8e8;color:#8b1a1a;border:1px solid #f0b3b3;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
+.livqacea-tag-fixable    { display:inline-flex;align-items:center;gap:3px;background:#f0f6fc;color:#0a4b78;border:1px solid #b3d7ed;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
+.livqacea-tag-unresolved { display:inline-flex;align-items:center;gap:3px;background:#fef0e7;color:#7a3500;border:1px solid #f8cfa8;border-radius:3px;padding:2px 7px;font-size:.75rem;font-weight:600; }
 .livqacea-sample     { display:block;font-family:monospace;font-size:.73rem;background:#1d2327;color:#a8c4d4;padding:4px 10px;border-radius:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:4px; }

@@ -481,12 +481,15 @@ class LIVQACEA_Statement {
 									<td>
 										<fieldset>
 											<legend class="screen-reader-text"><?php esc_html_e( 'Accessibility Measures Adopted', 'livq-accessfix' ); ?></legend>
-											<?php foreach ( self::org_measures_list() as $key => $label ) : ?>
+											<?php
+											$selected_measures = is_array( $cfg['org_measures'] ?? null ) ? $cfg['org_measures'] : array();
+											foreach ( self::org_measures_list() as $key => $label ) :
+												?>
 												<label class="livqacea-st-measure-label">
 													<input type="checkbox"
 														name="<?php echo esc_attr( self::OPTION_NAME ); ?>[org_measures][]"
 														value="<?php echo esc_attr( $key ); ?>"
-														<?php checked( in_array( $key, $cfg['org_measures'], true ) ); ?>>
+														<?php checked( in_array( $key, $selected_measures, true ) ); ?>>
 													<?php echo esc_html( $label ); ?>
 												</label>
 											<?php endforeach; ?>
@@ -516,7 +519,7 @@ class LIVQACEA_Statement {
 							</table>
 
 							<?php
-							$confirmed = get_option( self::CONFIRM_OPTION );
+							$confirmed = self::get_confirmation();
 							?>
 							<div class="livqacea-st-confirm-box">
 								<?php if ( $confirmed ) : ?>
@@ -1000,7 +1003,7 @@ class LIVQACEA_Statement {
 		<?php
 		if ( $is_micro || $is_personal ) {
 			esc_html_e( 'As this statement is provided voluntarily, there is no formal enforcement procedure. We welcome your feedback and will do our best to address accessibility issues in a reasonable timeframe.', 'livq-accessfix' );
-		} elseif ( str_starts_with( $locale, 'it_' ) ) {
+		} elseif ( 0 === strpos( $locale, 'it' ) ) {
 			if ( $is_public_admin ) {
 				echo wp_kses(
 					__( 'If you experience a persistent accessibility barrier and are unsatisfied with our response, you can file an official complaint with the national enforcement authority. In Italy, the competent supervisory body under Legislative Decree 106/2018 (implementing Directive 2016/2102) is <strong>AgID (Agenzia per l\'Italia Digitale)</strong>. Complaints must be submitted through the <strong>Difensore Civico per il Digitale</strong>.', 'livq-accessfix' ),
@@ -1033,7 +1036,7 @@ class LIVQACEA_Statement {
 	<hr style="border:none; border-top:1px solid #e0e0e0; margin:20px 0;" />
 	<p style="font-size:.8em; color:#666;">
 		<?php
-		$confirmed = get_option( self::CONFIRM_OPTION );
+		$confirmed = self::get_confirmation();
 		printf(
 			/* translators: 1: statement date, 2: evaluation date, 3: plugin version */
 			esc_html__( 'Statement prepared: %1$s. Last evaluated: %2$s. Prepared with the assistance of LivQ AccessFix v%3$s automated tools. The accuracy and completeness of this statement is the sole responsibility of the website operator.', 'livq-accessfix' ),
@@ -1084,6 +1087,22 @@ class LIVQACEA_Statement {
 			'testing'     => __( 'We conduct periodic accessibility testing using automated tools and manual reviews.', 'livq-accessfix' ),
 			'feedback'    => __( 'We have a formal process to handle and resolve accessibility complaints from users.', 'livq-accessfix' ),
 		);
+	}
+
+	/**
+	 * Returns the stored confirmation record, or null when it is absent or
+	 * malformed (e.g. written by an older version in a different shape).
+	 *
+	 * @return array<string, string>|null
+	 */
+	private static function get_confirmation(): ?array {
+		$confirmed = get_option( self::CONFIRM_OPTION );
+
+		if ( ! is_array( $confirmed ) || empty( $confirmed['confirmed_at'] ) || empty( $confirmed['user_name'] ) ) {
+			return null;
+		}
+
+		return $confirmed;
 	}
 
 	/**

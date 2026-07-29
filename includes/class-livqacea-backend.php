@@ -2,9 +2,9 @@
 /**
  * Admin dashboard - Settings API integration.
  *
- * Registers a settings page under Settings > EAA Developer Guard, hooks into
- * the WordPress Settings API for CSRF-safe form processing, and sanitises
- * every option before it reaches the database.
+ * Registers the top-level "LivQ AccessFix" menu, hooks into the WordPress
+ * Settings API for CSRF-safe form processing, and sanitises every option
+ * before it reaches the database.
  *
  * Architecture notes
  * ------------------
@@ -151,8 +151,9 @@ class LIVQACEA_Backend {
 	/**
 	 * Adds the plugin settings page to the WP admin menu.
 	 *
-	 * We use add_options_page() (Settings submenu) as required by WPTR
-	 * guidelines for plugins with a single settings screen.
+	 * A top-level menu (add_menu_page) is used because the plugin ships several
+	 * screens - Settings, Issues Log, Scanner, Contrast Checker and the
+	 * Accessibility Statement generator - which all hang off this parent.
 	 *
 	 * @return void
 	 */
@@ -495,8 +496,18 @@ class LIVQACEA_Backend {
 		}
 
 		foreach ( $checkbox_keys as $key ) {
-			// absint() on a missing key returns 0 (unchecked); on '1' returns 1.
+			// A missing key means "unchecked"; any present key means "checked".
 			$sanitized[ $key ] = isset( $raw[ $key ] ) ? 1 : 0;
+		}
+
+		// The WooCommerce toggle is only rendered while WooCommerce is active.
+		// Without this, saving the settings with WooCommerce temporarily
+		// deactivated silently turned the module off for good.
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			$stored                        = get_option( self::OPTION_NAME, array() );
+			$sanitized['woocommerce_a11y'] = ( ! is_array( $stored ) || ! isset( $stored['woocommerce_a11y'] ) )
+				? 1
+				: (int) (bool) $stored['woocommerce_a11y'];
 		}
 
 		// skip_link_target: empty = auto-detect; must be a valid CSS #id selector.
@@ -524,7 +535,12 @@ class LIVQACEA_Backend {
 	 */
 	public function maybe_show_notice(): void {
 		$screen = get_current_screen();
-		if ( ! $screen || 'settings_page_' . self::PAGE_SLUG !== $screen->id ) {
+
+		// Compare against the hook suffix captured from add_menu_page(). The
+		// previous hard-coded 'settings_page_' prefix never matched, because this
+		// is a top-level menu ('toplevel_page_…'), so no confirmation was shown -
+		// and core only auto-prints settings_errors() on its own options pages.
+		if ( ! $screen || '' === $this->settings_hook || $screen->id !== $this->settings_hook ) {
 			return;
 		}
 
@@ -633,7 +649,7 @@ class LIVQACEA_Backend {
 				$links = array(
 					array(
 						'label' => 'Docs',
-						'href'  => 'https://github.com/livqtech/livq-accessfix#readme',
+						'href'  => 'https://github.com/skapacraft/livq-accessfix#readme',
 					),
 					array(
 						'label' => 'Support',
@@ -641,16 +657,19 @@ class LIVQACEA_Backend {
 					),
 					array(
 						'label' => 'GitHub',
-						'href'  => 'https://livq.it',
+						'href'  => 'https://github.com/skapacraft/livq-accessfix',
 					),
 					array(
 						'label' => 'Email',
-						'href'  => 'mailto:support@livq.it?subject=' . $email_subject,
+						'href'  => 'mailto:support@skapacraft.com?subject=' . $email_subject,
 					),
 				);
 
-				foreach ( $links as $link ) {
-					echo wp_kses_post( $sep );
+				foreach ( $links as $index => $link ) {
+					// Separator between items only - never before the first one.
+					if ( $index > 0 ) {
+						echo wp_kses_post( $sep );
+					}
 					printf(
 						'<a href="%s" style="%s" title="%s">%s</a>',
 						esc_url( $link['href'] ),
@@ -750,7 +769,10 @@ class LIVQACEA_Backend {
 			get_site_url(),
 			array(
 				'timeout'   => 10,
-				'sslverify' => false,
+				// Same filter core uses for its own loopback requests, so local
+				// and staging certificates keep working without disabling
+				// verification unconditionally.
+				'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
 				'headers'   => array( 'Cache-Control' => 'no-cache' ),
 			)
 		);
@@ -1010,22 +1032,30 @@ class LIVQACEA_Backend {
 	 * @return string
 	 */
 	private function get_admin_css(): string {
-		$slug = esc_attr( self::PAGE_SLUG );
+		// Scope on the admin body class WordPress derives from the hook suffix
+		// ('toplevel_page_livq-accessfix'). The previous '#livq-accessfix' ID
+		// selector matched no element at all, so none of these rules applied.
+		$slug = sanitize_html_class( $this->settings_hook );
+
+		if ( '' === $slug ) {
+			return '';
+		}
+
 		return "
-			#{$slug} .form-table tr {
+			.{$slug} .form-table tr {
 				border-bottom: 1px solid #f0f0f1;
 			}
-			#{$slug} .form-table tr:last-child {
+			.{$slug} .form-table tr:last-child {
 				border-bottom: none;
 			}
-			#{$slug} .form-table th {
+			.{$slug} .form-table th {
 				padding: 16px 10px 16px 0;
 				width: 200px;
 				vertical-align: top;
 				color: #1d2327;
 				font-weight: 600;
 			}
-			#{$slug} .form-table td {
+			.{$slug} .form-table td {
 				padding: 14px 10px;
 			}
 		";

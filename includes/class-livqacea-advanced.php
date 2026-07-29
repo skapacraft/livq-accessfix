@@ -113,15 +113,19 @@ class LIVQACEA_Advanced {
 			return;
 		}
 
-		// Guard: skip revisions.
-		if ( wp_is_post_revision( $post_id ) ) {
+		// Guard: skip revisions and autosave copies.
+		if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
 			return;
 		}
 
-		// Guard: capability check - WPTR requires this in every save_post callback.
-		// Prevents the hook from running if triggered programmatically by a
-		// lower-privileged user (e.g. via REST API or XML-RPC).
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		// Guard: capability check - prevents the hook from acting on a save
+		// triggered by a lower-privileged user (e.g. via REST API or XML-RPC).
+		//
+		// The check is skipped when there is no current user at all: scheduled
+		// publications, WP-CLI and cron run userless, and bailing out there left
+		// stale issue meta behind on posts that had actually been fixed. Nothing
+		// here is privileged - we only persist a read-only analysis result.
+		if ( get_current_user_id() > 0 && ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 
@@ -297,7 +301,7 @@ class LIVQACEA_Advanced {
 		$rows = self::get_all_issues();
 
 		header( 'Content-Type: text/csv; charset=utf-8' );
-		header( 'Content-Disposition: attachment; filename="accessibility-guard-issues-' . gmdate( 'Y-m-d' ) . '.csv"' );
+		header( 'Content-Disposition: attachment; filename="livq-accessfix-issues-' . gmdate( 'Y-m-d' ) . '.csv"' );
 		header( 'Cache-Control: no-cache, no-store, must-revalidate' );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
@@ -315,19 +319,42 @@ class LIVQACEA_Advanced {
 		foreach ( $rows as $row ) {
 			fputcsv(
 				$out,
-				array(
-					$row['post_id'],
-					$row['post_title'],
-					$row['type'],
-					$row['wcag'],
-					$row['message'],
-					$row['time'],
-					$row['edit_url'],
+				array_map(
+					array( __CLASS__, 'csv_escape' ),
+					array(
+						$row['post_id'],
+						$row['post_title'],
+						$row['type'],
+						$row['wcag'],
+						$row['message'],
+						$row['time'],
+						$row['edit_url'],
+					)
 				)
 			);
 		}
 
 		exit;
+	}
+
+	/**
+	 * Neutralises spreadsheet formula injection in an exported CSV cell.
+	 *
+	 * A post titled "=HYPERLINK(...)" would otherwise be executed as a formula
+	 * when the export is opened in Excel, LibreOffice or Google Sheets. Prefixing
+	 * a single quote forces the cell to be treated as text.
+	 *
+	 * @param mixed $value Raw cell value.
+	 * @return string Safe cell value.
+	 */
+	private static function csv_escape( $value ): string {
+		$value = (string) $value;
+
+		if ( '' !== $value && false !== strpos( "=+-@\t\r", $value[0] ) ) {
+			return "'" . $value;
+		}
+
+		return $value;
 	}
 
 	/**

@@ -2,6 +2,49 @@
 
 All notable changes to LivQ AccessFix are documented here.
 
+## [1.0.1] - 2026-07-29
+
+Maintenance release. No new modules - every entry below is a correctness,
+compatibility or safety fix found during a full audit of the 1.0.0 codebase.
+
+### Fixed
+
+**Blocking**
+- Fatal error on PHP 7.4: the Accessibility Statement called `str_starts_with()`, a PHP 8.0+ function, while the plugin declares `Requires PHP: 7.4`.
+- The output buffer started on `template_redirect`, which core fires *before* branching to feeds, `robots.txt`, favicons and XML sitemaps - the HTML fixers rewrote those payloads and produced invalid feeds. Request-level guards plus a content sniff now skip every non-HTML response.
+- `preg_replace_callback()` returns `null` when PCRE hits its backtrack limit on very large pages; the result was cast to string, blanking the entire page. All buffer replacements now fall back to the untouched HTML.
+- Nameless-link and external-link fixers ran in the wrong order: the notice span was injected first, so icon and image links opening in a new tab ended up with `(opens in a new tab)` as their *only* accessible name. Order swapped, and the notice is now merged into an existing `aria-label` instead of being appended where it would never be announced.
+- The `.screen-reader-text` utility shipped only with the focus-CSS module. Disabling focus CSS on a theme that does not define the class printed the hidden notice as visible text across the site.
+- WooCommerce HTML fixes ran through the shared buffer filter and silently stopped working whenever all four buffer modules were disabled.
+
+**Correctness**
+- Form fields wrapped in a `<label>` were not detected (only `for=` was), so `aria-label` overrode the visible label - a WCAG 2.5.3 (Label in Name) failure introduced by the plugin itself.
+- `aria-label` and `title` injected into self-closing tags produced `<input … / aria-label="…">`, leaving the slash as a bogus attribute.
+- WordPress search fields (`name="s"`) were labelled `"S"`. Short cryptic names now map to meaningful labels or are skipped entirely.
+- WooCommerce quantity labels matched `\bminus\b` / `\bplus\b` on every page, labelling unrelated theme buttons "Increase quantity". Now scoped to WooCommerce pages with strict class-token boundaries.
+- "Settings saved" never appeared: the notice checked for a `settings_page_` screen id on what is a top-level menu.
+- Saving the settings while WooCommerce was deactivated permanently disabled the WooCommerce module.
+- Heading hierarchy check bailed out on userless saves (scheduled posts, WP-CLI, cron), leaving stale issue meta behind.
+- The admin settings CSS used an `#livq-accessfix` ID selector matching no element; it now scopes on the admin body class.
+- Background scan could run 15 loopback fetches at 20s each; it now has a per-fetch timeout and a wall-clock budget.
+- Output buffer is closed by recorded nesting level instead of flushing whatever sits on top of the stack.
+- Relaxed strict type hints on filter callbacks that page builders and mega-menu plugins call with their own objects.
+
+**JavaScript**
+- Gutenberg pre-publish panel used the `eaa-developer-guard` text domain, so none of its strings were ever translated.
+- `input.qty` handler crashed on WooCommerce "sold individually" products, where the hidden quantity input has a `null` `labels` collection.
+- Scanner deleted another template's detail row when re-scanning a row that had no cached result.
+- Menu helper swallowed <kbd>Enter</kbd> on parent menu links, making them unreachable by keyboard while mouse users could still open them. `aria-expanded` is now read back from the sub-menu's computed visibility, so CSS-driven menus no longer announce a false state, and the handlers are scoped to menu items instead of every `[aria-haspopup]` element on the page.
+
+### Changed
+- Scanner issue status replaces the contradictory "Auto-fixed" badge. Because the scanner fetches the already-remediated live HTML, an issue that still appears has *not* been fixed. Three honest states now: **Manual fix**, **Enable the matching module**, **Module active - still detected**. The results cache key moves to `v2` accordingly.
+
+### Security
+- CSV exports (Issues Log and Scanner) escape leading `=`, `+`, `-`, `@` to prevent spreadsheet formula injection.
+- Loopback requests use `apply_filters( 'https_local_ssl_verify', false )` - the same hook core uses - instead of disabling TLS verification outright.
+- Added the missing capability check on the Scanner admin page.
+- Uninstall now removes the statement configuration, the confirmation record and both scanner cache keys.
+
 ## [1.0.0] - 2026-06-29
 
 ### Added

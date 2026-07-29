@@ -1,10 +1,10 @@
 === LivQ AccessFix – EAA & A11y AutoFix ===
-Contributors:            livqtech, danielegagliardi
+Contributors:            livqtech, danielegagliardi, skapacraft
 Tags:                    accessibility, wcag, eaa, aria, a11y
 Requires at least:       6.0
 Tested up to:            7.0
 Requires PHP:            7.4
-Stable tag:              1.0.0
+Stable tag:              1.0.1
 License:                 GPLv2 or later
 License URI:             https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -130,6 +130,26 @@ No. The scanner fetches each page as an anonymous visitor would and analyses the
 4. Accessibility Statement Generator - organisation type selector with legal framework guidance and live statement preview.
 
 == Changelog ==
+
+= 1.0.1 =
+* Fixed: fatal error on PHP 7.4 in the Accessibility Statement (str_starts_with is PHP 8.0+).
+* Fixed: the output buffer no longer touches RSS feeds, XML sitemaps, robots.txt or favicons, which could produce invalid feeds.
+* Fixed: a PCRE failure on very large pages could return a blank page - the original HTML is now preserved.
+* Fixed: icon and image links opening in a new tab were left with "(opens in a new tab)" as their only accessible name.
+* Fixed: form fields wrapped in a &lt;label&gt; are no longer given a conflicting aria-label (WCAG 2.5.3 Label in Name).
+* Fixed: aria-label is no longer injected into self-closing tags in a way that produced invalid HTML.
+* Fixed: WordPress search fields (name="s") were labelled "S"; short cryptic field names now map to meaningful labels or are skipped.
+* Fixed: the .screen-reader-text styles are no longer tied to the focus CSS toggle, which could make hidden notices visible.
+* Fixed: WooCommerce quantity labels were applied site-wide and could hit unrelated buttons; they are now scoped to WooCommerce pages.
+* Fixed: "Settings saved" confirmation never appeared on the settings screen.
+* Fixed: saving settings while WooCommerce was deactivated silently disabled the WooCommerce module.
+* Fixed: the Gutenberg pre-publish panel used the wrong text domain and was never translated.
+* Fixed: JavaScript error on WooCommerce "sold individually" products (hidden quantity input).
+* Fixed: the Scanner could delete another template's result row while scanning.
+* Fixed: Enter no longer blocks navigation on parent menu links; aria-expanded now reflects the sub-menu's real visibility.
+* Fixed: heading hierarchy check now runs for scheduled posts and WP-CLI saves.
+* Changed: Scanner issue status replaces the misleading "Auto-fixed" flag with Manual fix / Enable module / Module active - still detected.
+* Security: CSV exports are hardened against spreadsheet formula injection; loopback requests use the standard https_local_ssl_verify filter.
 
 = 1.0.0 =
 * Initial release.

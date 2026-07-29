@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LivQ AccessFix 1.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 19:43+0200\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/livq-accessfix\n"
+"POT-Creation-Date: 2026-07-29T07:29:07+00:00\n"
 "PO-Revision-Date: 2026-06-24T00:00:00+00:00\n"
 "Last-Translator: LivQ <https://github.com/catalisidev>\n"
 "Language-Team: European Portuguese <https://translate.wordpress.org/locale/"
@@ -19,7 +19,42 @@ msgstr ""
 "X-Generator: Poedit 3.4\n"
 "X-Domain: livq-accessfix\n"
 
-#: includes/class-edg-advanced.php:185
+#. Plugin Name of the plugin
+#: livq-accessfix.php includes/class-livqacea-backend.php:162
+#: includes/class-livqacea-backend.php:579
+msgid "LivQ AccessFix – EAA & A11y AutoFix"
+msgstr "LivQ AccessFix – EAA & A11y AutoFix"
+
+#. Plugin URI of the plugin
+#: livq-accessfix.php
+msgid "https://skapacraft.com/tools/plugins/livq-accessfix/"
+msgstr ""
+
+#. Description of the plugin
+#: livq-accessfix.php
+msgid ""
+"Automated WCAG 2.2 AA & European Accessibility Act (EAA) remediation for "
+"WordPress: focus styles, external link labels, skip links, alt attributes, "
+"heading hierarchy, ARIA menus, and Gutenberg pre-publish checks - zero "
+"configuration required."
+msgstr ""
+"Correção automatizada WCAG 2.2 AA e EAA para WordPress: estilos de foco, "
+"rótulos de ligações externas, ligações de salto, atributos alt, hierarquia "
+"de títulos, menus ARIA e verificações pré-publicação do Gutenberg - sem "
+"configuração necessária."
+
+#. Author of the plugin
+#: livq-accessfix.php
+msgid "LivQ"
+msgstr ""
+
+#. Author URI of the plugin
+#: livq-accessfix.php
+msgid "https://skapacraft.com"
+msgstr ""
+
+#. translators: 1: found heading level, 2: previous level, 3: missing intermediate level
+#: includes/class-livqacea-advanced.php:189
 #, php-format
 msgid ""
 "Heading hierarchy skip: found <h%1$d> right after <h%2$d> without a <h%3$d> "
@@ -30,106 +65,105 @@ msgstr ""
 "<h%2$d> sem um <h%3$d> intermédio. Isto desorienta os utilizadores de "
 "leitores de ecrã que navegam por títulos (WCAG 1.3.1)."
 
-#: includes/class-edg-advanced.php:236
+#: includes/class-livqacea-advanced.php:240
 msgid "LivQ AccessFix - Heading Hierarchy:"
 msgstr "LivQ AccessFix - Hierarquia de títulos:"
 
-#: includes/class-edg-advanced.php:294 includes/class-edg-statement.php:600
+#: includes/class-livqacea-advanced.php:298
+#: includes/class-livqacea-statement.php:605
 msgid "Permission denied."
 msgstr "Permissão negada."
 
-#: includes/class-edg-backend.php:139
+#: includes/class-livqacea-backend.php:139
 msgid "Detecting…"
 msgstr "A detectar…"
 
-#: includes/class-edg-backend.php:140
+#: includes/class-livqacea-backend.php:140
 msgid "Not found - enter manually."
 msgstr "Não encontrado - introduza manualmente."
 
-#: includes/class-edg-backend.php:141
+#: includes/class-livqacea-backend.php:141
 msgid "Request failed."
 msgstr "Pedido falhou."
 
-#: includes/class-edg-backend.php:161 includes/class-edg-backend.php:563
-msgid "LivQ AccessFix – EAA & A11y AutoFix"
-msgstr "LivQ AccessFix – EAA & A11y AutoFix"
-
-#: includes/class-edg-backend.php:162
+#: includes/class-livqacea-backend.php:163
 msgid "LivQ AccessFix"
 msgstr "LivQ AccessFix"
 
-#: includes/class-edg-backend.php:173
+#: includes/class-livqacea-backend.php:174
 msgid "LivQ AccessFix – Settings"
 msgstr "LivQ AccessFix – Definições"
 
-#: includes/class-edg-backend.php:174 includes/class-edg-plugin-links.php:85
+#: includes/class-livqacea-backend.php:175
+#: includes/class-livqacea-plugin-links.php:85
 msgid "Settings"
 msgstr "Definições"
 
-#: includes/class-edg-backend.php:189 includes/class-edg-backend.php:929
+#: includes/class-livqacea-backend.php:190
+#: includes/class-livqacea-backend.php:951
 msgid "Accessibility Issues Log"
 msgstr "Registo de problemas de acessibilidade"
 
-#: includes/class-edg-backend.php:190
+#: includes/class-livqacea-backend.php:191
 msgid "Issues Log"
 msgstr "Registo de problemas"
 
-#: includes/class-edg-backend.php:224
+#: includes/class-livqacea-backend.php:225
 msgid "Accessibility Modules (WCAG 2.2 AA)"
 msgstr "Módulos de acessibilidade (WCAG 2.2 AA)"
 
-#: includes/class-edg-backend.php:243
+#: includes/class-livqacea-backend.php:244
 msgid "HTML Output Remediations (EAA)"
 msgstr "Correções de saída HTML (EAA)"
 
-#: includes/class-edg-backend.php:263
+#: includes/class-livqacea-backend.php:264
 msgid "WooCommerce Accessibility"
 msgstr "Acessibilidade WooCommerce"
 
-#: includes/class-edg-backend.php:270
+#: includes/class-livqacea-backend.php:271
 msgid "Enable WooCommerce fixes"
 msgstr "Ativar correções do WooCommerce"
 
-#: includes/class-edg-backend.php:276
+#: includes/class-livqacea-backend.php:277
 msgid "WooCommerce accessibility fixes"
 msgstr "Correções de acessibilidade WooCommerce"
 
-#: includes/class-edg-backend.php:277
+#: includes/class-livqacea-backend.php:278
 msgid ""
 "Adds aria-label to quantity +/− buttons, the product gallery trigger link, "
 "and Add to Cart buttons on archive pages. Injects a JS live region for cart "
 "announcements and aria-current for variation selectors. WCAG 4.1.2 / 2.4.4."
 msgstr ""
 
-#: includes/class-edg-backend.php:286
+#: includes/class-livqacea-backend.php:287
 msgid "Advanced Controls & Structure"
 msgstr "Controlos avançados e estrutura"
 
-#: includes/class-edg-backend.php:305
+#: includes/class-livqacea-backend.php:306
 msgid "Accessibility Statement (EAA)"
 msgstr "Declaração de acessibilidade (EAA)"
 
-#: includes/class-edg-backend.php:312
+#: includes/class-livqacea-backend.php:313
 msgid "Enable Accessibility Statement"
 msgstr "Ativar declaração de acessibilidade"
 
-#: includes/class-edg-backend.php:321
+#: includes/class-livqacea-backend.php:322
 msgid "Configuration"
 msgstr "Configuração"
 
-#: includes/class-edg-backend.php:328
+#: includes/class-livqacea-backend.php:329
 msgid "Skip Link Target"
 msgstr "Destino da ligação de salto"
 
-#: includes/class-edg-backend.php:336
+#: includes/class-livqacea-backend.php:337
 msgid "Data on Uninstall"
 msgstr "Dados na desinstalação"
 
-#: includes/class-edg-backend.php:355
+#: includes/class-livqacea-backend.php:356
 msgid "Fix external links (target=\"_blank\")"
 msgstr "Corrigir ligações externas (target=\"_blank\")"
 
-#: includes/class-edg-backend.php:356
+#: includes/class-livqacea-backend.php:357
 msgid ""
 "Automatically adds a screen reader notice to every link that opens in a new "
 "browser tab. WCAG Technique G201 - Criterion 2.4.4."
@@ -137,11 +171,11 @@ msgstr ""
 "Adiciona automaticamente um aviso de leitor de ecrã a cada ligação que abre "
 "num novo separador do navegador. Técnica WCAG G201 - Critério 2.4.4."
 
-#: includes/class-edg-backend.php:361
+#: includes/class-livqacea-backend.php:362
 msgid "Inject Skip Link (Skip to content)"
 msgstr "Inserir ligação de salto (Saltar para o conteúdo)"
 
-#: includes/class-edg-backend.php:362
+#: includes/class-livqacea-backend.php:363
 msgid ""
 "Inserts an invisible link as the first element in <body>, allowing keyboard "
 "users to skip repeated navigation. WCAG Technique G1 - Criterion 2.4.1."
@@ -150,11 +184,11 @@ msgstr ""
 "que utilizadores de teclado saltem a navegação repetida. Técnica WCAG G1 - "
 "Critério 2.4.1."
 
-#: includes/class-edg-backend.php:367
+#: includes/class-livqacea-backend.php:368
 msgid "Fix alt attribute on decorative images"
 msgstr "Corrigir atributo alt em imagens decorativas"
 
-#: includes/class-edg-backend.php:368
+#: includes/class-livqacea-backend.php:369
 msgid ""
 "Ensures images without alternative text explicitly receive alt=\"\" instead "
 "of no attribute, preventing screen readers from announcing the file name. "
@@ -164,11 +198,11 @@ msgstr ""
 "vez de nenhum atributo, impedindo que leitores de ecrã anunciem o nome do "
 "ficheiro. Técnica WCAG H67 - Critério 1.1.1."
 
-#: includes/class-edg-backend.php:373
+#: includes/class-livqacea-backend.php:374
 msgid "Inject High-Contrast Focus CSS"
 msgstr "Inserir CSS de foco de alto contraste"
 
-#: includes/class-edg-backend.php:374
+#: includes/class-livqacea-backend.php:375
 msgid ""
 "Adds a global CSS rule that ensures a visible, high-contrast focus indicator "
 "(3px solid #0056b3) on all interactive elements. WCAG Criterion 2.4.11."
@@ -177,11 +211,11 @@ msgstr ""
 "alto contraste (3px solid #0056b3) em todos os elementos interactivos. "
 "Critério WCAG 2.4.11."
 
-#: includes/class-edg-backend.php:389
+#: includes/class-livqacea-backend.php:390
 msgid "Menu Accessibility Helper (ARIA)"
 msgstr "Assistente de acessibilidade do menu (ARIA)"
 
-#: includes/class-edg-backend.php:390
+#: includes/class-livqacea-backend.php:391
 msgid ""
 "Automatically adds aria-haspopup=\"true\" and aria-expanded=\"false/true\" "
 "to navigation links that open a sub-menu, with native JavaScript toggle "
@@ -191,11 +225,11 @@ msgstr ""
 "true\" às ligações de navegação que abrem um submenu, com gestão nativa de "
 "alternância em JavaScript. Critério WCAG 4.1.2."
 
-#: includes/class-edg-backend.php:395
+#: includes/class-livqacea-backend.php:396
 msgid "Heading Hierarchy Check (H1–H6)"
 msgstr "Verificação de hierarquia de títulos (H1–H6)"
 
-#: includes/class-edg-backend.php:396
+#: includes/class-livqacea-backend.php:397
 msgid ""
 "On post or page save, analyses the heading structure and shows an admin "
 "notice if a hierarchy skip is detected (e.g. H2 → H4) that disorients screen "
@@ -206,11 +240,11 @@ msgstr ""
 "(ex.: H2 → H4) que desorienta os leitores de ecrã. Critérios WCAG 1.3.1 e "
 "técnica H42."
 
-#: includes/class-edg-backend.php:401
+#: includes/class-livqacea-backend.php:402
 msgid "Pre-Publish Accessibility Checklist (Gutenberg)"
 msgstr "Lista de verificação de acessibilidade pré-publicação (Gutenberg)"
 
-#: includes/class-edg-backend.php:402
+#: includes/class-livqacea-backend.php:403
 msgid ""
 "Adds a panel to the Gutenberg pre-publish drawer that checks in real time: "
 "(A) images without alt text, (B) links using a raw URL as clickable text. "
@@ -220,11 +254,11 @@ msgstr ""
 "tempo real: (A) imagens sem texto alternativo, (B) ligações que utilizam um "
 "URL como texto clicável. Critérios WCAG 1.1.1 e 2.4.4."
 
-#: includes/class-edg-backend.php:417
+#: includes/class-livqacea-backend.php:418
 msgid "Fix nameless links (image & icon links)"
 msgstr "Corrigir links sem nome (links de imagem e ícone)"
 
-#: includes/class-edg-backend.php:418
+#: includes/class-livqacea-backend.php:419
 msgid ""
 "Adds aria-label to links whose only content is an image with empty alt or an "
 "SVG icon - common for sponsor logos, partner logos, and social icons. Label "
@@ -236,11 +270,11 @@ msgstr ""
 "ícones sociais. A etiqueta é derivada de img title, link title ou domínio "
 "reconhecido (YouTube, Facebook, etc.). Critérios WCAG 2.4.4 / 4.1.2."
 
-#: includes/class-edg-backend.php:423
+#: includes/class-livqacea-backend.php:424
 msgid "Fix untitled iframes"
 msgstr "Corrigir iframes sem título"
 
-#: includes/class-edg-backend.php:424
+#: includes/class-livqacea-backend.php:425
 msgid ""
 "Adds a descriptive title attribute to every <iframe> that has none. Titles "
 "are automatically matched from the src URL: YouTube, Vimeo, Google Maps, "
@@ -252,11 +286,11 @@ msgstr ""
 "Vimeo, Google Maps, Calendly, iubenda e mais. Os leitores de ecrã anunciam "
 "iframes sem título simplesmente como \"frame\". Critério WCAG 4.1.2."
 
-#: includes/class-edg-backend.php:429
+#: includes/class-livqacea-backend.php:430
 msgid "Fix unlabelled form inputs"
 msgstr "Corrigir campos de formulário sem rótulo"
 
-#: includes/class-edg-backend.php:430
+#: includes/class-livqacea-backend.php:431
 msgid ""
 "Adds aria-label to <input>, <textarea>, and <select> fields that have no "
 "associated <label> or aria-label attribute. The label is derived from the "
@@ -268,7 +302,7 @@ msgstr ""
 "placeholder ou do atributo name. Apenas campos sem nome acessível existente "
 "são modificados. Critérios WCAG 1.3.1 / 3.3.2."
 
-#: includes/class-edg-backend.php:442
+#: includes/class-livqacea-backend.php:443
 msgid ""
 "These modules use the PHP output buffer to detect and patch common EAA non-"
 "conformances at render time, covering elements generated by themes, page "
@@ -279,17 +313,17 @@ msgstr ""
 "gerados por temas, construtores de páginas e widgets - não apenas o conteúdo "
 "das publicações."
 
-#: includes/class-edg-backend.php:451
+#: includes/class-livqacea-backend.php:452
 msgid ""
 "WooCommerce-specific accessibility fixes applied via the PHP output buffer "
 "and a lightweight inline script. Only shown when WooCommerce is active."
 msgstr ""
 
-#: includes/class-edg-backend.php:537
+#: includes/class-livqacea-backend.php:553
 msgid "Settings saved successfully."
 msgstr "Definições guardadas com sucesso."
 
-#: includes/class-edg-backend.php:573
+#: includes/class-livqacea-backend.php:588
 msgid ""
 "Enable or disable the automated WCAG 2.2 AA accessibility remediation "
 "modules. Changes are applied in real time on the frontend without altering "
@@ -299,11 +333,11 @@ msgstr ""
 "WCAG 2.2 AA. As alterações são aplicadas em tempo real no frontend sem "
 "alterar o conteúdo da base de dados."
 
-#: includes/class-edg-backend.php:610
+#: includes/class-livqacea-backend.php:626
 msgid "Save Settings"
 msgstr "Guardar definições"
 
-#: includes/class-edg-backend.php:676
+#: includes/class-livqacea-backend.php:695
 msgid ""
 "Each module applies one or more specific WCAG techniques. The reference "
 "criterion is shown next to each option."
@@ -311,7 +345,7 @@ msgstr ""
 "Cada módulo aplica uma ou mais técnicas WCAG específicas. O critério de "
 "referência é apresentado ao lado de cada opção."
 
-#: includes/class-edg-backend.php:687
+#: includes/class-livqacea-backend.php:706
 msgid ""
 "Structural analysis and Gutenberg block editor integration modules. They run "
 "during content save or publishing."
@@ -319,7 +353,7 @@ msgstr ""
 "Módulos de análise estrutural e integração com o editor de blocos Gutenberg. "
 "São executados durante o guardamento ou publicação de conteúdo."
 
-#: includes/class-edg-backend.php:698
+#: includes/class-livqacea-backend.php:717
 msgid ""
 "Fine-tune how the plugin behaves on your specific theme. The skip link "
 "target is detected automatically on the first visit - you can override it "
@@ -329,11 +363,11 @@ msgstr ""
 "ligação de salto é detetado automaticamente na primeira visita - pode "
 "substituí-lo aqui se necessário."
 
-#: includes/class-edg-backend.php:725
+#: includes/class-livqacea-backend.php:744
 msgid "Auto-detect"
 msgstr "Detecção automática"
 
-#: includes/class-edg-backend.php:729
+#: includes/class-livqacea-backend.php:748
 msgid ""
 "The element ID the skip link jumps to. Leave empty to use the default "
 "(#primary). Click Auto-detect to scan your homepage automatically."
@@ -342,14 +376,14 @@ msgstr ""
 "o padrão (#primary). Clique em Deteção automática para verificar a sua "
 "página inicial automaticamente."
 
-#: includes/class-edg-backend.php:795
+#: includes/class-livqacea-backend.php:817
 msgid ""
 "Remove all plugin settings from the database when this plugin is deleted."
 msgstr ""
 "Remover todas as configurações do plugin da base de dados quando este plugin "
 "for eliminado."
 
-#: includes/class-edg-backend.php:798
+#: includes/class-livqacea-backend.php:820
 msgid ""
 "Recommended if you are permanently removing the plugin. Leave unchecked to "
 "keep your settings if you plan to reinstall."
@@ -357,28 +391,29 @@ msgstr ""
 "Recomendado se estiver a remover o plugin permanentemente. Deixe desmarcado "
 "para manter as configurações se planeia reinstalar."
 
-#: includes/class-edg-backend.php:863
+#: includes/class-livqacea-backend.php:885
 msgid ""
 "Generate an EU-compliant Accessibility Statement for your site, required by "
 "the European Accessibility Act for public-facing services."
 msgstr ""
 
-#: includes/class-edg-backend.php:865
+#: includes/class-livqacea-backend.php:887
 msgid "Configure & Preview Statement →"
 msgstr "Configurar e pré-visualizar declaração →"
 
-#: includes/class-edg-backend.php:890
-msgid "Activate the [edg_accessibility_statement] shortcode"
+#: includes/class-livqacea-backend.php:912
+#, fuzzy
+msgid "Activate the [livqacea_accessibility_statement] shortcode"
 msgstr "Active o shortcode [edg_accessibility_statement]"
 
-#: includes/class-edg-backend.php:893
+#: includes/class-livqacea-backend.php:915
 msgid ""
 "Makes the shortcode available to embed a structured Accessibility Statement "
 "on any page. Configure the statement details from the dedicated page in the "
 "menu."
 msgstr ""
 
-#: includes/class-edg-backend.php:936
+#: includes/class-livqacea-backend.php:958
 msgid ""
 "Persistent log of accessibility issues detected on save. Use this audit "
 "trail to demonstrate EAA compliance progress to stakeholders or auditors."
@@ -387,222 +422,262 @@ msgstr ""
 "Utilize esta trilha de auditoria para demonstrar o progresso da conformidade "
 "com a EAA a partes interessadas ou auditores."
 
-#: includes/class-edg-backend.php:941 includes/class-edg-scanner.php:908
+#: includes/class-livqacea-backend.php:963
+#: includes/class-livqacea-scanner.php:990
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: includes/class-edg-backend.php:948
+#: includes/class-livqacea-backend.php:970
 msgid "No issues detected."
 msgstr "Nenhum problema detectado."
 
-#: includes/class-edg-backend.php:949
+#: includes/class-livqacea-backend.php:971
 msgid "All scanned posts pass the heading hierarchy check."
 msgstr ""
 "Todas as publicações verificadas passam na verificação de hierarquia de "
 "títulos."
 
-#: includes/class-edg-backend.php:956
+#: includes/class-livqacea-backend.php:978
 msgid "ID"
 msgstr "ID"
 
-#: includes/class-edg-backend.php:957
+#: includes/class-livqacea-backend.php:979
 msgid "Post"
 msgstr "Publicação"
 
-#: includes/class-edg-backend.php:958
+#: includes/class-livqacea-backend.php:980
+#: includes/class-livqacea-statement.php:282
 msgid "Type"
 msgstr "Tipo"
 
-#: includes/class-edg-backend.php:959 includes/class-edg-scanner.php:101
-#: includes/class-edg-scanner.php:985
+#: includes/class-livqacea-backend.php:981
+#: includes/class-livqacea-scanner.php:121
+#: includes/class-livqacea-scanner.php:1067
 msgid "WCAG"
 msgstr "WCAG"
 
-#: includes/class-edg-backend.php:960 includes/class-edg-scanner.php:102
-#: includes/class-edg-scanner.php:986
+#: includes/class-livqacea-backend.php:982
+#: includes/class-livqacea-scanner.php:122
+#: includes/class-livqacea-scanner.php:1068
 msgid "Issue"
 msgstr "Problema"
 
-#: includes/class-edg-backend.php:961
+#: includes/class-livqacea-backend.php:983
 msgid "Detected"
 msgstr "Detectado"
 
-#: includes/class-edg-backend.php:989
+#. translators: %d: number of issues found
+#: includes/class-livqacea-backend.php:1011
 #, fuzzy, php-format
 msgid "%d issue found."
 msgid_plural "%d issues found."
 msgstr[0] "%d problema encontrado."
 msgstr[1] "%d problema encontrado."
 
-#: includes/class-edg-contrast.php:51 includes/class-edg-contrast.php:52
-#: includes/class-edg-contrast.php:97
+#: includes/class-livqacea-contrast.php:51
+#: includes/class-livqacea-contrast.php:52
+#: includes/class-livqacea-contrast.php:97
 msgid "Contrast Checker"
 msgstr "Verificador de contraste"
 
-#: includes/class-edg-contrast.php:78
+#: includes/class-livqacea-contrast.php:78
 msgid ""
 "Ratio is below 3:1 - fails all levels. Significant contrast improvement "
 "needed."
 msgstr ""
 
-#: includes/class-edg-contrast.php:79
+#: includes/class-livqacea-contrast.php:79
 msgid ""
 "Passes AA for large text (≥ 3:1) but fails AA for normal text (needs ≥ "
 "4.5:1)."
 msgstr ""
 
-#: includes/class-edg-contrast.php:100
+#: includes/class-livqacea-contrast.php:100
 msgid ""
 "Verify color contrast ratios for WCAG 1.4.3 (text contrast) and 1.4.11 (non-"
 "text contrast). Required for EAA compliance. Enter any two hex colors below."
 msgstr ""
 
-#: includes/class-edg-contrast.php:108
+#: includes/class-livqacea-contrast.php:108
 msgid "Foreground (text / element)"
 msgstr "Primeiro plano (texto / elemento)"
 
-#: includes/class-edg-contrast.php:110
+#: includes/class-livqacea-contrast.php:110
 msgid "Foreground color picker"
 msgstr "Seletor de cor do primeiro plano"
 
-#: includes/class-edg-contrast.php:115
+#: includes/class-livqacea-contrast.php:115
 msgid "Background"
 msgstr "Fundo"
 
-#: includes/class-edg-contrast.php:117
+#: includes/class-livqacea-contrast.php:117
 msgid "Background color picker"
 msgstr "Seletor de cor de fundo"
 
-#: includes/class-edg-contrast.php:122
+#: includes/class-livqacea-contrast.php:122
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: includes/class-edg-contrast.php:124
+#: includes/class-livqacea-contrast.php:124
 msgid "Sample text Aa"
 msgstr "Texto de exemplo Aa"
 
-#: includes/class-edg-contrast.php:138
+#: includes/class-livqacea-contrast.php:138
 msgid "Level"
 msgstr "Nível"
 
-#: includes/class-edg-contrast.php:139
+#: includes/class-livqacea-contrast.php:139
 msgid "Use case"
 msgstr "Caso de uso"
 
-#: includes/class-edg-contrast.php:140
+#: includes/class-livqacea-contrast.php:140
 msgid "Minimum ratio"
 msgstr "Rácio mínimo"
 
-#: includes/class-edg-contrast.php:141
+#: includes/class-livqacea-contrast.php:141
 msgid "Result"
 msgstr "Resultado"
 
-#: includes/class-edg-contrast.php:147
+#: includes/class-livqacea-contrast.php:147
 msgid "Normal text (< 18 pt / < 14 pt bold)"
 msgstr "Texto normal (< 18 pt / < 14 pt negrito)"
 
-#: includes/class-edg-contrast.php:153
+#: includes/class-livqacea-contrast.php:153
 msgid "Large text (≥ 18 pt / ≥ 14 pt bold)"
 msgstr "Texto grande (≥ 18 pt / ≥ 14 pt negrito)"
 
-#: includes/class-edg-contrast.php:159
+#: includes/class-livqacea-contrast.php:159
 msgid "UI components & graphics (WCAG 1.4.11)"
 msgstr "Componentes de UI e gráficos (WCAG 1.4.11)"
 
-#: includes/class-edg-contrast.php:165
+#: includes/class-livqacea-contrast.php:165
 msgid "Normal text (enhanced)"
 msgstr "Texto normal (melhorado)"
 
-#: includes/class-edg-contrast.php:171
+#: includes/class-livqacea-contrast.php:171
 msgid "Large text (enhanced)"
 msgstr "Texto grande (melhorado)"
 
-#: includes/class-edg-contrast.php:180
+#: includes/class-livqacea-contrast.php:180
 msgid "Tip:"
 msgstr "Dica:"
 
-#: includes/class-edg-contrast.php:185
+#: includes/class-livqacea-contrast.php:185
 msgid "Quick test palette"
 msgstr "Paleta de teste rápido"
 
-#: includes/class-edg-contrast.php:186
+#: includes/class-livqacea-contrast.php:186
 msgid "Click a pair to load it into the checker."
 msgstr "Clique num par para o carregar no verificador."
 
-#: includes/class-edg-frontend.php:193 includes/class-edg-frontend.php:257
-#: includes/class-edg-plugin-links.php:160
+#: includes/class-livqacea-frontend.php:315
+#: includes/class-livqacea-frontend.php:397
+#: includes/class-livqacea-plugin-links.php:160
 msgid "(opens in a new tab)"
 msgstr "(abre num novo separador)"
 
-#: includes/class-edg-frontend.php:328 includes/class-edg-frontend.php:329
+#: includes/class-livqacea-frontend.php:468
+#: includes/class-livqacea-frontend.php:469
 msgid "YouTube Video"
 msgstr "Vídeo do YouTube"
 
-#: includes/class-edg-frontend.php:330
+#: includes/class-livqacea-frontend.php:470
 msgid "Vimeo Video"
 msgstr "Vídeo do Vimeo"
 
-#: includes/class-edg-frontend.php:331 includes/class-edg-frontend.php:332
+#: includes/class-livqacea-frontend.php:471
+#: includes/class-livqacea-frontend.php:472
 msgid "Interactive Map"
 msgstr "Mapa interativo"
 
-#: includes/class-edg-frontend.php:333
+#: includes/class-livqacea-frontend.php:473
 msgid "Appointment Calendar"
 msgstr "Calendário de agendamentos"
 
-#: includes/class-edg-frontend.php:334
+#: includes/class-livqacea-frontend.php:474
 msgid "Cookie Policy"
 msgstr "Política de cookies"
 
-#: includes/class-edg-frontend.php:335
+#: includes/class-livqacea-frontend.php:475
 msgid "Facebook Content"
 msgstr "Conteúdo do Facebook"
 
-#: includes/class-edg-frontend.php:336
+#: includes/class-livqacea-frontend.php:476
 msgid "Instagram Content"
 msgstr "Conteúdo do Instagram"
 
-#: includes/class-edg-frontend.php:337 includes/class-edg-frontend.php:338
+#: includes/class-livqacea-frontend.php:477
+#: includes/class-livqacea-frontend.php:478
 msgid "Twitter / X Content"
 msgstr "Conteúdo do Twitter / X"
 
-#: includes/class-edg-frontend.php:339
+#: includes/class-livqacea-frontend.php:479
 msgid "Spotify Player"
 msgstr "Leitor Spotify"
 
-#: includes/class-edg-frontend.php:340
+#: includes/class-livqacea-frontend.php:480
 msgid "SoundCloud Player"
 msgstr "Leitor SoundCloud"
 
-#: includes/class-edg-frontend.php:341
+#: includes/class-livqacea-frontend.php:481
 msgid "PayPal Payment"
 msgstr "Pagamento PayPal"
 
-#: includes/class-edg-frontend.php:342
+#: includes/class-livqacea-frontend.php:482
 msgid "Form"
 msgstr "Formulário"
 
-#: includes/class-edg-frontend.php:343
+#: includes/class-livqacea-frontend.php:483
 msgid "Google Form"
 msgstr "Formulário Google"
 
-#: includes/class-edg-frontend.php:344
+#: includes/class-livqacea-frontend.php:484
 msgid "Google Document"
 msgstr "Documento Google"
 
-#: includes/class-edg-frontend.php:347
+#: includes/class-livqacea-frontend.php:487
 msgid "Embedded content"
 msgstr "Conteúdo incorporado"
 
-#: includes/class-edg-frontend.php:552
+#: includes/class-livqacea-frontend.php:671
+#: includes/class-livqacea-frontend.php:672
+#: includes/class-livqacea-frontend.php:673
+#, fuzzy
+msgid "Search"
+msgstr "Resultados de pesquisa"
+
+#: includes/class-livqacea-frontend.php:674
+#, fuzzy
+msgid "Email"
+msgstr "E-mail:"
+
+#: includes/class-livqacea-frontend.php:675
+msgid "Name"
+msgstr ""
+
+#: includes/class-livqacea-frontend.php:676
+#, fuzzy
+msgid "Website"
+msgstr "URL do site"
+
+#: includes/class-livqacea-frontend.php:677
+msgid "Comment"
+msgstr ""
+
+#: includes/class-livqacea-frontend.php:678
+#: includes/class-livqacea-woocommerce.php:305
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: includes/class-livqacea-frontend.php:759
 msgid "Skip to main content"
 msgstr "Saltar para o conteúdo principal"
 
-#: includes/class-edg-plugin-links.php:131
+#: includes/class-livqacea-plugin-links.php:131
 msgid "Saving you time on EAA compliance?"
 msgstr "Estamos a poupar-lhe tempo na conformidade com a EAA?"
 
-#: includes/class-edg-plugin-links.php:134
+#: includes/class-livqacea-plugin-links.php:134
 msgid ""
 "A 5-star review takes 30 seconds and helps other developers discover this "
 "tool."
@@ -610,274 +685,301 @@ msgstr ""
 "Uma avaliação de 5 estrelas demora 30 segundos e ajuda outros programadores "
 "a descobrir esta ferramenta."
 
-#: includes/class-edg-plugin-links.php:159
+#: includes/class-livqacea-plugin-links.php:159
 msgid "Leave a review"
 msgstr "Deixar uma avaliação"
 
-#: includes/class-edg-plugin-links.php:171
-#, php-format
-msgid "An open source project by %s."
+#. translators: 1: LivQ brand link (HTML anchor tag), 2: SkapaCraft brand link (HTML anchor tag)
+#: includes/class-livqacea-plugin-links.php:171
+#, fuzzy, php-format
+msgid "An open source project by %1$s and %2$s."
 msgstr "Um projecto de código aberto de %s."
 
-#: includes/class-edg-scanner.php:63 includes/class-edg-scanner.php:888
+#: includes/class-livqacea-scanner.php:82
+#: includes/class-livqacea-scanner.php:970
 msgid "Accessibility Scanner"
 msgstr "Scanner de acessibilidade"
 
-#: includes/class-edg-scanner.php:64
+#: includes/class-livqacea-scanner.php:83
 msgid "A11y Scanner"
 msgstr "Scanner A11y"
 
-#: includes/class-edg-scanner.php:97 includes/class-edg-scanner.php:960
-#: includes/class-edg-scanner.php:980
+#: includes/class-livqacea-scanner.php:116
+#: includes/class-livqacea-scanner.php:1042
+#: includes/class-livqacea-scanner.php:1062
 msgid "No issues detected"
 msgstr "Nenhum problema detectado"
 
-#: includes/class-edg-scanner.php:98 includes/class-edg-scanner.php:992
-msgid "Auto-fixed"
-msgstr "Corrigido automaticamente"
-
-#: includes/class-edg-scanner.php:99 includes/class-edg-scanner.php:993
-msgid "Manual fix"
+#: includes/class-livqacea-scanner.php:117
+#: includes/class-livqacea-scanner.php:880
+#, fuzzy
+msgid "✗ Manual fix"
 msgstr "Correção manual"
 
-#: includes/class-edg-scanner.php:100 includes/class-edg-scanner.php:984
+#: includes/class-livqacea-scanner.php:118
+#: includes/class-livqacea-scanner.php:874
+msgid "◻ Enable the matching module"
+msgstr ""
+
+#: includes/class-livqacea-scanner.php:119
+#: includes/class-livqacea-scanner.php:868
+msgid "⚠ Module active - still detected"
+msgstr ""
+
+#: includes/class-livqacea-scanner.php:120
+#: includes/class-livqacea-scanner.php:1066
 msgid "Severity"
 msgstr "Gravidade"
 
-#: includes/class-edg-scanner.php:103 includes/class-edg-scanner.php:987
+#: includes/class-livqacea-scanner.php:123
+#: includes/class-livqacea-scanner.php:1069
 msgid "Status"
 msgstr "Estado"
 
-#: includes/class-edg-scanner.php:104
+#: includes/class-livqacea-scanner.php:124
 msgid "Scanning"
 msgstr "A verificar"
 
-#: includes/class-edg-scanner.php:105
+#: includes/class-livqacea-scanner.php:125
 msgid "Scanning…"
 msgstr "A verificar…"
 
-#: includes/class-edg-scanner.php:106 includes/class-edg-scanner.php:895
+#: includes/class-livqacea-scanner.php:126
+#: includes/class-livqacea-scanner.php:977
 msgid "▶ Start Full Scan"
 msgstr "▶ Iniciar verificação completa"
 
-#: includes/class-edg-scanner.php:133
+#: includes/class-livqacea-scanner.php:153
 msgid "Homepage"
 msgstr "Página inicial"
 
-#: includes/class-edg-scanner.php:144
+#: includes/class-livqacea-scanner.php:164
 msgid "Blog Index"
 msgstr "Índice do blogue"
 
-#: includes/class-edg-scanner.php:162
+#: includes/class-livqacea-scanner.php:182
 msgid "Single Post"
 msgstr "Publicação única"
 
-#: includes/class-edg-scanner.php:182
+#. translators: %s: page title
+#: includes/class-livqacea-scanner.php:202
 #, php-format
 msgid "Page: %s"
 msgstr "Página: %s"
 
-#: includes/class-edg-scanner.php:200
+#: includes/class-livqacea-scanner.php:220
 msgid "Category Archive"
 msgstr "Arquivo de categoria"
 
-#: includes/class-edg-scanner.php:210
+#: includes/class-livqacea-scanner.php:230
 msgid "Search Results"
 msgstr "Resultados de pesquisa"
 
-#: includes/class-edg-scanner.php:218
+#: includes/class-livqacea-scanner.php:238
 msgid "404 Page"
 msgstr "Página 404"
 
-#: includes/class-edg-scanner.php:230
+#: includes/class-livqacea-scanner.php:250
 msgid "Shop"
 msgstr "Loja"
 
-#: includes/class-edg-scanner.php:246
+#: includes/class-livqacea-scanner.php:266
 msgid "Product"
 msgstr "Produto"
 
-#: includes/class-edg-scanner.php:258
+#: includes/class-livqacea-scanner.php:278
 msgid "Cart"
 msgstr "Carrinho"
 
-#: includes/class-edg-scanner.php:270
+#: includes/class-livqacea-scanner.php:290
 msgid "Checkout"
 msgstr "Finalizar compra"
 
-#: includes/class-edg-scanner.php:281
+#: includes/class-livqacea-scanner.php:301
 msgid "My Account"
 msgstr "A minha conta"
 
-#: includes/class-edg-scanner.php:300
+#: includes/class-livqacea-scanner.php:320
 msgid "Product Category"
 msgstr "Categoria de produto"
 
-#: includes/class-edg-scanner.php:315
+#: includes/class-livqacea-scanner.php:335
 msgid "Downloads Store"
 msgstr "Loja de downloads"
 
-#: includes/class-edg-scanner.php:330
+#: includes/class-livqacea-scanner.php:350
 msgid "Download Page"
 msgstr "Página de download"
 
-#: includes/class-edg-scanner.php:350
+#: includes/class-livqacea-scanner.php:370
 msgid "Course Page"
 msgstr "Página de curso"
 
-#: includes/class-edg-scanner.php:371
+#: includes/class-livqacea-scanner.php:391
 msgid "Unauthorized"
 msgstr "Não autorizado"
 
-#: includes/class-edg-scanner.php:378
+#: includes/class-livqacea-scanner.php:398
 msgid "Invalid URL"
 msgstr "URL inválido"
 
-#: includes/class-edg-scanner.php:505
+#: includes/class-livqacea-scanner.php:531
 msgid "Page language not declared on &lt;html&gt; element."
 msgstr "Idioma da página não declarado no elemento &lt;html&gt;."
 
-#: includes/class-edg-scanner.php:518
+#: includes/class-livqacea-scanner.php:544
 msgid "No skip link found. Keyboard users cannot bypass navigation."
 msgstr ""
 "Nenhuma ligação de salto encontrada. Os utilizadores de teclado não "
 "conseguem ignorar a navegação."
 
-#: includes/class-edg-scanner.php:534
+#. translators: %d: number of images
+#: includes/class-livqacea-scanner.php:560
 #, fuzzy, php-format
 msgid "%d image is missing the alt attribute."
 msgid_plural "%d images are missing the alt attribute."
 msgstr[0] "%d imagem sem atributo alt."
 msgstr[1] "%d imagem sem atributo alt."
 
-#: includes/class-edg-scanner.php:567
+#. translators: %d: number of links
+#: includes/class-livqacea-scanner.php:593
 #, fuzzy, php-format
 msgid "%d link has no accessible name (empty or image-only)."
 msgid_plural "%d links have no accessible name."
 msgstr[0] "%d link sem nome acessível (vazio ou apenas imagem)."
 msgstr[1] "%d link sem nome acessível (vazio ou apenas imagem)."
 
-#: includes/class-edg-scanner.php:600
+#. translators: %d: number of buttons
+#: includes/class-livqacea-scanner.php:626
 #, fuzzy, php-format
 msgid "%d button has no accessible name."
 msgid_plural "%d buttons have no accessible name."
 msgstr[0] "%d botão sem nome acessível."
 msgstr[1] "%d botão sem nome acessível."
 
-#: includes/class-edg-scanner.php:633
+#. translators: %d: number of inputs
+#: includes/class-livqacea-scanner.php:659
 #, fuzzy, php-format
 msgid "%d form field has no accessible label."
 msgid_plural "%d form fields have no accessible label."
 msgstr[0] "%d campo de formulário sem rótulo acessível."
 msgstr[1] "%d campo de formulário sem rótulo acessível."
 
-#: includes/class-edg-scanner.php:651
+#. translators: %d: number of iframes
+#: includes/class-livqacea-scanner.php:677
 #, fuzzy, php-format
 msgid "%d iframe has no title attribute."
 msgid_plural "%d iframes have no title attribute."
 msgstr[0] "%d iframe sem atributo title."
 msgstr[1] "%d iframe sem atributo title."
 
-#: includes/class-edg-scanner.php:675
+#. translators: %d: number of links
+#: includes/class-livqacea-scanner.php:701
 #, fuzzy, php-format
 msgid "%d link opening in a new tab lacks a screen-reader notice."
 msgid_plural "%d links opening in new tabs lack a screen-reader notice."
 msgstr[0] "%d link que abre em novo separador sem aviso para leitor de ecrã."
 msgstr[1] "%d link que abre em novo separador sem aviso para leitor de ecrã."
 
-#: includes/class-edg-scanner.php:701
+#. translators: 1: number of skips, 2: list of skip pairs
+#: includes/class-livqacea-scanner.php:727
 #, php-format
 msgid "Heading hierarchy has %1$d skip(s): %2$s"
 msgstr "A hierarquia de títulos tem %1$d salto(s): %2$s"
 
-#: includes/class-edg-scanner.php:720
+#. translators: %d: number of H1 elements
+#: includes/class-livqacea-scanner.php:746
 #, php-format
 msgid "%d H1 elements found - a page should have exactly one."
 msgstr "%d elementos H1 encontrados - uma página deve ter exatamente um."
 
-#: includes/class-edg-scanner.php:738
+#. translators: %d: number of empty headings
+#: includes/class-livqacea-scanner.php:764
 #, fuzzy, php-format
 msgid "%d empty heading found."
 msgid_plural "%d empty headings found."
 msgstr[0] "%d título vazio encontrado."
 msgstr[1] "%d título vazio encontrado."
 
-#: includes/class-edg-scanner.php:762
+#. translators: %d: number of tables
+#: includes/class-livqacea-scanner.php:788
 #, fuzzy, php-format
 msgid "%d table has no header cells (&lt;th&gt;)."
 msgid_plural "%d tables have no header cells."
 msgstr[0] "%d tabela sem células de cabeçalho (&lt;th&gt;)."
 msgstr[1] "%d tabela sem células de cabeçalho (&lt;th&gt;)."
 
-#: includes/class-edg-scanner.php:777
+#: includes/class-livqacea-scanner.php:803
 msgid ""
 "No &lt;main&gt; landmark found. Screen reader users cannot jump directly to "
 "main content."
 msgstr ""
 
-#: includes/class-edg-scanner.php:794
+#. translators: %d: number of quantity buttons
+#: includes/class-livqacea-scanner.php:820
 #, fuzzy, php-format
 msgid "%d WooCommerce quantity button has no aria-label."
 msgid_plural "%d WooCommerce quantity buttons have no aria-label."
 msgstr[0] "%d botão de quantidade WooCommerce sem aria-label."
 msgstr[1] "%d botão de quantidade WooCommerce sem aria-label."
 
-#: includes/class-edg-scanner.php:891
+#: includes/class-livqacea-scanner.php:973
 msgid ""
 "Scans representative page templates for WCAG 2.2 AA / EAA issues. Each "
 "template type is fetched once to cover all similar pages. Results are cached "
 "for 24 hours."
 msgstr ""
 
-#: includes/class-edg-scanner.php:896
+#: includes/class-livqacea-scanner.php:978
 msgid "Clear Cache"
 msgstr "Limpar cache"
 
-#: includes/class-edg-scanner.php:903
+#: includes/class-livqacea-scanner.php:985
 msgid "Critical"
 msgstr "Crítico"
 
-#: includes/class-edg-scanner.php:904
+#: includes/class-livqacea-scanner.php:986
 msgid "High"
 msgstr "Alto"
 
-#: includes/class-edg-scanner.php:905
+#: includes/class-livqacea-scanner.php:987
 msgid "Warnings"
 msgstr "Avisos"
 
-#: includes/class-edg-scanner.php:906
-msgid "Auto-fixed by plugin"
-msgstr "Corrigido automaticamente pelo plugin"
+#: includes/class-livqacea-scanner.php:988
+msgid "Fixable by enabling a module"
+msgstr ""
 
-#: includes/class-edg-scanner.php:916
+#: includes/class-livqacea-scanner.php:998
 msgid "Template"
 msgstr "Template"
 
-#: includes/class-edg-scanner.php:917
+#: includes/class-livqacea-scanner.php:999
 msgid "URL"
 msgstr "URL"
 
-#: includes/class-edg-scanner.php:918
+#: includes/class-livqacea-scanner.php:1000
 msgid "Score"
 msgstr "Pontuação"
 
-#: includes/class-edg-scanner.php:919
+#: includes/class-livqacea-scanner.php:1001
 msgid "Issues"
 msgstr "Problemas"
 
-#: includes/class-edg-scanner.php:920
+#: includes/class-livqacea-scanner.php:1002
 msgid "Last Scan"
 msgstr "Última verificação"
 
-#: includes/class-edg-statement.php:91 includes/class-edg-statement.php:619
+#: includes/class-livqacea-statement.php:91
+#: includes/class-livqacea-statement.php:624
 msgid "Accessibility Statement"
 msgstr "Declaração de acessibilidade"
 
-#: includes/class-edg-statement.php:92
+#: includes/class-livqacea-statement.php:92
 msgid "A11y Statement"
 msgstr "Declaração A11y"
 
-#: includes/class-edg-statement.php:119
+#: includes/class-livqacea-statement.php:121
 msgid ""
 "Private sector: governed by Directive (EU) 2019/882 (EAA), applicable from "
 "28 June 2025. The statement follows the W3C Accessibility Statement model as "
@@ -886,7 +988,7 @@ msgstr ""
 "Setor privado: regido pela Diretiva (UE) 2019/882 (EAA), aplicável a partir "
 "de 28 de junho de 2025. A declaração segue o modelo W3C como boa prática."
 
-#: includes/class-edg-statement.php:124
+#: includes/class-livqacea-statement.php:126
 msgid ""
 "Public Administration: governed by Directive (EU) 2016/2102 + Implementing "
 "Decision 2018/1523 (since 2018/2019). You must also submit this statement "
@@ -896,7 +998,7 @@ msgstr ""
 "Execução 2018/1523 (desde 2018/2019). Deve também submeter esta declaração "
 "anualmente através do canal nacional oficial."
 
-#: includes/class-edg-statement.php:129
+#: includes/class-livqacea-statement.php:131
 msgid ""
 "Non-profit / Third sector: if your organization offers services to the "
 "public (even for free), the EAA (Directive 2019/882) may apply. The "
@@ -907,7 +1009,7 @@ msgstr ""
 "gratuitamente), a EAA (Diretiva 2019/882) pode ser aplicável. A declaração "
 "referenciará a EAA onde aplicável e o modelo W3C."
 
-#: includes/class-edg-statement.php:134
+#: includes/class-livqacea-statement.php:136
 #, fuzzy
 msgid ""
 "Microenterprise / Freelancer: organizations with fewer than 10 employees AND "
@@ -919,7 +1021,7 @@ msgstr ""
 "Diretiva 2019/882). Uma declaração não é obrigatória mas é recomendada como "
 "boa prática."
 
-#: includes/class-edg-statement.php:139
+#: includes/class-livqacea-statement.php:141
 #, fuzzy
 msgid ""
 "Personal website / Private individual: personal websites with no commercial "
@@ -930,15 +1032,15 @@ msgstr ""
 "do âmbito da EAA e da Diretiva 2016/2102. Uma declaração de acessibilidade é "
 "completamente voluntária."
 
-#: includes/class-edg-statement.php:237
+#: includes/class-livqacea-statement.php:239
 msgid "Accessibility Statement - EAA / WCAG 2.2 AA"
 msgstr "Declaração de Acessibilidade - EAA / WCAG 2.2 AA"
 
-#: includes/class-edg-statement.php:241
+#: includes/class-livqacea-statement.php:243
 msgid "EAA / WCAG 2.2 AA - Accessibility Statement Generator"
 msgstr "EAA / WCAG 2.2 AA - Gerador de declaração de acessibilidade"
 
-#: includes/class-edg-statement.php:244
+#: includes/class-livqacea-statement.php:246
 msgid ""
 "The European Accessibility Act (EAA, Directive 2019/882) requires every "
 "website to publish an Accessibility Statement listing its conformance level, "
@@ -951,64 +1053,62 @@ msgstr ""
 "barreiras. Preencha os campos abaixo e, em seguida, incorpore a declaração "
 "em qualquer página com:"
 
-#: includes/class-edg-statement.php:252
+#: includes/class-livqacea-statement.php:254
 msgid "Page created!"
 msgstr "Página criada!"
 
-#: includes/class-edg-statement.php:258
+#: includes/class-livqacea-statement.php:260
 msgid "Edit page"
 msgstr "Editar página"
 
-#: includes/class-edg-statement.php:260 includes/class-edg-statement.php:554
+#: includes/class-livqacea-statement.php:262
+#: includes/class-livqacea-statement.php:559
 msgid "View page ↗"
 msgstr "Ver página ↗"
 
-#: includes/class-edg-statement.php:280
-msgid "Sector"
-msgstr "Setor"
+#: includes/class-livqacea-statement.php:287
+#, fuzzy
+msgid "Organization Type"
+msgstr "Organização"
 
-#: includes/class-edg-statement.php:285
-msgid "Organization Sector"
-msgstr "Setor da organização"
-
-#: includes/class-edg-statement.php:289
+#: includes/class-livqacea-statement.php:291
 msgid "Private company / e-commerce / digital service"
 msgstr "Empresa privada / e-commerce / serviço digital"
 
-#: includes/class-edg-statement.php:290
+#: includes/class-livqacea-statement.php:292
 msgid "Public Administration (PA)"
 msgstr "Administração Pública (AP)"
 
-#: includes/class-edg-statement.php:291
+#: includes/class-livqacea-statement.php:293
 msgid "Non-profit / Association / Third sector"
 msgstr "Associação / ONG / Terceiro setor"
 
-#: includes/class-edg-statement.php:292
+#: includes/class-livqacea-statement.php:294
 #, fuzzy
 msgid "Microenterprise / Freelancer (fewer than 10 employees, turnover ≤ €2M)"
 msgstr "Microempresa / Freelancer (menos de 10 funcionários, faturação ≤ 2M€)"
 
-#: includes/class-edg-statement.php:293
+#: includes/class-livqacea-statement.php:295
 msgid "Personal website / Private individual (no VAT)"
 msgstr "Site pessoal / Particular (sem NIF empresarial)"
 
-#: includes/class-edg-statement.php:302
+#: includes/class-livqacea-statement.php:304
 msgid "Organization"
 msgstr "Organização"
 
-#: includes/class-edg-statement.php:307
+#: includes/class-livqacea-statement.php:309
 msgid "Organization Name"
 msgstr "Nome da organização"
 
-#: includes/class-edg-statement.php:313
+#: includes/class-livqacea-statement.php:315
 msgid "Defaults to the site title if left empty."
 msgstr "Usa o título do site se deixado em branco."
 
-#: includes/class-edg-statement.php:318
+#: includes/class-livqacea-statement.php:320
 msgid "Website URL"
 msgstr "URL do site"
 
-#: includes/class-edg-statement.php:324
+#: includes/class-livqacea-statement.php:326
 msgid ""
 "The URL this statement covers. Required by EAA Art. 13 to identify the scope "
 "of the declaration."
@@ -1016,15 +1116,15 @@ msgstr ""
 "O URL coberto por esta declaração. Exigido pela EAA Art. 13 para identificar "
 "o âmbito da declaração."
 
-#: includes/class-edg-statement.php:329
+#: includes/class-livqacea-statement.php:331
 msgid "Accessibility Responsible (optional)"
 msgstr "Responsável pela acessibilidade (opcional)"
 
-#: includes/class-edg-statement.php:334
+#: includes/class-livqacea-statement.php:336
 msgid "e.g. Web Accessibility Manager"
 msgstr "ex. Responsável pela Acessibilidade Web"
 
-#: includes/class-edg-statement.php:335
+#: includes/class-livqacea-statement.php:337
 msgid ""
 "Name or role of the person responsible for accessibility. Some national EAA "
 "implementations require this."
@@ -1032,29 +1132,29 @@ msgstr ""
 "Nome ou função da pessoa responsável pela acessibilidade. Algumas "
 "implementações nacionais da EAA exigem este campo."
 
-#: includes/class-edg-statement.php:342
+#: includes/class-livqacea-statement.php:344
 msgid "Feedback Channels"
 msgstr "Canais de feedback"
 
-#: includes/class-edg-statement.php:347
+#: includes/class-livqacea-statement.php:349
 msgid "Accessibility Contact Email"
 msgstr "E-mail de contacto de acessibilidade"
 
-#: includes/class-edg-statement.php:353
+#: includes/class-livqacea-statement.php:355
 msgid "Required by EAA: users must be able to report accessibility barriers."
 msgstr ""
 "Exigido pela EAA: os utilizadores devem poder comunicar barreiras de "
 "acessibilidade."
 
-#: includes/class-edg-statement.php:358
+#: includes/class-livqacea-statement.php:360
 msgid "Contact Form URL (optional)"
 msgstr "URL do formulário de contacto (opcional)"
 
-#: includes/class-edg-statement.php:368
+#: includes/class-livqacea-statement.php:370
 msgid "Phone / Oral Channel (optional)"
 msgstr "Telefone / Canal oral (opcional)"
 
-#: includes/class-edg-statement.php:374
+#: includes/class-livqacea-statement.php:376
 msgid ""
 "EAA Art. 13 requires information available in written and oral format. Add a "
 "phone number or alternative oral channel."
@@ -1062,45 +1162,48 @@ msgstr ""
 "A EAA Art. 13 exige informações disponíveis em formato escrito e oral. "
 "Adicione um número de telefone ou canal oral alternativo."
 
-#: includes/class-edg-statement.php:381
+#: includes/class-livqacea-statement.php:383
 msgid "Evaluation"
 msgstr "Avaliação"
 
-#: includes/class-edg-statement.php:386
+#: includes/class-livqacea-statement.php:388
 msgid "Evaluation Method"
 msgstr "Método de avaliação"
 
-#: includes/class-edg-statement.php:390 includes/class-edg-statement.php:694
+#: includes/class-livqacea-statement.php:392
+#: includes/class-livqacea-statement.php:699
 msgid "Automated tools (LivQ AccessFix)"
 msgstr "Ferramentas automatizadas (LivQ AccessFix)"
 
-#: includes/class-edg-statement.php:391 includes/class-edg-statement.php:695
+#: includes/class-livqacea-statement.php:393
+#: includes/class-livqacea-statement.php:700
 msgid "Self-assessment"
 msgstr "Autoavaliação"
 
-#: includes/class-edg-statement.php:392 includes/class-edg-statement.php:696
+#: includes/class-livqacea-statement.php:394
+#: includes/class-livqacea-statement.php:701
 msgid "External audit by a third party"
 msgstr "Auditoria externa por terceiros"
 
-#: includes/class-edg-statement.php:394
+#: includes/class-livqacea-statement.php:396
 msgid ""
 "Required by EN 301 549: how this accessibility evaluation was conducted."
 msgstr ""
 "Exigido pela EN 301 549: como foi realizada esta avaliação de acessibilidade."
 
-#: includes/class-edg-statement.php:399
+#: includes/class-livqacea-statement.php:401
 msgid "Last Evaluation Date"
 msgstr "Data da última avaliação"
 
-#: includes/class-edg-statement.php:404
+#: includes/class-livqacea-statement.php:406
 msgid "Date of the last formal accessibility audit."
 msgstr "Data da última auditoria formal de acessibilidade."
 
-#: includes/class-edg-statement.php:409
+#: includes/class-livqacea-statement.php:411
 msgid "Statement Preparation Date"
 msgstr "Data de preparação da declaração"
 
-#: includes/class-edg-statement.php:414
+#: includes/class-livqacea-statement.php:416
 msgid ""
 "Date this statement was prepared or last reviewed. Distinct from the "
 "evaluation date - required by Directive 2016/2102 and applied to EAA as best "
@@ -1110,11 +1213,11 @@ msgstr ""
 "Distinta da data de avaliação - exigida pela Diretiva 2016/2102 e aplicada à "
 "EAA como boa prática."
 
-#: includes/class-edg-statement.php:420
+#: includes/class-livqacea-statement.php:422
 msgid "Next Review Date"
 msgstr "Data da próxima revisão"
 
-#: includes/class-edg-statement.php:425
+#: includes/class-livqacea-statement.php:427
 msgid ""
 "Date when this statement will be reviewed. Annual review is recommended by "
 "both the W3C and Directive 2016/2102 (applied as best practice to EAA)."
@@ -1122,27 +1225,31 @@ msgstr ""
 "Data em que esta declaração será revista. A revisão anual é recomendada pelo "
 "W3C e pela Diretiva 2016/2102 (aplicada como boa prática à EAA)."
 
-#: includes/class-edg-statement.php:432
+#: includes/class-livqacea-statement.php:434
 msgid "Conformance"
 msgstr "Conformidade"
 
-#: includes/class-edg-statement.php:437 includes/class-edg-statement.php:842
+#: includes/class-livqacea-statement.php:439
+#: includes/class-livqacea-statement.php:847
 msgid "Conformance Status"
 msgstr "Estado de conformidade"
 
-#: includes/class-edg-statement.php:441 includes/class-edg-statement.php:701
+#: includes/class-livqacea-statement.php:443
+#: includes/class-livqacea-statement.php:706
 msgid "Fully conformant"
 msgstr "Totalmente conforme"
 
-#: includes/class-edg-statement.php:442 includes/class-edg-statement.php:702
+#: includes/class-livqacea-statement.php:444
+#: includes/class-livqacea-statement.php:707
 msgid "Partially conformant"
 msgstr "Parcialmente conforme"
 
-#: includes/class-edg-statement.php:443 includes/class-edg-statement.php:703
+#: includes/class-livqacea-statement.php:445
+#: includes/class-livqacea-statement.php:708
 msgid "Non-conformant"
 msgstr "Não conforme"
 
-#: includes/class-edg-statement.php:445
+#: includes/class-livqacea-statement.php:447
 msgid ""
 "\"Partially conformant\" is correct for most sites - it means known issues "
 "exist and are being addressed."
@@ -1150,20 +1257,20 @@ msgstr ""
 "\"Parcialmente conforme\" é correto para a maioria dos sítios - significa "
 "que existem problemas conhecidos que estão a ser tratados."
 
-#: includes/class-edg-statement.php:450
+#: includes/class-livqacea-statement.php:452
 msgid "Known Limitations / Notes"
 msgstr "Limitações conhecidas / Notas"
 
-#: includes/class-edg-statement.php:455
+#: includes/class-livqacea-statement.php:457
 msgid "Describe any known barriers not yet resolved (optional)."
 msgstr ""
 "Descreva quaisquer barreiras conhecidas ainda não resolvidas (opcional)."
 
-#: includes/class-edg-statement.php:460
+#: includes/class-livqacea-statement.php:462
 msgid "Disproportionate Burden (optional)"
 msgstr "Encargo desproporcionado (opcional)"
 
-#: includes/class-edg-statement.php:465
+#: includes/class-livqacea-statement.php:467
 msgid ""
 "EAA allows exemptions for content where full compliance would impose a "
 "disproportionate burden. Describe which content qualifies and the "
@@ -1173,15 +1280,16 @@ msgstr ""
 "encargo desproporcionado. Descreva qual conteúdo se qualifica e a "
 "justificação. Deixe vazio se não aplicável."
 
-#: includes/class-edg-statement.php:472
+#: includes/class-livqacea-statement.php:474
 msgid "Organizational Measures"
 msgstr "Medidas organizacionais"
 
-#: includes/class-edg-statement.php:477 includes/class-edg-statement.php:481
+#: includes/class-livqacea-statement.php:479
+#: includes/class-livqacea-statement.php:483
 msgid "Accessibility Measures Adopted"
 msgstr "Medidas de acessibilidade adotadas"
 
-#: includes/class-edg-statement.php:492
+#: includes/class-livqacea-statement.php:497
 msgid ""
 "Tick the measures your organization actively applies. These are listed in "
 "the public statement (W3C recommendation)."
@@ -1189,15 +1297,15 @@ msgstr ""
 "Assinale as medidas que a sua organização aplica ativamente. Serão listadas "
 "na declaração pública (recomendação W3C)."
 
-#: includes/class-edg-statement.php:499
+#: includes/class-livqacea-statement.php:504
 msgid "Enforcement"
 msgstr "Execução"
 
-#: includes/class-edg-statement.php:504
+#: includes/class-livqacea-statement.php:509
 msgid "Enforcement Body URL (optional)"
 msgstr "URL do organismo de execução (opcional)"
 
-#: includes/class-edg-statement.php:510
+#: includes/class-livqacea-statement.php:515
 msgid ""
 "Direct URL to the national enforcement body complaint form. Makes it easier "
 "for users to escalate. For Italy: Difensore Civico per il Digitale (AgID)."
@@ -1206,12 +1314,13 @@ msgstr ""
 "execução. Facilita a escalada para os utilizadores. Para a Itália: Difensore "
 "Civico per il Digitale (AgID)."
 
-#: includes/class-edg-statement.php:526
+#. translators: 1: user display name, 2: confirmation date
+#: includes/class-livqacea-statement.php:531
 #, php-format
 msgid "Last confirmed by %1$s on %2$s."
 msgstr "Última confirmação de %1$s em %2$s."
 
-#: includes/class-edg-statement.php:536
+#: includes/class-livqacea-statement.php:541
 msgid ""
 "I confirm that the information in this statement is accurate and that I take "
 "responsibility for its content. This statement was prepared with the "
@@ -1221,19 +1330,19 @@ msgstr ""
 "responsabilidade pelo seu conteúdo. Esta declaração foi preparada com a "
 "assistência das ferramentas automatizadas do LivQ AccessFix."
 
-#: includes/class-edg-statement.php:541
+#: includes/class-livqacea-statement.php:546
 msgid "Save Statement Config"
 msgstr "Guardar configuração da declaração"
 
-#: includes/class-edg-statement.php:548
+#: includes/class-livqacea-statement.php:553
 msgid "⚡ One-Click Page Creation"
 msgstr "⚡ Criação de página com um clique"
 
-#: includes/class-edg-statement.php:552
+#: includes/class-livqacea-statement.php:557
 msgid "Accessibility Statement page already exists."
 msgstr "A página de declaração de acessibilidade já existe."
 
-#: includes/class-edg-statement.php:559
+#: includes/class-livqacea-statement.php:564
 msgid ""
 "Create a draft WP page titled \"Accessibility Statement\" with the shortcode "
 "pre-inserted."
@@ -1241,24 +1350,26 @@ msgstr ""
 "Crie uma página de rascunho do WP intitulada \"Declaração de "
 "acessibilidade\" com o shortcode já inserido."
 
-#: includes/class-edg-statement.php:562
+#: includes/class-livqacea-statement.php:567
 msgid "Create Statement Page"
 msgstr "Criar página de declaração"
 
-#: includes/class-edg-statement.php:572
+#: includes/class-livqacea-statement.php:577
 msgid "Statement Preview"
 msgstr "Pré-visualização da declaração"
 
-#: includes/class-edg-statement.php:629
+#: includes/class-livqacea-statement.php:634
 msgid "Could not create page. Please try manually."
 msgstr "Não foi possível criar a página. Tente manualmente."
 
-#: includes/class-edg-statement.php:724
+#. translators: %s: organization name
+#: includes/class-livqacea-statement.php:729
 #, php-format
 msgid "Accessibility Statement for %s"
 msgstr "Declaração de acessibilidade para %s"
 
-#: includes/class-edg-statement.php:733
+#. translators: 1: organization name, 2: website URL
+#: includes/class-livqacea-statement.php:738
 #, php-format
 msgid ""
 "%1$s is committed to ensuring digital accessibility for people with "
@@ -1269,20 +1380,20 @@ msgstr ""
 "deficiência. Melhoramos continuamente a experiência do utilizador para todos "
 "e aplicamos as normas de acessibilidade relevantes em %2$s."
 
-#: includes/class-edg-statement.php:742
+#: includes/class-livqacea-statement.php:747
 msgid "Organizational Measures to Support Accessibility"
 msgstr "Medidas organizacionais para apoiar a acessibilidade"
 
-#: includes/class-edg-statement.php:743
+#: includes/class-livqacea-statement.php:748
 msgid "We take the following measures to ensure accessibility of this website:"
 msgstr ""
 "Tomamos as seguintes medidas para garantir a acessibilidade deste site:"
 
-#: includes/class-edg-statement.php:756
+#: includes/class-livqacea-statement.php:761
 msgid "Legal Framework and Applicable Standards"
 msgstr "Quadro jurídico e normas aplicáveis"
 
-#: includes/class-edg-statement.php:758
+#: includes/class-livqacea-statement.php:763
 msgid ""
 "This statement is prepared in compliance with Directive (EU) 2016/2102 on "
 "the accessibility of the websites and mobile applications of public sector "
@@ -1297,40 +1408,45 @@ msgstr ""
 "modelo estabelecido pela Decisão de Execução UE 2018/1523. Os requisitos "
 "técnicos baseiam-se na norma harmonizada EN 301 549 v3.2.1."
 
-#: includes/class-edg-statement.php:761 includes/class-edg-statement.php:827
+#: includes/class-livqacea-statement.php:766
+#: includes/class-livqacea-statement.php:832
 msgid "Legal basis:"
 msgstr "Base jurídica:"
 
-#: includes/class-edg-statement.php:763
+#: includes/class-livqacea-statement.php:768
 msgid "Directive (EU) 2016/2102 - Web Accessibility Directive (public sector)"
 msgstr ""
 "Diretiva (UE) 2016/2102 - Diretiva de Acessibilidade Web (setor público)"
 
-#: includes/class-edg-statement.php:767
+#: includes/class-livqacea-statement.php:772
 msgid "Statement model:"
 msgstr "Modelo de declaração:"
 
-#: includes/class-edg-statement.php:769
+#: includes/class-livqacea-statement.php:774
 msgid "EU Implementing Decision 2018/1523"
 msgstr "Decisão de Execução UE 2018/1523"
 
-#: includes/class-edg-statement.php:773 includes/class-edg-statement.php:790
-#: includes/class-edg-statement.php:833
+#: includes/class-livqacea-statement.php:778
+#: includes/class-livqacea-statement.php:795
+#: includes/class-livqacea-statement.php:838
 msgid "Technical standard:"
 msgstr "Norma técnica:"
 
-#: includes/class-edg-statement.php:775 includes/class-edg-statement.php:792
-#: includes/class-edg-statement.php:809 includes/class-edg-statement.php:819
-#: includes/class-edg-statement.php:835
+#: includes/class-livqacea-statement.php:780
+#: includes/class-livqacea-statement.php:797
+#: includes/class-livqacea-statement.php:814
+#: includes/class-livqacea-statement.php:824
+#: includes/class-livqacea-statement.php:840
 msgid "Web Content Accessibility Guidelines (WCAG) 2.2, Level AA"
 msgstr "Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.2, Nível AA"
 
-#: includes/class-edg-statement.php:777 includes/class-edg-statement.php:794
-#: includes/class-edg-statement.php:837
+#: includes/class-livqacea-statement.php:782
+#: includes/class-livqacea-statement.php:799
+#: includes/class-livqacea-statement.php:842
 msgid "(via EN 301 549 v3.2.1)"
 msgstr "(via EN 301 549 v3.2.1)"
 
-#: includes/class-edg-statement.php:781
+#: includes/class-livqacea-statement.php:786
 msgid ""
 "This statement is prepared on a voluntary basis in compliance with the "
 "European Accessibility Act (Directive (EU) 2019/882) where applicable to "
@@ -1343,16 +1459,16 @@ msgstr ""
 "atividades desta organização, seguindo o modelo W3C como boa prática. Os "
 "requisitos técnicos baseiam-se na EN 301 549 v3.2.1."
 
-#: includes/class-edg-statement.php:784
+#: includes/class-livqacea-statement.php:789
 msgid "Reference standard:"
 msgstr "Norma de referência:"
 
-#: includes/class-edg-statement.php:786
+#: includes/class-livqacea-statement.php:791
 msgid "Directive (EU) 2019/882 - European Accessibility Act (where applicable)"
 msgstr ""
 "Diretiva (UE) 2019/882 - Lei Europeia de Acessibilidade (onde aplicável)"
 
-#: includes/class-edg-statement.php:798
+#: includes/class-livqacea-statement.php:803
 #, fuzzy
 msgid ""
 "This organization qualifies as a microenterprise (fewer than 10 employees "
@@ -1366,19 +1482,20 @@ msgstr ""
 "ao abrigo da Lei Europeia de Acessibilidade (Diretiva (UE) 2019/882, Art. "
 "4(5)). Esta declaração é fornecida voluntariamente."
 
-#: includes/class-edg-statement.php:801
+#: includes/class-livqacea-statement.php:806
 msgid "Exemption basis:"
 msgstr "Base de isenção:"
 
-#: includes/class-edg-statement.php:803
+#: includes/class-livqacea-statement.php:808
 msgid "Directive (EU) 2019/882, Article 4(5) - Microenterprise exemption"
 msgstr "Diretiva (UE) 2019/882, Art. 4(5) - Isenção para microempresas"
 
-#: includes/class-edg-statement.php:807 includes/class-edg-statement.php:817
+#: includes/class-livqacea-statement.php:812
+#: includes/class-livqacea-statement.php:822
 msgid "Technical reference:"
 msgstr "Referência técnica:"
 
-#: includes/class-edg-statement.php:814
+#: includes/class-livqacea-statement.php:819
 #, fuzzy
 msgid ""
 "This is a personal website with no commercial activity. Personal websites "
@@ -1392,7 +1509,7 @@ msgstr ""
 "Diretiva (UE) 2016/2102. Esta declaração é fornecida voluntariamente como "
 "compromisso com o design inclusivo."
 
-#: includes/class-edg-statement.php:824
+#: includes/class-livqacea-statement.php:829
 msgid ""
 "This statement is prepared in compliance with the European Accessibility Act "
 "(Directive (EU) 2019/882, applicable from 28 June 2025) and applicable "
@@ -1409,11 +1526,12 @@ msgstr ""
 "desta declaração segue as boas práticas W3C para declarações de "
 "acessibilidade como modelo de referência."
 
-#: includes/class-edg-statement.php:829
+#: includes/class-livqacea-statement.php:834
 msgid "Directive (EU) 2019/882 - European Accessibility Act"
 msgstr "Diretiva (UE) 2019/882 - Lei Europeia de Acessibilidade"
 
-#: includes/class-edg-statement.php:849
+#. translators: %s: conformance status label (e.g. "fully conformant")
+#: includes/class-livqacea-statement.php:854
 #, php-format
 msgid ""
 "This website is <strong>%s</strong> with WCAG 2.2 Level AA and the "
@@ -1426,7 +1544,8 @@ msgstr ""
 "partes do conteúdo ainda não estão totalmente em conformidade com a norma de "
 "acessibilidade."
 
-#: includes/class-edg-statement.php:858
+#. translators: %s: conformance status label (e.g. "fully conformant")
+#: includes/class-livqacea-statement.php:863
 #, php-format
 msgid ""
 "This website is <strong>%s</strong> with WCAG 2.2 Level AA. This statement "
@@ -1438,7 +1557,8 @@ msgstr ""
 "partes do conteúdo ainda não estão totalmente em conformidade com as "
 "diretrizes de acessibilidade."
 
-#: includes/class-edg-statement.php:867
+#. translators: %s: conformance status label (e.g. "fully conformant")
+#: includes/class-livqacea-statement.php:872
 #, php-format
 msgid ""
 "This website is <strong>%s</strong> with WCAG 2.2 Level AA and the "
@@ -1451,7 +1571,8 @@ msgstr ""
 "que algumas partes do conteúdo ainda não estão totalmente em conformidade "
 "com o padrão de acessibilidade."
 
-#: includes/class-edg-statement.php:876
+#. translators: %s: conformance status label (e.g. "fully conformant")
+#: includes/class-livqacea-statement.php:881
 #, php-format
 msgid ""
 "This website is <strong>%s</strong> with WCAG 2.2 Level AA and the "
@@ -1464,19 +1585,19 @@ msgstr ""
 "partes do conteúdo ainda não estão totalmente em conformidade com a norma de "
 "acessibilidade."
 
-#: includes/class-edg-statement.php:886
+#: includes/class-livqacea-statement.php:891
 msgid "Evaluation method:"
 msgstr "Método de avaliação:"
 
-#: includes/class-edg-statement.php:890
+#: includes/class-livqacea-statement.php:895
 msgid "Last evaluation date:"
 msgstr "Data da última avaliação:"
 
-#: includes/class-edg-statement.php:895
+#: includes/class-livqacea-statement.php:900
 msgid "Technical Specifications"
 msgstr "Especificações técnicas"
 
-#: includes/class-edg-statement.php:896
+#: includes/class-livqacea-statement.php:901
 msgid ""
 "This website relies on the following technologies for conformance with the "
 "accessibility standard:"
@@ -1484,15 +1605,16 @@ msgstr ""
 "Este site baseia-se nas seguintes tecnologias para conformidade com a norma "
 "de acessibilidade:"
 
-#: includes/class-edg-statement.php:902
+#: includes/class-livqacea-statement.php:907
 msgid "WordPress (CMS)"
 msgstr "WordPress (CMS)"
 
-#: includes/class-edg-statement.php:905
+#: includes/class-livqacea-statement.php:910
 msgid "Technical Accessibility Features (Automated Remediation)"
 msgstr "Funcionalidades técnicas de acessibilidade (correção automatizada)"
 
-#: includes/class-edg-statement.php:910
+#. translators: %s: plugin name
+#: includes/class-livqacea-statement.php:915
 #, php-format
 msgid ""
 "The following technical accessibility features are automatically managed and "
@@ -1502,15 +1624,15 @@ msgstr ""
 "corrigidas automaticamente no lado do servidor deste sítio web por "
 "<strong>%s</strong>:"
 
-#: includes/class-edg-statement.php:925
+#: includes/class-livqacea-statement.php:930
 msgid "No automated remediation modules are currently active."
 msgstr "Nenhum módulo de remediação automática está atualmente ativo."
 
-#: includes/class-edg-statement.php:928
+#: includes/class-livqacea-statement.php:933
 msgid "Non-accessible Content"
 msgstr "Conteúdo não acessível"
 
-#: includes/class-edg-statement.php:932
+#: includes/class-livqacea-statement.php:937
 msgid ""
 "Despite our best efforts, some content elements may have temporary "
 "limitations. We are actively working to audit and manually remediate these "
@@ -1520,26 +1642,26 @@ msgstr ""
 "limitações temporárias. Estamos a trabalhar ativamente para auditar e "
 "corrigir manualmente esses componentes."
 
-#: includes/class-edg-statement.php:939
+#: includes/class-livqacea-statement.php:944
 msgid "Content exempt under Directive (EU) 2016/2102 Art. 1(4):"
 msgstr "Conteúdo isento nos termos da Diretiva (UE) 2016/2102 Art. 1(4):"
 
-#: includes/class-edg-statement.php:941
+#: includes/class-livqacea-statement.php:946
 msgid "Content exempt under Article 2(4) of Directive (EU) 2019/882:"
 msgstr "Conteúdo isento nos termos do Artigo 2.º(4) da Diretiva (UE) 2019/882:"
 
-#: includes/class-edg-statement.php:947
+#: includes/class-livqacea-statement.php:952
 msgid "Known limitations:"
 msgstr "Limitações conhecidas:"
 
-#: includes/class-edg-statement.php:950
+#: includes/class-livqacea-statement.php:955
 msgid ""
 "Pre-recorded time-based media (audio/video) published before 28 June 2025."
 msgstr ""
 "Média temporal pré-gravada (áudio/vídeo) publicada antes de 28 de junho de "
 "2025."
 
-#: includes/class-edg-statement.php:951
+#: includes/class-livqacea-statement.php:956
 msgid ""
 "Office file formats (PDF, DOCX, XLSX) published before 28 June 2025 and not "
 "used for active administrative processes."
@@ -1547,7 +1669,7 @@ msgstr ""
 "Formatos de ficheiro de escritório (PDF, DOCX, XLSX) publicados antes de 28 "
 "de junho de 2025 e não utilizados para processos administrativos ativos."
 
-#: includes/class-edg-statement.php:952
+#: includes/class-livqacea-statement.php:957
 msgid ""
 "Online maps and mapping services, where essential navigational information "
 "is provided in an accessible digital alternative."
@@ -1555,7 +1677,7 @@ msgstr ""
 "Mapas online e serviços de cartografia, desde que as informações de "
 "navegação essenciais sejam fornecidas numa alternativa digital acessível."
 
-#: includes/class-edg-statement.php:953
+#: includes/class-livqacea-statement.php:958
 msgid ""
 "Third-party content that is neither funded, developed by, nor under the "
 "direct control of this organization."
@@ -1563,7 +1685,7 @@ msgstr ""
 "Conteúdo de terceiros que não é financiado, desenvolvido nem está sob o "
 "controlo direto desta organização."
 
-#: includes/class-edg-statement.php:954
+#: includes/class-livqacea-statement.php:959
 msgid ""
 "Content from archived websites that has not been updated or restructured "
 "after 28 June 2025."
@@ -1571,15 +1693,15 @@ msgstr ""
 "Conteúdo de sites arquivados que não foram atualizados ou reestruturados "
 "após 28 de junho de 2025."
 
-#: includes/class-edg-statement.php:958
+#: includes/class-livqacea-statement.php:963
 msgid "Disproportionate Burden:"
 msgstr "Encargo desproporcionado:"
 
-#: includes/class-edg-statement.php:962
+#: includes/class-livqacea-statement.php:967
 msgid "Feedback and Contact Information"
 msgstr "Feedback e informações de contacto"
 
-#: includes/class-edg-statement.php:963
+#: includes/class-livqacea-statement.php:968
 msgid ""
 "We welcome your feedback on the accessibility of this website. If you "
 "encounter any accessibility barriers, please notify us so we can provide an "
@@ -1589,23 +1711,23 @@ msgstr ""
 "barreiras de acessibilidade, notifique-nos para que possamos fornecer uma "
 "alternativa acessível ou tornar o conteúdo acessível (EAA Art. 13):"
 
-#: includes/class-edg-statement.php:967
+#: includes/class-livqacea-statement.php:972
 msgid "Accessibility responsible:"
 msgstr "Responsável pela acessibilidade:"
 
-#: includes/class-edg-statement.php:973
+#: includes/class-livqacea-statement.php:978
 msgid "Email:"
 msgstr "E-mail:"
 
-#: includes/class-edg-statement.php:981
+#: includes/class-livqacea-statement.php:986
 msgid "Phone:"
 msgstr "Telefone:"
 
-#: includes/class-edg-statement.php:987
+#: includes/class-livqacea-statement.php:992
 msgid "Contact form:"
 msgstr "Formulário de contacto:"
 
-#: includes/class-edg-statement.php:993
+#: includes/class-livqacea-statement.php:998
 msgid ""
 "We acknowledge and aim to respond to accessibility feedback within 2 "
 "business days."
@@ -1613,11 +1735,11 @@ msgstr ""
 "Reconhecemos e comprometemo-nos a responder ao feedback de acessibilidade no "
 "prazo de 2 dias úteis."
 
-#: includes/class-edg-statement.php:996
+#: includes/class-livqacea-statement.php:1001
 msgid "Enforcement Procedure"
 msgstr "Procedimento de execução"
 
-#: includes/class-edg-statement.php:1000
+#: includes/class-livqacea-statement.php:1005
 msgid ""
 "As this statement is provided voluntarily, there is no formal enforcement "
 "procedure. We welcome your feedback and will do our best to address "
@@ -1627,7 +1749,7 @@ msgstr ""
 "execução formal. Agradecemos o seu feedback e faremos o possível para "
 "resolver problemas de acessibilidade num prazo razoável."
 
-#: includes/class-edg-statement.php:1004
+#: includes/class-livqacea-statement.php:1009
 msgid ""
 "If you experience a persistent accessibility barrier and are unsatisfied "
 "with our response, you can file an official complaint with the national "
@@ -1642,7 +1764,7 @@ msgstr ""
 "competente no seu país, consulte a legislação nacional de transposição da "
 "Diretiva 2016/2102."
 
-#: includes/class-edg-statement.php:1009
+#: includes/class-livqacea-statement.php:1014
 msgid ""
 "If you experience a persistent accessibility barrier and are unsatisfied "
 "with our response, you may contact the relevant national enforcement "
@@ -1656,7 +1778,7 @@ msgstr ""
 "competente. Para mais informações, consulte a legislação nacional de "
 "transposição da EAA."
 
-#: includes/class-edg-statement.php:1014
+#: includes/class-livqacea-statement.php:1019
 msgid ""
 "If you experience a persistent accessibility barrier and are unsatisfied "
 "with our response, you can file an official complaint with the national "
@@ -1670,18 +1792,19 @@ msgstr ""
 "autoridade nacional de fiscalização. Consulte os recursos oficiais da EAA da "
 "UE para saber qual é a autoridade competente no seu país."
 
-#: includes/class-edg-statement.php:1019
+#: includes/class-livqacea-statement.php:1024
 msgid ""
 "If you are not satisfied with our response, you can contact the relevant "
 "national enforcement authority responsible for the European Accessibility "
 "Act (Directive 2019/882) in your country."
 msgstr ""
 
-#: includes/class-edg-statement.php:1026
+#: includes/class-livqacea-statement.php:1031
 msgid "File a complaint with the enforcement authority →"
 msgstr "Apresentar uma reclamação junto da autoridade de execução →"
 
-#: includes/class-edg-statement.php:1037
+#. translators: 1: statement date, 2: evaluation date, 3: plugin version
+#: includes/class-livqacea-statement.php:1042
 #, php-format
 msgid ""
 "Statement prepared: %1$s. Last evaluated: %2$s. Prepared with the assistance "
@@ -1693,17 +1816,19 @@ msgstr ""
 "exatidão e integridade desta declaração são da exclusiva responsabilidade do "
 "operador do site."
 
-#: includes/class-edg-statement.php:1046
+#. translators: %s: next review date
+#: includes/class-livqacea-statement.php:1051
 #, php-format
 msgid "Next scheduled review: %s."
 msgstr "Próxima revisão agendada: %s."
 
-#: includes/class-edg-statement.php:1054
+#. translators: 1: confirming user name, 2: confirmation date
+#: includes/class-livqacea-statement.php:1059
 #, php-format
 msgid "Confirmed by %1$s on %2$s."
 msgstr "Confirmado por %1$s em %2$s."
 
-#: includes/class-edg-statement.php:1078
+#: includes/class-livqacea-statement.php:1083
 msgid ""
 "Accessibility is included as part of our mission statement and "
 "organizational policies."
@@ -1711,7 +1836,7 @@ msgstr ""
 "A acessibilidade está incluída na nossa declaração de missão e políticas "
 "organizacionais."
 
-#: includes/class-edg-statement.php:1079
+#: includes/class-livqacea-statement.php:1084
 msgid ""
 "We have appointed an Accessibility Officer (or equivalent role) responsible "
 "for ongoing compliance."
@@ -1719,7 +1844,7 @@ msgstr ""
 "Nomeamos um Responsável pela Acessibilidade (ou função equivalente) "
 "responsável pela conformidade contínua."
 
-#: includes/class-edg-statement.php:1080
+#: includes/class-livqacea-statement.php:1085
 msgid ""
 "We provide accessibility training to all staff who create or manage web "
 "content."
@@ -1727,7 +1852,7 @@ msgstr ""
 "Fornecemos formação em acessibilidade a todos os funcionários que criam ou "
 "gerem conteúdo web."
 
-#: includes/class-edg-statement.php:1081
+#: includes/class-livqacea-statement.php:1086
 msgid ""
 "We include accessibility requirements in our procurement and vendor "
 "evaluation process."
@@ -1735,7 +1860,7 @@ msgstr ""
 "Incluímos requisitos de acessibilidade no nosso processo de aquisição e "
 "avaliação de fornecedores."
 
-#: includes/class-edg-statement.php:1082
+#: includes/class-livqacea-statement.php:1087
 msgid ""
 "We conduct periodic accessibility testing using automated tools and manual "
 "reviews."
@@ -1743,7 +1868,7 @@ msgstr ""
 "Realizamos testes de acessibilidade periódicos utilizando ferramentas "
 "automatizadas e revisões manuais."
 
-#: includes/class-edg-statement.php:1083
+#: includes/class-livqacea-statement.php:1088
 msgid ""
 "We have a formal process to handle and resolve accessibility complaints from "
 "users."
@@ -1751,7 +1876,7 @@ msgstr ""
 "Temos um processo formal para lidar e resolver reclamações de acessibilidade "
 "dos utilizadores."
 
-#: includes/class-edg-statement.php:1125
+#: includes/class-livqacea-statement.php:1146
 msgid ""
 "All links that open in a new tab/window announce this to screen reader users "
 "via a hidden label."
@@ -1759,7 +1884,7 @@ msgstr ""
 "Todas as ligações que abrem num novo separador/janela anunciam isso aos "
 "utilizadores de leitores de ecrã através de uma etiqueta oculta."
 
-#: includes/class-edg-statement.php:1129
+#: includes/class-livqacea-statement.php:1150
 msgid ""
 "A skip navigation link is provided as the first element in the page, "
 "allowing keyboard users to jump directly to the main content."
@@ -1768,7 +1893,7 @@ msgstr ""
 "página, permitindo que os utilizadores de teclado saltem diretamente para o "
 "conteúdo principal."
 
-#: includes/class-edg-statement.php:1133
+#: includes/class-livqacea-statement.php:1154
 msgid ""
 "Decorative images carry an explicit empty alt attribute so screen readers "
 "skip them rather than announcing the file name."
@@ -1776,7 +1901,7 @@ msgstr ""
 "As imagens decorativas têm um atributo alt explicitamente vazio para que os "
 "leitores de ecrã as saltem em vez de anunciar o nome do ficheiro."
 
-#: includes/class-edg-statement.php:1137
+#: includes/class-livqacea-statement.php:1158
 msgid ""
 "A visible, high-contrast focus indicator is applied to all interactive "
 "elements for keyboard and switch access users."
@@ -1784,7 +1909,7 @@ msgstr ""
 "Um indicador de foco visível e de alto contraste é aplicado a todos os "
 "elementos interativos para utilizadores de teclado e acesso por switch."
 
-#: includes/class-edg-statement.php:1141
+#: includes/class-livqacea-statement.php:1162
 msgid ""
 "Navigation menus with sub-menus expose aria-haspopup and aria-expanded state "
 "to assistive technologies."
@@ -1792,7 +1917,7 @@ msgstr ""
 "Os menus de navegação com submenus expõem o estado aria-haspopup e aria-"
 "expanded às tecnologias de apoio."
 
-#: includes/class-edg-statement.php:1145
+#: includes/class-livqacea-statement.php:1166
 msgid ""
 "Content heading structure is validated on save to prevent level skips that "
 "disorient screen reader users navigating by heading."
@@ -1801,7 +1926,7 @@ msgstr ""
 "saltos de nível que desorientam os utilizadores de leitores de ecrã que "
 "navegam por cabeçalhos."
 
-#: includes/class-edg-statement.php:1149
+#: includes/class-livqacea-statement.php:1170
 msgid ""
 "Icon and image links without visible text receive programmatic accessible "
 "labels so screen readers announce the link destination."
@@ -1809,7 +1934,7 @@ msgstr ""
 "As ligações de ícone e imagem sem texto visível recebem etiquetas acessíveis "
 "programáticas para que os leitores de ecrã anunciem o destino da ligação."
 
-#: includes/class-edg-statement.php:1153
+#: includes/class-livqacea-statement.php:1174
 msgid ""
 "Embedded iframes without a title attribute receive a programmatic title so "
 "screen readers can identify the embedded content."
@@ -1817,7 +1942,7 @@ msgstr ""
 "Os iframes incorporados sem atributo title recebem um título programático "
 "para que os leitores de ecrã possam identificar o conteúdo incorporado."
 
-#: includes/class-edg-statement.php:1157
+#: includes/class-livqacea-statement.php:1178
 msgid ""
 "Form inputs without a visible label receive programmatic labels so assistive "
 "technology users can identify each field."
@@ -1826,7 +1951,7 @@ msgstr ""
 "para que os utilizadores de tecnologia de apoio possam identificar cada "
 "campo."
 
-#: includes/class-edg-statement.php:1161
+#: includes/class-livqacea-statement.php:1182
 msgid ""
 "WooCommerce quantity controls, product gallery, and cart notifications are "
 "enhanced with ARIA labels and live region announcements."
@@ -1835,7 +1960,7 @@ msgstr ""
 "carrinho do WooCommerce são melhorados com etiquetas ARIA e anúncios de "
 "região em tempo real."
 
-#: includes/class-edg-statement.php:1165
+#: includes/class-livqacea-statement.php:1186
 msgid ""
 "A pre-publish accessibility panel in the block editor alerts authors about "
 "heading skips, missing alt text, and unlabeled form fields before content "
@@ -1845,197 +1970,88 @@ msgstr ""
 "autores sobre saltos de títulos, texto alt em falta e campos de formulário "
 "sem etiqueta antes de o conteúdo ser publicado."
 
-#: includes/class-edg-woocommerce.php:95
+#. translators: aria-label for WooCommerce quantity decrease button
+#: includes/class-livqacea-woocommerce.php:126
 msgid "Decrease quantity"
 msgstr "Diminuir quantidade"
 
-#: includes/class-edg-woocommerce.php:109
+#. translators: aria-label for WooCommerce quantity increase button
+#: includes/class-livqacea-woocommerce.php:140
 msgid "Increase quantity"
 msgstr "Aumentar quantidade"
 
-#: includes/class-edg-woocommerce.php:136
+#. translators: aria-label for WooCommerce product gallery zoom button
+#: includes/class-livqacea-woocommerce.php:184
 msgid "Open product image gallery"
 msgstr "Abrir galeria de imagens do produto"
 
-#: includes/class-edg-woocommerce.php:191
+#. translators: %s: product name
+#: includes/class-livqacea-woocommerce.php:239
 #, php-format
 msgid "Add %s to cart"
 msgstr "Adicionar %s ao carrinho"
 
-#: includes/class-edg-woocommerce.php:254
+#. translators: screen-reader cart announcement, followed by product name or button label
+#: includes/class-livqacea-woocommerce.php:302
 msgid "added to cart."
 msgstr "adicionado ao carrinho."
 
-#: includes/class-edg-woocommerce.php:255
+#: includes/class-livqacea-woocommerce.php:303
 msgid "Item added to cart."
 msgstr "Item adicionado ao carrinho."
 
-#: includes/class-edg-woocommerce.php:256
+#: includes/class-livqacea-woocommerce.php:304
 msgid "Item removed from cart."
 msgstr "Item removido do carrinho."
 
-#: includes/class-edg-woocommerce.php:257
-msgid "Quantity"
-msgstr "Quantidade"
+#: assets/js/livqacea-prepublish.js:134
+msgid ""
+"1 image missing alternative text (alt). Screen reader users will not be able "
+"to perceive the image content (WCAG 1.1.1)."
+msgstr ""
+"1 imagem sem texto alternativo (alt). Os utilizadores de leitores de ecrã "
+"não conseguirão percepcionar o conteúdo da imagem (WCAG 1.1.1)."
 
-#~ msgid "LivQ AccessFix v%s - License: GPLv2 or later."
-#~ msgstr "LivQ AccessFix v%s - Licença: GPLv2 ou posterior."
+#: assets/js/livqacea-prepublish.js:135
+msgid ""
+"images missing alternative text (alt). Screen reader users will not be able "
+"to perceive the content (WCAG 1.1.1)."
+msgstr ""
+"imagens sem texto alternativo (alt). Os utilizadores de leitores de ecrã não "
+"conseguirão percepcionar o conteúdo (WCAG 1.1.1)."
 
-#~ msgid "Are you protecting your clients from the EAA?"
-#~ msgstr "Está a proteger os seus clientes do EAA?"
+#: assets/js/livqacea-prepublish.js:160
+msgid ""
+"1 link uses a URL as clickable text. Replace the URL with a meaningful "
+"description of the action or destination (WCAG 2.4.4)."
+msgstr ""
+"1 ligação usa um URL como texto clicável. Substitua o URL por uma descrição "
+"significativa da acção ou do destino (WCAG 2.4.4)."
 
-#~ msgid ""
-#~ "LivQ AccessFix helps you protect your clients' websites from European "
-#~ "Accessibility Act penalties. If this open source tool is saving you hours "
-#~ "of manual remediation, support LivQ's development by leaving a 5-star "
-#~ "review on WordPress.org!"
-#~ msgstr ""
-#~ "O LivQ AccessFix ajuda-o a proteger os sítios web dos seus clientes das "
-#~ "sanções da Lei Europeia de Acessibilidade. Se esta ferramenta de código "
-#~ "aberto está a poupar-lhe horas de correcção manual, apoie o "
-#~ "desenvolvimento da LivQ deixando uma avaliação de 5 estrelas no "
-#~ "WordPress.org!"
+#: assets/js/livqacea-prepublish.js:161
+msgid ""
+"links use a URL as clickable text. Replace them with meaningful descriptions "
+"(WCAG 2.4.4)."
+msgstr ""
+"ligações usam um URL como texto clicável. Substitua-as por descrições "
+"significativas (WCAG 2.4.4)."
 
-#~ msgid "Leave a review on WordPress.org"
-#~ msgstr "Deixar uma avaliação no WordPress.org"
+#: assets/js/livqacea-prepublish.js:168
+msgid "Accessibility - No issues"
+msgstr "Acessibilidade - Sem problemas"
 
-#~ msgid ""
-#~ "1 image missing alternative text (alt). Screen reader users will not be "
-#~ "able to perceive the image content (WCAG 1.1.1)."
-#~ msgstr ""
-#~ "1 imagem sem texto alternativo (alt). Os utilizadores de leitores de ecrã "
-#~ "não conseguirão percepcionar o conteúdo da imagem (WCAG 1.1.1)."
+#: assets/js/livqacea-prepublish.js:169
+msgid "Accessibility"
+msgstr "Acessibilidade"
 
-#~ msgid ""
-#~ "images missing alternative text (alt). Screen reader users will not be "
-#~ "able to perceive the content (WCAG 1.1.1)."
-#~ msgstr ""
-#~ "imagens sem texto alternativo (alt). Os utilizadores de leitores de ecrã "
-#~ "não conseguirão percepcionar o conteúdo (WCAG 1.1.1)."
+#: assets/js/livqacea-prepublish.js:171
+msgid "warning"
+msgstr "aviso"
 
-#~ msgid ""
-#~ "1 link uses a URL as clickable text. Replace the URL with a meaningful "
-#~ "description of the action or destination (WCAG 2.4.4)."
-#~ msgstr ""
-#~ "1 ligação usa um URL como texto clicável. Substitua o URL por uma "
-#~ "descrição significativa da acção ou do destino (WCAG 2.4.4)."
+#: assets/js/livqacea-prepublish.js:172
+msgid "warnings"
+msgstr "avisos"
 
-#~ msgid ""
-#~ "links use a URL as clickable text. Replace them with meaningful "
-#~ "descriptions (WCAG 2.4.4)."
-#~ msgstr ""
-#~ "ligações usam um URL como texto clicável. Substitua-as por descrições "
-#~ "significativas (WCAG 2.4.4)."
-
-#~ msgid "Accessibility - No issues"
-#~ msgstr "Acessibilidade - Sem problemas"
-
-#~ msgid "Accessibility"
-#~ msgstr "Acessibilidade"
-
-#~ msgid "warning"
-#~ msgstr "aviso"
-
-#~ msgid "warnings"
-#~ msgstr "avisos"
-
-#~ msgid "No accessibility issues detected in this document."
-#~ msgstr "Não foram detectados problemas de acessibilidade neste documento."
-
-#~ msgid ""
-#~ "Automated WCAG 2.2 AA & European Accessibility Act (EAA) remediation for "
-#~ "WordPress: focus styles, external link labels, skip links, alt "
-#~ "attributes, heading hierarchy, ARIA menus, and Gutenberg pre-publish "
-#~ "checks - zero configuration required."
-#~ msgstr ""
-#~ "Correção automatizada WCAG 2.2 AA e EAA para WordPress: estilos de foco, "
-#~ "rótulos de ligações externas, ligações de salto, atributos alt, "
-#~ "hierarquia de títulos, menus ARIA e verificações pré-publicação do "
-#~ "Gutenberg - sem configuração necessária."
-
-#~ msgid ""
-#~ "I confirm that the information in this statement is accurate and that I "
-#~ "take responsibility for its content. This statement was prepared with the "
-#~ "assistance of LivQ AccessFix\\'s automated tools."
-#~ msgstr ""
-#~ "Confirmo que as informações desta declaração são precisas e assumo a "
-#~ "responsabilidade pelo seu conteúdo. Esta declaração foi preparada com a "
-#~ "assistência das ferramentas automatizadas do LivQ AccessFix."
-
-#~ msgid ""
-#~ "Statement prepared: %1$s. Prepared with the assistance of LivQ AccessFix "
-#~ "v%2$s automated tools. The accuracy and completeness of this statement is "
-#~ "the sole responsibility of the website operator."
-#~ msgstr ""
-#~ "Declaração preparada em: %1$s. Preparada com a assistência das "
-#~ "ferramentas automatizadas do LivQ AccessFix v%2$s. A precisão e "
-#~ "integridade desta declaração são da exclusiva responsabilidade do "
-#~ "operador do sítio web."
-
-#~ msgid "Known Limitations and Disclaimers"
-#~ msgstr "Limitações conhecidas e isenções de responsabilidade"
-
-#~ msgid "Standard applied:"
-#~ msgstr "Norma aplicada:"
-
-#~ msgid ""
-#~ "This website is <strong>%s</strong> with WCAG 2.2 Level AA. \"Partially "
-#~ "conformant\" means that some parts of the content do not yet fully "
-#~ "conform to the accessibility standard."
-#~ msgstr ""
-#~ "Este sítio web é <strong>%s</strong> com WCAG 2.2 Nível AA. "
-#~ "\"Parcialmente conforme\" significa que algumas partes do conteúdo ainda "
-#~ "não estão totalmente em conformidade com a norma de acessibilidade."
-
-#~ msgid ""
-#~ "Despite our best efforts, some content elements may have temporary "
-#~ "limitations (e.g., older PDF documents, third-party embedded maps, or "
-#~ "user-generated media galleries). We are actively working to audit and "
-#~ "manually remediate these components."
-#~ msgstr ""
-#~ "Apesar dos nossos melhores esforços, alguns elementos de conteúdo podem "
-#~ "ter limitações temporárias (p. ex., documentos PDF mais antigos, mapas "
-#~ "incorporados de terceiros ou galerias de multimédia geradas por "
-#~ "utilizadores). Estamos a trabalhar ativamente para auditar e remediar "
-#~ "manualmente esses componentes."
-
-#~ msgid ""
-#~ "We welcome your feedback on the accessibility of this website. If you "
-#~ "encounter any accessibility barriers, please notify us immediately so we "
-#~ "can provide an accessible alternative:"
-#~ msgstr ""
-#~ "Agradecemos o seu feedback sobre a acessibilidade deste sítio web. Se "
-#~ "encontrar barreiras de acessibilidade, notifique-nos imediatamente para "
-#~ "que possamos fornecer uma alternativa acessível:"
-
-#~ msgid ""
-#~ "This statement is prepared in compliance with the European Accessibility "
-#~ "Act (Directive (EU) 2019/882) and applicable national implementing "
-#~ "legislation. The technical requirements are based on the harmonised "
-#~ "standard EN 301 549 v3.2.1, which incorporates Web Content Accessibility "
-#~ "Guidelines (WCAG) 2.2, Level AA."
-#~ msgstr ""
-#~ "Esta declaração é preparada em conformidade com a Lei Europeia de "
-#~ "Acessibilidade (Diretiva (UE) 2019/882) e a legislação nacional de "
-#~ "transposição aplicável. Os requisitos técnicos baseiam-se na norma "
-#~ "harmonizada EN 301 549 v3.2.1, que incorpora as Diretrizes de "
-#~ "Acessibilidade para Conteúdo Web (WCAG) 2.2, Nível AA."
-
-#~ msgid ""
-#~ "Private sector: governed by Directive (EU) 2019/882 (EAA), applicable "
-#~ "from 28 June 2025. Public sector: governed by Directive 2016/2102 + "
-#~ "Implementing Decision 2018/1523, applicable since 2018/2019."
-#~ msgstr ""
-#~ "Setor privado: regido pela Diretiva (UE) 2019/882 (EAA), aplicável a "
-#~ "partir de 28 de junho de 2025. Setor público: regido pela Diretiva "
-#~ "2016/2102 + Decisão de Execução 2018/1523, aplicável desde 2018/2019."
-
-#~ msgid ""
-#~ "Public Administration: you must also submit this statement annually via "
-#~ "the official national channel (e.g. form.agid.gov.it for Italy). This "
-#~ "plugin generates the public-facing statement but does not submit it to "
-#~ "the authorities."
-#~ msgstr ""
-#~ "Administração Pública: deve também submeter esta declaração anualmente "
-#~ "através do canal nacional oficial (ex. form.agid.gov.it para Itália). "
-#~ "Este plugin gera a declaração pública mas não a submete às autoridades."
+#: assets/js/livqacea-prepublish.js:201
+msgid "No accessibility issues detected in this document."
+msgstr "Não foram detectados problemas de acessibilidade neste documento."

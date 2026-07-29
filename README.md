@@ -6,7 +6,7 @@
 
 Server-side WCAG 2.2 AA & European Accessibility Act (EAA) fixes for WordPress. Skip links, alt text, ARIA menus, heading checks, an issues log, and an Accessibility Statement generator — zero configuration.
 
-**[Get it on WordPress.org →](https://wordpress.org/plugins/livq-accessfix/)** · **[livq.it/plugins/livq-accessfix →](https://livq.it/plugins/livq-accessfix/)**
+**[Get it on WordPress.org →](https://wordpress.org/plugins/livq-accessfix/)** · **[skapacraft.com/tools/plugins/livq-accessfix →](https://skapacraft.com/tools/plugins/livq-accessfix/)**
 
 ## Why server-side
 
@@ -62,7 +62,7 @@ This plugin does not collect, store, or transmit any personal data. No third-par
 
 ## Support
 
-- **Bug reports / feature requests:** [GitHub Issues](https://github.com/livqtech/livq-accessfix/issues)
+- **Bug reports / feature requests:** [GitHub Issues](https://github.com/skapacraft/livq-accessfix/issues)
 - **Support forum:** [wordpress.org/support/plugin/livq-accessfix](https://wordpress.org/support/plugin/livq-accessfix/)
 - **Translations:** handled via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/livq-accessfix/) — contributions welcome.
 
@@ -72,4 +72,4 @@ GPL-2.0-or-later. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html).
 
 ---
 
-Built by [LivQ](https://livq.it) — premium WordPress plugins built for performance.
+Built by [LivQ](https://livq.it) and [SkapaCraft](https://skapacraft.com) — premium WordPress plugins built for performance.
