@@ -772,6 +772,7 @@ class LIVQACEA_Backend {
 				// Same filter core uses for its own loopback requests, so local
 				// and staging certificates keep working without disabling
 				// verification unconditionally.
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter, re-applied so a site's local-development override keeps working.
 				'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
 				'headers'   => array( 'Cache-Control' => 'no-cache' ),
 			)

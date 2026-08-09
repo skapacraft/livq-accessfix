@@ -147,7 +147,7 @@ class LIVQACEA_WooCommerce {
 	}
 
 	/**
-	 * preg_replace_callback() that falls back to the original subject.
+	 * Wrapper around preg_replace_callback() that falls back to the original subject.
 	 *
 	 * PCRE returns null on failure (PREG_BACKTRACK_LIMIT_ERROR on large pages);
 	 * propagating that null would blank the whole page.

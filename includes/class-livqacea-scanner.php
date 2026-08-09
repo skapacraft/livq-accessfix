@@ -403,6 +403,7 @@ class LIVQACEA_Scanner {
 			array(
 				'timeout'    => 20,
 				'user-agent' => 'LivqaceaA11yScanner/1.0 WordPress/' . get_bloginfo( 'version' ),
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter, re-applied so a site's local-development override keeps working.
 				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
 			)
 		);
@@ -480,6 +481,7 @@ class LIVQACEA_Scanner {
 				array(
 					'timeout'    => self::FETCH_TIMEOUT,
 					'user-agent' => 'LivqaceaA11yScanner/1.0',
+					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter, re-applied so a site's local-development override keeps working.
 					'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
 				)
 			);
@@ -525,26 +527,26 @@ class LIVQACEA_Scanner {
 		// 1. <html lang> missing - WCAG 3.1.1
 		if ( ! preg_match( '/<html\b[^>]*\blang=["\'][^"\']+["\'][^>]*>/i', $html ) ) {
 			$issues[] = array(
-				'type'       => 'html-lang',
-				'severity'   => 'high',
-				'wcag'       => '3.1.1',
-				'message'    => __( 'Page language not declared on &lt;html&gt; element.', 'livq-accessfix' ),
-				'count'      => 1,
-				'sample'     => self::snippet( $html, '<html' ),
-				'status'     => self::issue_status( '', $options ),
+				'type'     => 'html-lang',
+				'severity' => 'high',
+				'wcag'     => '3.1.1',
+				'message'  => __( 'Page language not declared on &lt;html&gt; element.', 'livq-accessfix' ),
+				'count'    => 1,
+				'sample'   => self::snippet( $html, '<html' ),
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
 		// 2. Skip link missing - WCAG 2.4.1
 		if ( ! preg_match( '/<a\b[^>]*href=["\']#[^"\']+["\'][^>]*>[^<]*(?:skip|salta|bypass|jump|main|content)[^<]*<\/a>/i', $html ) ) {
 			$issues[] = array(
-				'type'       => 'skip-link',
-				'severity'   => 'high',
-				'wcag'       => '2.4.1',
-				'message'    => __( 'No skip link found. Keyboard users cannot bypass navigation.', 'livq-accessfix' ),
-				'count'      => 1,
-				'sample'     => '',
-				'status'     => self::issue_status( 'inject_skip_link', $options ),
+				'type'     => 'skip-link',
+				'severity' => 'high',
+				'wcag'     => '2.4.1',
+				'message'  => __( 'No skip link found. Keyboard users cannot bypass navigation.', 'livq-accessfix' ),
+				'count'    => 1,
+				'sample'   => '',
+				'status'   => self::issue_status( 'inject_skip_link', $options ),
 			);
 		}
 
@@ -552,17 +554,17 @@ class LIVQACEA_Scanner {
 		preg_match_all( '/<img\b(?![^>]*\balt=)[^>]*>/i', $html, $m );
 		if ( $m[0] ) {
 			$issues[] = array(
-				'type'       => 'img-no-alt',
-				'severity'   => 'critical',
-				'wcag'       => '1.1.1',
-				'message'    => sprintf(
+				'type'     => 'img-no-alt',
+				'severity' => 'critical',
+				'wcag'     => '1.1.1',
+				'message'  => sprintf(
 					/* translators: %d: number of images */
 					_n( '%d image is missing the alt attribute.', '%d images are missing the alt attribute.', count( $m[0] ), 'livq-accessfix' ),
 					count( $m[0] )
 				),
-				'count'      => count( $m[0] ),
-				'sample'     => substr( $m[0][0], 0, 200 ),
-				'status'     => self::issue_status( 'fix_image_alt', $options ),
+				'count'    => count( $m[0] ),
+				'sample'   => substr( $m[0][0], 0, 200 ),
+				'status'   => self::issue_status( 'fix_image_alt', $options ),
 			);
 		}
 
@@ -585,17 +587,17 @@ class LIVQACEA_Scanner {
 		}
 		if ( $nameless_links ) {
 			$issues[] = array(
-				'type'       => 'link-no-name',
-				'severity'   => 'critical',
-				'wcag'       => '2.4.4',
-				'message'    => sprintf(
+				'type'     => 'link-no-name',
+				'severity' => 'critical',
+				'wcag'     => '2.4.4',
+				'message'  => sprintf(
 					/* translators: %d: number of links */
 					_n( '%d link has no accessible name (empty or image-only).', '%d links have no accessible name.', count( $nameless_links ), 'livq-accessfix' ),
 					count( $nameless_links )
 				),
-				'count'      => count( $nameless_links ),
-				'sample'     => $nameless_links[0],
-				'status'     => self::issue_status( 'fix_nameless_links', $options ),
+				'count'    => count( $nameless_links ),
+				'sample'   => $nameless_links[0],
+				'status'   => self::issue_status( 'fix_nameless_links', $options ),
 			);
 		}
 
@@ -618,17 +620,17 @@ class LIVQACEA_Scanner {
 		}
 		if ( $nameless_btns ) {
 			$issues[] = array(
-				'type'       => 'button-no-name',
-				'severity'   => 'critical',
-				'wcag'       => '4.1.2',
-				'message'    => sprintf(
+				'type'     => 'button-no-name',
+				'severity' => 'critical',
+				'wcag'     => '4.1.2',
+				'message'  => sprintf(
 					/* translators: %d: number of buttons */
 					_n( '%d button has no accessible name.', '%d buttons have no accessible name.', count( $nameless_btns ), 'livq-accessfix' ),
 					count( $nameless_btns )
 				),
-				'count'      => count( $nameless_btns ),
-				'sample'     => $nameless_btns[0],
-				'status'     => self::issue_status( '', $options ),
+				'count'    => count( $nameless_btns ),
+				'sample'   => $nameless_btns[0],
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
@@ -651,17 +653,17 @@ class LIVQACEA_Scanner {
 		}
 		if ( $unlabeled ) {
 			$issues[] = array(
-				'type'       => 'input-no-label',
-				'severity'   => 'critical',
-				'wcag'       => '1.3.1',
-				'message'    => sprintf(
+				'type'     => 'input-no-label',
+				'severity' => 'critical',
+				'wcag'     => '1.3.1',
+				'message'  => sprintf(
 					/* translators: %d: number of inputs */
 					_n( '%d form field has no accessible label.', '%d form fields have no accessible label.', count( $unlabeled ), 'livq-accessfix' ),
 					count( $unlabeled )
 				),
-				'count'      => count( $unlabeled ),
-				'sample'     => $unlabeled[0],
-				'status'     => self::issue_status( 'fix_input_labels', $options ),
+				'count'    => count( $unlabeled ),
+				'sample'   => $unlabeled[0],
+				'status'   => self::issue_status( 'fix_input_labels', $options ),
 			);
 		}
 
@@ -669,17 +671,17 @@ class LIVQACEA_Scanner {
 		preg_match_all( '/<iframe\b(?![^>]*\btitle=["\'][^"\']+["\'])[^>]*>/i', $html, $m );
 		if ( $m[0] ) {
 			$issues[] = array(
-				'type'       => 'iframe-no-title',
-				'severity'   => 'high',
-				'wcag'       => '4.1.2',
-				'message'    => sprintf(
+				'type'     => 'iframe-no-title',
+				'severity' => 'high',
+				'wcag'     => '4.1.2',
+				'message'  => sprintf(
 					/* translators: %d: number of iframes */
 					_n( '%d iframe has no title attribute.', '%d iframes have no title attribute.', count( $m[0] ), 'livq-accessfix' ),
 					count( $m[0] )
 				),
-				'count'      => count( $m[0] ),
-				'sample'     => substr( $m[0][0], 0, 200 ),
-				'status'     => self::issue_status( 'fix_iframe_titles', $options ),
+				'count'    => count( $m[0] ),
+				'sample'   => substr( $m[0][0], 0, 200 ),
+				'status'   => self::issue_status( 'fix_iframe_titles', $options ),
 			);
 		}
 
@@ -693,17 +695,17 @@ class LIVQACEA_Scanner {
 		}
 		if ( $blank_no_sr ) {
 			$issues[] = array(
-				'type'       => 'blank-no-sr',
-				'severity'   => 'high',
-				'wcag'       => '2.4.4',
-				'message'    => sprintf(
+				'type'     => 'blank-no-sr',
+				'severity' => 'high',
+				'wcag'     => '2.4.4',
+				'message'  => sprintf(
 					/* translators: %d: number of links */
 					_n( '%d link opening in a new tab lacks a screen-reader notice.', '%d links opening in new tabs lack a screen-reader notice.', count( $blank_no_sr ), 'livq-accessfix' ),
 					count( $blank_no_sr )
 				),
-				'count'      => count( $blank_no_sr ),
-				'sample'     => $blank_no_sr[0],
-				'status'     => self::issue_status( 'fix_external_links', $options ),
+				'count'    => count( $blank_no_sr ),
+				'sample'   => $blank_no_sr[0],
+				'status'   => self::issue_status( 'fix_external_links', $options ),
 			);
 		}
 
@@ -719,18 +721,18 @@ class LIVQACEA_Scanner {
 		if ( $skips ) {
 			$unique_skips = array_unique( $skips );
 			$issues[]     = array(
-				'type'       => 'heading-skip',
-				'severity'   => 'high',
-				'wcag'       => '1.3.1',
-				'message'    => sprintf(
+				'type'     => 'heading-skip',
+				'severity' => 'high',
+				'wcag'     => '1.3.1',
+				'message'  => sprintf(
 					/* translators: 1: number of skips, 2: list of skip pairs */
 					__( 'Heading hierarchy has %1$d skip(s): %2$s', 'livq-accessfix' ),
 					count( $skips ),
 					implode( ', ', $unique_skips )
 				),
-				'count'      => count( $skips ),
-				'sample'     => implode( ', ', $unique_skips ),
-				'status'     => self::issue_status( '', $options ),
+				'count'    => count( $skips ),
+				'sample'   => implode( ', ', $unique_skips ),
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
@@ -738,17 +740,17 @@ class LIVQACEA_Scanner {
 		$h1_count = preg_match_all( '/<h1\b/i', $html );
 		if ( $h1_count > 1 ) {
 			$issues[] = array(
-				'type'       => 'multiple-h1',
-				'severity'   => 'warning',
-				'wcag'       => '1.3.1',
-				'message'    => sprintf(
+				'type'     => 'multiple-h1',
+				'severity' => 'warning',
+				'wcag'     => '1.3.1',
+				'message'  => sprintf(
 					/* translators: %d: number of H1 elements */
 					__( '%d H1 elements found - a page should have exactly one.', 'livq-accessfix' ),
 					$h1_count
 				),
-				'count'      => $h1_count,
-				'sample'     => '',
-				'status'     => self::issue_status( '', $options ),
+				'count'    => $h1_count,
+				'sample'   => '',
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
@@ -756,17 +758,17 @@ class LIVQACEA_Scanner {
 		preg_match_all( '/<h[1-6]\b[^>]*>\s*<\/h[1-6]>/i', $html, $m );
 		if ( $m[0] ) {
 			$issues[] = array(
-				'type'       => 'heading-empty',
-				'severity'   => 'warning',
-				'wcag'       => '2.4.6',
-				'message'    => sprintf(
+				'type'     => 'heading-empty',
+				'severity' => 'warning',
+				'wcag'     => '2.4.6',
+				'message'  => sprintf(
 					/* translators: %d: number of empty headings */
 					_n( '%d empty heading found.', '%d empty headings found.', count( $m[0] ), 'livq-accessfix' ),
 					count( $m[0] )
 				),
-				'count'      => count( $m[0] ),
-				'sample'     => substr( $m[0][0], 0, 200 ),
-				'status'     => self::issue_status( '', $options ),
+				'count'    => count( $m[0] ),
+				'sample'   => substr( $m[0][0], 0, 200 ),
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
@@ -780,30 +782,30 @@ class LIVQACEA_Scanner {
 		}
 		if ( $tables_no_th ) {
 			$issues[] = array(
-				'type'       => 'table-no-header',
-				'severity'   => 'warning',
-				'wcag'       => '1.3.1',
-				'message'    => sprintf(
+				'type'     => 'table-no-header',
+				'severity' => 'warning',
+				'wcag'     => '1.3.1',
+				'message'  => sprintf(
 					/* translators: %d: number of tables */
 					_n( '%d table has no header cells (&lt;th&gt;).', '%d tables have no header cells.', count( $tables_no_th ), 'livq-accessfix' ),
 					count( $tables_no_th )
 				),
-				'count'      => count( $tables_no_th ),
-				'sample'     => $tables_no_th[0],
-				'status'     => self::issue_status( '', $options ),
+				'count'    => count( $tables_no_th ),
+				'sample'   => $tables_no_th[0],
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
 		// 13. Missing <main> landmark - WCAG 1.3.6
 		if ( ! preg_match( '/<main\b|role=["\']main["\']/i', $html ) ) {
 			$issues[] = array(
-				'type'       => 'no-main-landmark',
-				'severity'   => 'warning',
-				'wcag'       => '1.3.6',
-				'message'    => __( 'No &lt;main&gt; landmark found. Screen reader users cannot jump directly to main content.', 'livq-accessfix' ),
-				'count'      => 1,
-				'sample'     => '',
-				'status'     => self::issue_status( '', $options ),
+				'type'     => 'no-main-landmark',
+				'severity' => 'warning',
+				'wcag'     => '1.3.6',
+				'message'  => __( 'No &lt;main&gt; landmark found. Screen reader users cannot jump directly to main content.', 'livq-accessfix' ),
+				'count'    => 1,
+				'sample'   => '',
+				'status'   => self::issue_status( '', $options ),
 			);
 		}
 
@@ -812,17 +814,17 @@ class LIVQACEA_Scanner {
 			preg_match_all( '/<button\b[^>]*class=["\'][^"\']*(?:plus|minus|increase|decrease)[^"\']*["\']\s(?![^>]*aria-label)[^>]*>/i', $html, $m );
 			if ( $m[0] ) {
 				$issues[] = array(
-					'type'       => 'wc-qty-no-label',
-					'severity'   => 'critical',
-					'wcag'       => '4.1.2',
-					'message'    => sprintf(
+					'type'     => 'wc-qty-no-label',
+					'severity' => 'critical',
+					'wcag'     => '4.1.2',
+					'message'  => sprintf(
 						/* translators: %d: number of quantity buttons */
 						_n( '%d WooCommerce quantity button has no aria-label.', '%d WooCommerce quantity buttons have no aria-label.', count( $m[0] ), 'livq-accessfix' ),
 						count( $m[0] )
 					),
-					'count'      => count( $m[0] ),
-					'sample'     => substr( $m[0][0], 0, 200 ),
-					'status'     => self::issue_status( 'woocommerce_a11y', $options ),
+					'count'    => count( $m[0] ),
+					'sample'   => substr( $m[0][0], 0, 200 ),
+					'status'   => self::issue_status( 'woocommerce_a11y', $options ),
 				);
 			}
 		}

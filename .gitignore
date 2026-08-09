@@ -1,1 +1,8 @@
 .DS_Store
+
+# Composer: only dev tooling lives here, the plugin ships no runtime dependency.
+/vendor/
+
+# Build output
+/build/
+*.zip

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ruleset name="LivQ AccessFix">
+  <description>PHPCS ruleset: WordPress Coding Standards for LivQ AccessFix.</description>
+
+  <!-- Scope: only plugin source files -->
+  <file>.</file>
+  <exclude-pattern>vendor/*</exclude-pattern>
+  <exclude-pattern>node_modules/*</exclude-pattern>
+
+  <!--
+    PHP only. WPCS 3.x dropped its JavaScript and CSS sniffs, so pointing it at
+    assets/ produces findings from legacy sniffs that no longer reflect any
+    published standard.
+  -->
+  <arg name="extensions" value="php"/>
+
+  <!-- Target PHP version -->
+  <config name="testVersion" value="7.4-"/>
+
+  <!-- WordPress Coding Standards -->
+  <rule ref="WordPress">
+    <!-- Inline JS/CSS is handled inside PHP strings; tab indentation doesn't apply. -->
+    <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+    <!-- Short array syntax [] is modern PHP best practice and used throughout WP core since 4.x. -->
+    <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+    <!-- File names follow WordPress plugin conventions (class-slug.php) not PSR-4. -->
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+    <!-- Short ternary (?:) is a legitimate PHP operator; not ambiguous in context. -->
+    <exclude name="Universal.Operators.DisallowShortTernary"/>
+  </rule>
+
+  <!-- Text domain enforcement -->
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <property name="text_domain" type="array">
+        <element value="livq-accessfix"/>
+      </property>
+    </properties>
+  </rule>
+
+  <!-- Enforce the plugin prefix on all global symbols -->
+  <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+    <properties>
+      <property name="prefixes" type="array">
+        <element value="livqacea_"/>
+        <element value="LivQAccessFix"/>
+        <element value="LivQACEA_"/>
+        <element value="LIVQACEA_"/>
+      </property>
+    </properties>
+  </rule>
+
+  <!-- Minimum WP version for deprecated functions -->
+  <rule ref="WordPress.WP.DeprecatedFunctions"/>
+</ruleset>

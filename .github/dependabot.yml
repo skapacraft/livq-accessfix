@@ -1,0 +1,26 @@
+# Copyright (C) 2026 SkapaCraft <https://skapacraft.com>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+# The plugin ships no runtime dependency: everything Composer installs here is
+# development tooling, and everything GitHub Actions runs has a token on every
+# push. Those are the two graphs worth watching.
+version: 2
+
+updates:
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
+    groups:
+      # One pull request for the routine bumps, so the ones worth reading are
+      # the ones left over.
+      minor-and-patch:
+        update-types: [minor, patch]
+    labels: [dependencies]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels: [dependencies]

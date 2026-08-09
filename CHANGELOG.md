@@ -1,6 +1,27 @@
 # Changelog
 
 All notable changes to LivQ AccessFix are documented here.
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and the project uses [semantic versioning](https://semver.org/).
+
+## [Unreleased]
+
+### Added
+- `LICENSE` with the full GPL-2.0 text. The plugin had always declared
+  GPL-2.0-or-later in its header, its `readme.txt` and its README, but without
+  the file GitHub reported the repository as carrying no licence at all.
+- `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and issue and pull
+  request templates.
+- Continuous integration: PHPCS against the WordPress Coding Standards, plus a
+  syntax check on PHP 7.4 through 8.3, on every push.
+- `composer.json` and `phpcs.xml.dist`, so the coding standard is reproducible
+  rather than a local habit.
+- Dependabot configuration for the development dependencies and the CI actions.
+
+### Fixed
+- Whitespace and doc-comment issues reported by PHPCS across the `includes/`
+  classes. No behaviour changes.
+- One Italian comment left in `class-livqacea-main.php`.
 
 ## [1.0.1] - 2026-07-29
 

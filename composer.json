@@ -1,0 +1,39 @@
+{
+  "name": "skapacraft/livq-accessfix",
+  "description": "Server-side WCAG 2.2 AA and European Accessibility Act remediation for WordPress.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "SkapaCraft",
+      "homepage": "https://github.com/skapacraft"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.1",
+    "phpcsstandards/phpcsutils": "^1.0",
+    "phpcsstandards/phpcsextra": "^1.2",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "7.4.0"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "phpcs": "phpcs --standard=phpcs.xml.dist",
+    "phpcbf": "phpcbf --standard=phpcs.xml.dist",
+    "pot": "wp i18n make-pot . languages/livq-accessfix.pot --domain=livq-accessfix --exclude=vendor,node_modules",
+    "lint": [
+      "@phpcs"
+    ]
+  }
+}

@@ -120,7 +120,7 @@ final class LIVQACEA_Main {
 			'woocommerce_a11y'        => true,
 			// Accessibility Statement (v1.0.0).
 			'a11y_statement'          => true,
-			// Configurazione (v1.0.0).
+			// Configuration (v1.0.0).
 			'skip_link_target'        => '',
 			'delete_on_uninstall'     => false,
 		);

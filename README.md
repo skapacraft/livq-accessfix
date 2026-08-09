@@ -66,10 +66,36 @@ This plugin does not collect, store, or transmit any personal data. No third-par
 - **Support forum:** [wordpress.org/support/plugin/livq-accessfix](https://wordpress.org/support/plugin/livq-accessfix/)
 - **Translations:** handled via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/livq-accessfix/), contributions welcome.
 
-## License
+## Reporting a security problem
 
-GPL-2.0-or-later. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html).
+Not in a public issue: use the **Security** tab, then **Report a vulnerability**.
+This plugin rewrites every page a site serves, so a report stays private until
+there is a fix. What counts as one here, and what does not, is in
+[SECURITY.md](SECURITY.md).
 
----
+## Contributing
 
-Built by [LivQ](https://livq.it) and [SkapaCraft](https://skapacraft.com): premium WordPress plugins built for performance.
+How to report, propose and build is in [CONTRIBUTING.md](CONTRIBUTING.md).
+Development runs on PHPCS with the WordPress Coding Standards:
+
+```bash
+composer install
+composer phpcs
+```
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for the full history.
+
+## Author
+
+Built by **LivQ** ([livq.it](https://livq.it)) and **SkapaCraft**
+([skapacraft.com](https://skapacraft.com)).
+
+## Licence
+
+Copyright (C) 2026 SkapaCraft. GPL-2.0-or-later, see [LICENSE](LICENSE).
+
+WordPress requires the GPL, and the choice suits a plugin that sits in the
+render path of somebody else's site: whatever it does to their HTML, they can
+read it and change it.

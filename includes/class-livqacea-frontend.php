@@ -253,7 +253,7 @@ class LIVQACEA_Frontend {
 	}
 
 	/**
-	 * preg_replace_callback() that can never blank the page.
+	 * Wrapper around preg_replace_callback() that can never blank the page.
 	 *
 	 * PCRE returns null on failure - typically PREG_BACKTRACK_LIMIT_ERROR on very
 	 * large documents. Casting that null to string (the previous behaviour) threw
@@ -598,8 +598,8 @@ class LIVQACEA_Frontend {
 	/**
 	 * Tells whether a byte offset falls inside one of the given label ranges.
 	 *
-	 * @param int                              $offset Offset of the field tag.
-	 * @param array<int, array{0:int, 1:int}>  $ranges Label ranges.
+	 * @param int                             $offset Offset of the field tag.
+	 * @param array<int, array{0:int, 1:int}> $ranges Label ranges.
 	 * @return bool
 	 */
 	private static function is_inside_label( int $offset, array $ranges ): bool {

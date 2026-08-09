@@ -7,7 +7,7 @@
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            LivQ
- * Author URI:        https://skapacraft.com
+ * Author URI:        https://livq.it
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       livq-accessfix

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/skapacraft/livq-accessfix/security/advisories/new
+    about: Report it privately here, never in a public issue.
+  - name: Support forum
+    url: https://wordpress.org/support/plugin/livq-accessfix/
+    about: Questions about installing, configuring or using the plugin.
+  - name: Translations
+    url: https://translate.wordpress.org/projects/wp-plugins/livq-accessfix/
+    about: Translations are handled on translate.wordpress.org, not here.
