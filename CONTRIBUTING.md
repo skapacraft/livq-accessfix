@@ -50,9 +50,23 @@ composer phpcbf     # fixes what it can automatically
 CI runs the same PHPCS ruleset plus a syntax check on PHP 7.4 through 8.3, on
 every push. A pull request that does not pass PHPCS will not be merged.
 
-Translations are handled on
+## Translations
+
+Community translations live on
 [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/livq-accessfix/),
-not in this repository. Do not add `.po` or `.mo` files to a pull request.
+and that is where to submit one. On a site installed from WordPress.org, those
+are what load: WordPress fetches them into `wp-content/languages/plugins/` and
+they win.
+
+The `languages/` folder here is a deliberate second path, not a duplicate. That
+automatic loading only happens for an install that came from WordPress.org, so a
+site running the plugin from a zip or from git would otherwise get nothing. For
+those, `load_textdomain()` on `init` priority 0 picks up the bundled `.mo`. Where
+WordPress has already loaded a community translation, that call is a no-op.
+
+So: a `.po` or `.mo` in a pull request is fine when it is a language already
+bundled and the change is a fix. A new language belongs on
+translate.wordpress.org first.
 
 ## House rules
 
