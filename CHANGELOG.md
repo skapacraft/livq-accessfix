@@ -4,9 +4,35 @@ All notable changes to LivQ AccessFix are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [semantic versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] - 2026-08-13
+
+Two new remediation modules, both covering criteria no module reached before,
+and the compatibility work for WordPress 7.1.
 
 ### Added
+- **Nameless button fix (WCAG 4.1.2).** New HTML output remediation, the
+  counterpart of the nameless-link fix for `<button>`. Hamburger toggles, search
+  and close controls, carousel arrows and back-to-top buttons are almost always
+  an icon font or an inline SVG with no text, which screen readers announce as
+  just "button". The label is derived from the purpose words in the button's own
+  class or id and in its icon child's class - `menu-toggle`, `fa fa-search`,
+  `swiper-button-next`. A button whose purpose cannot be recognised is left
+  untouched: a wrong name is worse than none. The vocabulary is filterable via
+  `livqacea_button_label_map`. The Scanner already reported these buttons but
+  had no module to point at, so they were all marked "Manual fix".
+- **Identify Input Purpose (WCAG 1.3.5).** New HTML output remediation adding
+  the `autocomplete` attribute to fields that collect information about the user
+  - name, email, telephone, address, postcode, country, username, password.
+  1.3.5 is a level AA criterion no module covered until now. Names are matched
+  after normalisation, so WooCommerce's `billing_`/`shipping_` prefixes and the
+  bracket notation of form builders (`fields[last_name]`) resolve to the same
+  purpose. Fields that already declare an `autocomplete` value, `off` included,
+  are never touched, and passwords are only labelled when the field name says
+  which one it is. The map is filterable via `livqacea_autocomplete_map`.
+- Scanner: reports fields collecting user information that carry no
+  `autocomplete` attribute, using the same derivation as the fixer so it never
+  flags a field the module could not have fixed anyway.
+
 - `LICENSE` with the full GPL-2.0 text. The plugin had always declared
   GPL-2.0-or-later in its header, its `readme.txt` and its README, but without
   the file GitHub reported the repository as carrying no licence at all.
@@ -19,9 +45,31 @@ and the project uses [semantic versioning](https://semver.org/).
 - Dependabot configuration for the development dependencies and the CI actions.
 
 ### Fixed
+- Scanner counted a button holding an image with meaningful alt text - or an
+  SVG carrying its own `aria-label` - as having no accessible name.
+  `strip_tags()` cannot see an attribute, so those were false positives.
+- The fast-path guards that let a fixer skip a page with nothing to fix were
+  case-sensitive, while the regex that follows them is not: on markup written
+  with uppercase tags (`<INPUT`, `<IFRAME`, `<A`) every buffer fixer returned
+  the page untouched. The iframe src and social domain lookups had the same
+  mismatch. All now compare case-insensitively.
 - Whitespace and doc-comment issues reported by PHPCS across the `includes/`
   classes. No behaviour changes.
 - One Italian comment left in `class-livqacea-main.php`.
+- The Gutenberg pre-publish panel read `PluginPrePublishPanel` from
+  `wp.editPost`, deprecated since WordPress 6.6 in favour of `wp.editor`, and
+  bailed out of the whole script when `wp.editPost` was absent. That is the road
+  `@wordpress/nux` reached in WordPress 7.1, where the package became a no-op:
+  the panel would have disappeared without an error to explain it. The new slot
+  is read first, the old one remains as the fallback for WordPress 6.0 to 6.5,
+  and the guard now tests for the panel itself rather than the package around
+  it.
+
+### Changed
+- Tested up to WordPress 7.1. The pre-publish panel reads block state through
+  `useSelect` and renders in the editor sidebar, so the post editor becoming
+  unconditionally iframed in 7.1 does not affect it: nothing in this plugin
+  reaches into the editor canvas through the global `document`.
 
 ## [1.0.1] - 2026-07-29
 

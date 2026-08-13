@@ -1,10 +1,10 @@
 === LivQ AccessFix – EAA & A11y AutoFix ===
-Contributors:            livqtech, danielegagliardi, skapacraft
+Contributors:            danielegagliardi
 Tags:                    accessibility, wcag, eaa, aria, a11y
 Requires at least:       6.0
-Tested up to:            7.0
+Tested up to:            7.1
 Requires PHP:            7.4
-Stable tag:              1.0.1
+Stable tag:              1.1.0
 License:                 GPLv2 or later
 License URI:             https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -130,6 +130,15 @@ No. The scanner fetches each page as an anonymous visitor would and analyses the
 4. Accessibility Statement Generator - organisation type selector with legal framework guidance and live statement preview.
 
 == Changelog ==
+
+= 1.1.0 =
+* Added: nameless button fix (WCAG 4.1.2). Icon-only buttons - hamburger toggles, search, close, carousel arrows, back-to-top - get an aria-label derived from the purpose words in their own class or id and in their icon child. A button whose purpose cannot be recognised is left untouched. Filterable via `livqacea_button_label_map`.
+* Added: Identify Input Purpose (WCAG 1.3.5). Fields collecting information about the user get the matching `autocomplete` attribute. WooCommerce `billing_`/`shipping_` prefixes and form-builder bracket names resolve to the same purpose. Fields already declaring a value, `off` included, are never touched. Filterable via `livqacea_autocomplete_map`.
+* Added: the Scanner reports fields with no `autocomplete`, using the same derivation as the fixer.
+* Fixed: the Scanner counted a button holding an image with meaningful alt text, or an SVG with its own aria-label, as having no accessible name.
+* Fixed: on markup written with uppercase tags (&lt;INPUT, &lt;IFRAME, &lt;A) every buffer fixer returned the page untouched, because the fast-path guards were case-sensitive while the regex after them was not.
+* Fixed: the Gutenberg pre-publish panel read PluginPrePublishPanel from wp.editPost, deprecated since WordPress 6.6. It now reads wp.editor first and falls back to the old slot on WordPress 6.0 to 6.5.
+* Compatibility: tested up to WordPress 7.1, including the post editor now always being iframed.
 
 = 1.0.1 =
 * Fixed: fatal error on PHP 7.4 in the Accessibility Statement (str_starts_with is PHP 8.0+).

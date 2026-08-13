@@ -616,6 +616,14 @@ class LIVQACEA_Scanner {
 			if ( '' !== trim( wp_strip_all_tags( $inner ) ) ) {
 				continue;
 			}
+			// An image with meaningful alt text names the button; strip_tags()
+			// cannot see it, so without this the button is a false positive.
+			if ( preg_match( '/<img\b[^>]*\balt=["\'][^"\']+["\']/i', $inner ) ) {
+				continue;
+			}
+			if ( preg_match( '/<svg\b[^>]*\baria-label(?:ledby)?=/i', $inner ) ) {
+				continue;
+			}
 			$nameless_btns[] = substr( $full, 0, 200 );
 		}
 		if ( $nameless_btns ) {
@@ -630,7 +638,7 @@ class LIVQACEA_Scanner {
 				),
 				'count'    => count( $nameless_btns ),
 				'sample'   => $nameless_btns[0],
-				'status'   => self::issue_status( '', $options ),
+				'status'   => self::issue_status( 'fix_button_labels', $options ),
 			);
 		}
 
@@ -827,6 +835,50 @@ class LIVQACEA_Scanner {
 					'status'   => self::issue_status( 'woocommerce_a11y', $options ),
 				);
 			}
+		}
+
+		// 15. Fields collecting user information without autocomplete - WCAG 1.3.5
+		preg_match_all( '/<(input|textarea|select)\b([^>]*)>/i', $html, $ac_m );
+		$no_autocomplete = array();
+		foreach ( $ac_m[2] as $i => $attrs ) {
+			if ( preg_match( '/\bautocomplete=/i', $attrs ) ) {
+				continue;
+			}
+
+			$type = '';
+			if ( preg_match( '/\btype=["\']([^"\']*)["\']/i', $attrs, $t ) ) {
+				$type = strtolower( trim( $t[1] ) );
+			}
+
+			$name = '';
+			if ( preg_match( '/\bname=["\']([^"\']*)["\']/i', $attrs, $n ) ) {
+				$name = $n[1];
+			} elseif ( preg_match( '/\bid=["\']([^"\']*)["\']/i', $attrs, $id_m ) ) {
+				$name = $id_m[1];
+			}
+
+			// Same derivation the fixer uses, so the scanner never reports a field
+			// the module would not have been able to fix anyway.
+			if ( '' === LIVQACEA_Frontend::autocomplete_token( $name, $type, strtolower( $ac_m[1][ $i ] ) ) ) {
+				continue;
+			}
+
+			$no_autocomplete[] = '<' . strtolower( $ac_m[1][ $i ] ) . ' ' . substr( trim( $attrs ), 0, 150 ) . '>';
+		}
+		if ( $no_autocomplete ) {
+			$issues[] = array(
+				'type'     => 'input-no-autocomplete',
+				'severity' => 'warning',
+				'wcag'     => '1.3.5',
+				'message'  => sprintf(
+					/* translators: %d: number of form fields */
+					_n( '%d field collecting user information has no autocomplete attribute.', '%d fields collecting user information have no autocomplete attribute.', count( $no_autocomplete ), 'livq-accessfix' ),
+					count( $no_autocomplete )
+				),
+				'count'    => count( $no_autocomplete ),
+				'sample'   => $no_autocomplete[0],
+				'status'   => self::issue_status( 'fix_autocomplete', $options ),
+			);
 		}
 
 		return $issues;

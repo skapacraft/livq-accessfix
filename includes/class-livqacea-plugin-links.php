@@ -167,9 +167,8 @@ class LIVQACEA_Plugin_Links {
 			<?php
 			echo wp_kses_post(
 				sprintf(
-					/* translators: 1: LivQ brand link (HTML anchor tag), 2: SkapaCraft brand link (HTML anchor tag) */
-					__( 'An open source project by %1$s and %2$s.', 'livq-accessfix' ),
-					'<a href="https://livq.it" target="_blank" rel="noopener noreferrer" style="color:#2271b1;">LivQ</a>',
+					/* translators: %s: SkapaCraft brand link (HTML anchor tag) */
+					__( 'An open source project by %s.', 'livq-accessfix' ),
 					'<a href="https://skapacraft.com" target="_blank" rel="noopener noreferrer" style="color:#2271b1;">SkapaCraft</a>'
 				)
 			);

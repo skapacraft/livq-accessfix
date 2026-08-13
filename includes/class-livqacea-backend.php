@@ -431,6 +431,18 @@ class LIVQACEA_Backend {
 				'description' => __( 'Adds aria-label to <input>, <textarea>, and <select> fields that have no associated <label> or aria-label attribute. The label is derived from the placeholder text or name attribute. Only fields with no existing accessible name are modified. WCAG Criteria 1.3.1 / 3.3.2.', 'livq-accessfix' ),
 				'wcag'        => 'WCAG 1.3.1',
 			),
+			array(
+				'id'          => 'fix_button_labels',
+				'label'       => __( 'Fix nameless buttons (icon-only buttons)', 'livq-accessfix' ),
+				'description' => __( 'Adds aria-label to <button> elements that contain only an icon or an SVG, which screen readers otherwise announce as just "button". The label is derived from the purpose words in the button\'s own class or in its icon class - menu, search, close, next, back to top, and more. Buttons whose purpose cannot be recognised are left untouched. WCAG Criterion 4.1.2.', 'livq-accessfix' ),
+				'wcag'        => 'WCAG 4.1.2',
+			),
+			array(
+				'id'          => 'fix_autocomplete',
+				'label'       => __( 'Identify input purpose (autocomplete)', 'livq-accessfix' ),
+				'description' => __( 'Adds the autocomplete attribute to form fields that collect information about the user - name, email, telephone, address, postcode, country - so browsers, password managers and personalisation tools can identify and fill them. Fields that already declare an autocomplete value, including autocomplete="off", are never changed. WCAG Criterion 1.3.5.', 'livq-accessfix' ),
+				'wcag'        => 'WCAG 1.3.5',
+			),
 		);
 	}
 
@@ -479,6 +491,9 @@ class LIVQACEA_Backend {
 			'fix_nameless_links',
 			'fix_iframe_titles',
 			'fix_input_labels',
+			// HTML Output Remediations (v1.1.0 - EAA).
+			'fix_button_labels',
+			'fix_autocomplete',
 			// Advanced modules (v1.1.0).
 			'menu_aria_helper',
 			'heading_hierarchy_check',

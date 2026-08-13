@@ -1177,6 +1177,14 @@ class LIVQACEA_Statement {
 				'criterion'   => 'WCAG 1.3.1 - Info and Relationships / 4.1.2 - Name, Role, Value',
 				'description' => __( 'Form inputs without a visible label receive programmatic labels so assistive technology users can identify each field.', 'livq-accessfix' ),
 			),
+			'fix_button_labels'       => array(
+				'criterion'   => 'WCAG 4.1.2 - Name, Role, Value',
+				'description' => __( 'Icon-only buttons without visible text receive programmatic accessible labels so screen readers announce what the control does.', 'livq-accessfix' ),
+			),
+			'fix_autocomplete'        => array(
+				'criterion'   => 'WCAG 1.3.5 - Identify Input Purpose',
+				'description' => __( 'Form fields collecting information about the user declare their purpose through the autocomplete attribute, so browsers and assistive technologies can identify and fill them.', 'livq-accessfix' ),
+			),
 			'woocommerce_a11y'        => array(
 				'criterion'   => 'WCAG 4.1.2 - Name, Role, Value / 4.1.3 - Status Messages',
 				'description' => __( 'WooCommerce quantity controls, product gallery, and cart notifications are enhanced with ARIA labels and live region announcements.', 'livq-accessfix' ),

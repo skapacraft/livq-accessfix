@@ -18,8 +18,8 @@
  * • No JSX / no build step: uses wp.element.createElement() directly.
  *   Compatible with any WordPress installation without a local Node toolchain.
  * • All wp.* globals are guaranteed available when this file loads because
- *   wp-plugins, wp-edit-post, wp-element, wp-data, wp-i18n are listed as
- *   dependencies in LIVQACEA_Advanced::enqueue_prepublish_script().
+ *   wp-plugins, wp-editor, wp-edit-post, wp-element, wp-data and wp-i18n are
+ *   listed as dependencies in LIVQACEA_Advanced::enqueue_prepublish_script().
  * • useSelect() re-runs automatically whenever block state changes - the panel
  *   updates in real time as the editor types, with zero polling overhead.
  * • String literals are wrapped in __() so they are picked up by wp i18n make-pot.
@@ -38,7 +38,6 @@
 	if (
 		! window.wp ||
 		! wp.plugins ||
-		! wp.editPost ||
 		! wp.element ||
 		! wp.data ||
 		! wp.i18n
@@ -46,8 +45,21 @@
 		return;
 	}
 
+	/*
+	 * PluginPrePublishPanel moved from @wordpress/edit-post to @wordpress/editor
+	 * in WordPress 6.6. The old location still works but logs a deprecation, and
+	 * it is on the road @wordpress/nux reached in 7.1, where the package became a
+	 * no-op. Read the new slot first and keep the old one for WordPress < 6.6,
+	 * which this plugin still supports.
+	 */
+	var PluginPrePublishPanel = ( wp.editor && wp.editor.PluginPrePublishPanel )
+		|| ( wp.editPost && wp.editPost.PluginPrePublishPanel );
+
+	if ( ! PluginPrePublishPanel ) {
+		return;
+	}
+
 	var registerPlugin        = wp.plugins.registerPlugin;
-	var PluginPrePublishPanel = wp.editPost.PluginPrePublishPanel;
 	var createElement         = wp.element.createElement;
 	var useSelect             = wp.data.useSelect;
 	var __                    = wp.i18n.__;

@@ -375,7 +375,8 @@ class LIVQACEA_Advanced {
 			LIVQACEA_PLUGIN_URL . 'assets/js/livqacea-prepublish.js',
 			array(
 				'wp-plugins',   // Provides the registerPlugin API.
-				'wp-edit-post', // Provides PluginPrePublishPanel.
+				'wp-editor',    // Provides PluginPrePublishPanel from WordPress 6.6 on.
+				'wp-edit-post', // Provides the same slot on WordPress 6.0 to 6.5.
 				'wp-element',   // Provides createElement and useState.
 				'wp-data',      // Provides useSelect and select.
 				'wp-i18n',      // Provides the translation helpers.

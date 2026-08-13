@@ -60,8 +60,10 @@ class LIVQACEA_Frontend {
 		// Centralising the condition here avoids starting multiple buffers.
 		$needs_buffer = ! empty( $this->options['fix_external_links'] )
 			|| ! empty( $this->options['fix_nameless_links'] )
+			|| ! empty( $this->options['fix_button_labels'] )
 			|| ! empty( $this->options['fix_iframe_titles'] )
-			|| ! empty( $this->options['fix_input_labels'] );
+			|| ! empty( $this->options['fix_input_labels'] )
+			|| ! empty( $this->options['fix_autocomplete'] );
 
 		if ( $needs_buffer ) {
 			add_action( 'template_redirect', array( $this, 'start_buffer' ), 1 );
@@ -211,11 +213,19 @@ class LIVQACEA_Frontend {
 		if ( ! empty( $this->options['fix_external_links'] ) ) {
 			$html = $this->fix_external_links( $html );
 		}
+		if ( ! empty( $this->options['fix_button_labels'] ) ) {
+			$html = $this->fix_button_labels( $html );
+		}
 		if ( ! empty( $this->options['fix_iframe_titles'] ) ) {
 			$html = $this->fix_iframe_titles( $html );
 		}
 		if ( ! empty( $this->options['fix_input_labels'] ) ) {
 			$html = $this->fix_input_labels( $html );
+		}
+		// Runs after the label fixer: both rewrite field tags, and autocomplete
+		// re-parses the HTML the label pass has already produced.
+		if ( ! empty( $this->options['fix_autocomplete'] ) ) {
+			$html = $this->fix_autocomplete( $html );
 		}
 
 		// Allow other modules (e.g. WooCommerce) to add their own HTML fixes.
@@ -308,7 +318,7 @@ class LIVQACEA_Frontend {
 	 * @return string Modified HTML.
 	 */
 	private function fix_external_links( string $html ): string {
-		if ( false === strpos( $html, '_blank' ) ) {
+		if ( false === stripos( $html, '_blank' ) ) {
 			return $html;
 		}
 
@@ -390,7 +400,7 @@ class LIVQACEA_Frontend {
 	 * @return string Modified HTML.
 	 */
 	private function fix_nameless_links( string $html ): string {
-		if ( false === strpos( $html, '<a' ) ) {
+		if ( false === stripos( $html, '<a' ) ) {
 			return $html;
 		}
 
@@ -448,6 +458,196 @@ class LIVQACEA_Frontend {
 	}
 
 	/**
+	 * Adds aria-label to icon-only buttons whose accessible name is empty.
+	 *
+	 * The counterpart of fix_nameless_links() for <button>: hamburger toggles,
+	 * search and close controls, carousel arrows and back-to-top buttons are
+	 * almost always an icon font or an inline SVG with no text at all, which
+	 * screen readers announce as just "button".
+	 *
+	 * The label is derived from the purpose words found in the button's own
+	 * class/id and in the class names of its icon child - "menu-toggle",
+	 * "fa fa-search", "swiper-button-next". A button whose purpose cannot be
+	 * recognised is left untouched: a wrong name is worse than none, and the
+	 * Scanner still reports it.
+	 *
+	 * WCAG 4.1.2
+	 *
+	 * @param string $html Full page HTML.
+	 * @return string Modified HTML.
+	 */
+	private function fix_button_labels( string $html ): string {
+		if ( false === stripos( $html, '<button' ) ) {
+			return $html;
+		}
+
+		$map = self::get_button_label_map();
+
+		return self::safe_replace(
+			'/<button\b([^>]*)>(.*?)<\/button>/is',
+			static function ( array $m ) use ( $map ): string {
+				$attrs = $m[1];
+				$inner = $m[2];
+
+				// Skip if an accessible name attribute already exists.
+				if ( preg_match( '/\baria-(?:label|labelledby)=/i', $attrs ) ) {
+					return $m[0];
+				}
+
+				// title= is announced when nothing else names the button.
+				if ( preg_match( '/\btitle=["\'][^"\']+["\']/i', $attrs ) ) {
+					return $m[0];
+				}
+
+				// Any text content - including an SVG <title> - already names it.
+				if ( '' !== trim( wp_strip_all_tags( $inner ) ) ) {
+					return $m[0];
+				}
+
+				// An image with meaningful alt text names the button too, and
+				// strip_tags() cannot see it because alt is an attribute.
+				if ( preg_match( '/<img\b[^>]*\balt=["\'][^"\']+["\']/i', $inner ) ) {
+					return $m[0];
+				}
+
+				// Same for an SVG that labels itself.
+				if ( preg_match( '/<svg\b[^>]*\baria-label(?:ledby)?=/i', $inner ) ) {
+					return $m[0];
+				}
+
+				$label = self::label_from_button( $attrs, $inner, $map );
+
+				if ( '' === $label ) {
+					return $m[0];
+				}
+
+				return '<button' . $attrs . ' aria-label="' . esc_attr( $label ) . '">' . $inner . '</button>';
+			},
+			$html
+		);
+	}
+
+	/**
+	 * The purpose-word to label map used by the button fixer.
+	 *
+	 * Ordered from most to least specific: "menu-close" has to resolve to Close,
+	 * not to Menu, so the close entry is tested first. Filterable so a site can
+	 * teach the fixer its theme's own icon vocabulary.
+	 *
+	 * @return array<string, string> Purpose word => translated label.
+	 */
+	private static function get_button_label_map(): array {
+		$map = array(
+			'close'         => __( 'Close', 'livq-accessfix' ),
+			'dismiss'       => __( 'Close', 'livq-accessfix' ),
+			'search'        => __( 'Search', 'livq-accessfix' ),
+			'hamburger'     => __( 'Menu', 'livq-accessfix' ),
+			'menu'          => __( 'Menu', 'livq-accessfix' ),
+			'cart'          => __( 'Cart', 'livq-accessfix' ),
+			'basket'        => __( 'Cart', 'livq-accessfix' ),
+			'wishlist'      => __( 'Wishlist', 'livq-accessfix' ),
+			'account'       => __( 'Account', 'livq-accessfix' ),
+			'login'         => __( 'Log in', 'livq-accessfix' ),
+			'previous'      => __( 'Previous', 'livq-accessfix' ),
+			'prev'          => __( 'Previous', 'livq-accessfix' ),
+			'next'          => __( 'Next', 'livq-accessfix' ),
+			'play'          => __( 'Play', 'livq-accessfix' ),
+			'pause'         => __( 'Pause', 'livq-accessfix' ),
+			'mute'          => __( 'Mute', 'livq-accessfix' ),
+			'share'         => __( 'Share', 'livq-accessfix' ),
+			'print'         => __( 'Print', 'livq-accessfix' ),
+			'filter'        => __( 'Filter', 'livq-accessfix' ),
+			'copy'          => __( 'Copy', 'livq-accessfix' ),
+			'back to top'   => __( 'Back to top', 'livq-accessfix' ),
+			'scroll to top' => __( 'Back to top', 'livq-accessfix' ),
+			'go to top'     => __( 'Back to top', 'livq-accessfix' ),
+			'scroll top'    => __( 'Back to top', 'livq-accessfix' ),
+			'scroll up'     => __( 'Back to top', 'livq-accessfix' ),
+			'totop'         => __( 'Back to top', 'livq-accessfix' ),
+			'expand'        => __( 'Expand', 'livq-accessfix' ),
+			'collapse'      => __( 'Collapse', 'livq-accessfix' ),
+			'zoom'          => __( 'Zoom', 'livq-accessfix' ),
+			'fullscreen'    => __( 'Full screen', 'livq-accessfix' ),
+			'download'      => __( 'Download', 'livq-accessfix' ),
+			'edit'          => __( 'Edit', 'livq-accessfix' ),
+			'delete'        => __( 'Delete', 'livq-accessfix' ),
+			'remove'        => __( 'Remove', 'livq-accessfix' ),
+			'quickview'     => __( 'Quick view', 'livq-accessfix' ),
+			'compare'       => __( 'Compare', 'livq-accessfix' ),
+			'darkmode'      => __( 'Toggle dark mode', 'livq-accessfix' ),
+			'lightbox'      => __( 'Open image', 'livq-accessfix' ),
+			'subscribe'     => __( 'Subscribe', 'livq-accessfix' ),
+			'submit'        => __( 'Submit', 'livq-accessfix' ),
+		);
+
+		/**
+		 * Filters the purpose-word map used to name icon-only buttons.
+		 *
+		 * @param array<string, string> $map Purpose word => label.
+		 */
+		return (array) apply_filters( 'livqacea_button_label_map', $map );
+	}
+
+	/**
+	 * Derives a label for an icon-only button from its markup.
+	 *
+	 * Both the button's own attributes and its children are searched: the
+	 * purpose word sits on the button ("menu-toggle") about as often as on the
+	 * icon inside it ("<i class='fa fa-search'>").
+	 *
+	 * @param string                $attrs Attribute string of the button tag.
+	 * @param string                $inner Inner HTML of the button.
+	 * @param array<string, string> $map   Purpose word => label map.
+	 * @return string Label, or '' when the purpose cannot be recognised.
+	 */
+	private static function label_from_button( string $attrs, string $inner, array $map ): string {
+		$haystack = '';
+
+		if ( preg_match( '/\bclass=["\']([^"\']*)["\']/i', $attrs, $cls ) ) {
+			$haystack .= ' ' . $cls[1];
+		}
+		if ( preg_match( '/\bid=["\']([^"\']*)["\']/i', $attrs, $id ) ) {
+			$haystack .= ' ' . $id[1];
+		}
+		if ( preg_match_all( '/\bclass=["\']([^"\']*)["\']/i', $inner, $icons ) ) {
+			$haystack .= ' ' . implode( ' ', $icons[1] );
+		}
+
+		if ( '' === trim( $haystack ) ) {
+			return '';
+		}
+
+		// Two normalised forms of the same markup: separators turned into spaces,
+		// so "swiper-button-next" yields the token "next", and separators removed
+		// entirely, so "dark-mode-toggle" still matches the glued word "darkmode".
+		$spaced = strtolower( (string) preg_replace( '/[^a-zA-Z0-9]+/', ' ', $haystack ) );
+		$glued  = str_replace( ' ', '', $spaced );
+
+		foreach ( $map as $word => $label ) {
+			$word = strtolower( trim( (string) $word ) );
+
+			if ( '' === $word ) {
+				continue;
+			}
+
+			// Whole-token match: "close" must not fire on "disclosure".
+			if ( preg_match( '/\b' . preg_quote( $word, '/' ) . '\b/', $spaced ) ) {
+				return (string) $label;
+			}
+
+			// Glued match, only for words long enough that an accidental substring
+			// hit is implausible. Keeps "menu"/"cart"/"edit" strictly token-based.
+			$glued_word = str_replace( ' ', '', $word );
+
+			if ( strlen( $glued_word ) > 5 && false !== strpos( $glued, $glued_word ) ) {
+				return (string) $label;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Adds a title attribute to every <iframe> that is missing one.
 	 *
 	 * Screen readers announce untitled iframes as "frame" with no context.
@@ -460,7 +660,7 @@ class LIVQACEA_Frontend {
 	 * @return string Modified HTML.
 	 */
 	private function fix_iframe_titles( string $html ): string {
-		if ( false === strpos( $html, '<iframe' ) ) {
+		if ( false === stripos( $html, '<iframe' ) ) {
 			return $html;
 		}
 
@@ -500,7 +700,7 @@ class LIVQACEA_Frontend {
 
 				if ( preg_match( '/\bsrc=["\']([^"\']*)["\']/', $attrs, $src_m ) ) {
 					foreach ( $src_map as $domain => $label ) {
-						if ( false !== strpos( $src_m[1], $domain ) ) {
+						if ( false !== stripos( $src_m[1], $domain ) ) {
 							$title = $label;
 							break;
 						}
@@ -530,9 +730,9 @@ class LIVQACEA_Frontend {
 	 * @return string Modified HTML.
 	 */
 	private function fix_input_labels( string $html ): string {
-		if ( false === strpos( $html, '<input' )
-			&& false === strpos( $html, '<textarea' )
-			&& false === strpos( $html, '<select' ) ) {
+		if ( false === stripos( $html, '<input' )
+			&& false === stripos( $html, '<textarea' )
+			&& false === stripos( $html, '<select' ) ) {
 			return $html;
 		}
 
@@ -693,6 +893,245 @@ class LIVQACEA_Frontend {
 		return ucfirst( $label );
 	}
 
+	// -----------------------------------------------------------------------
+	// Autocomplete (WCAG 1.3.5 Identify Input Purpose)
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Adds autocomplete attributes to fields that collect information about the
+	 * user filling the form.
+	 *
+	 * WCAG 1.3.5 (AA) requires the purpose of those fields to be programmatically
+	 * determinable; the autocomplete attribute is the mechanism browsers, password
+	 * managers and personalisation tools actually read.
+	 *
+	 * Deliberately conservative:
+	 *  - any author-set autocomplete is respected, autocomplete="off" included;
+	 *  - only names that resolve to a known input purpose are touched, so search
+	 *    boxes, quantity spinners and coupon codes are never given one;
+	 *  - the optional "billing"/"shipping" section tokens are not emitted. The
+	 *    bare field name already satisfies 1.3.5 and cannot produce a value the
+	 *    HTML autofill grammar would reject.
+	 *
+	 * @param string $html Full page HTML.
+	 * @return string Modified HTML.
+	 */
+	private function fix_autocomplete( string $html ): string {
+		if ( false === stripos( $html, '<input' )
+			&& false === stripos( $html, '<textarea' )
+			&& false === stripos( $html, '<select' ) ) {
+			return $html;
+		}
+
+		return self::safe_replace(
+			'/<(input|textarea|select)\b([^>]*)>/i',
+			static function ( array $m ): string {
+				$tag   = strtolower( $m[1] );
+				$attrs = $m[2];
+
+				// Respect the author's intent, including an explicit "off".
+				if ( preg_match( '/\bautocomplete=/i', $attrs ) ) {
+					return $m[0];
+				}
+
+				$type = '';
+				if ( preg_match( '/\btype=["\']([^"\']*)["\']/i', $attrs, $t ) ) {
+					$type = strtolower( trim( $t[1] ) );
+				}
+
+				$name = '';
+				if ( preg_match( '/\bname=["\']([^"\']*)["\']/i', $attrs, $n ) ) {
+					$name = $n[1];
+				} elseif ( preg_match( '/\bid=["\']([^"\']*)["\']/i', $attrs, $i ) ) {
+					$name = $i[1];
+				}
+
+				$token = self::autocomplete_token( $name, $type, $tag );
+
+				if ( '' === $token ) {
+					return $m[0];
+				}
+
+				return self::build_tag( $tag, $attrs, 'autocomplete="' . esc_attr( $token ) . '"' );
+			},
+			$html
+		);
+	}
+
+	/**
+	 * Maps a form field to its HTML autofill field name, or '' when unknown.
+	 *
+	 * Public because the Scanner reports fields that should carry an autocomplete
+	 * attribute and must agree with the fixer on which ones those are.
+	 *
+	 * @param string $raw_name Raw name (or id) attribute value.
+	 * @param string $type     Lowercased type attribute, '' when absent.
+	 * @param string $tag      'input', 'textarea' or 'select'.
+	 * @return string Autofill field name, or '' when the purpose is unknown.
+	 */
+	public static function autocomplete_token( string $raw_name, string $type = '', string $tag = 'input' ): string {
+		// Types that never carry user information, plus the ones where a guessed
+		// autocomplete would actively get in the way (search, file pickers).
+		$skip_types = array( 'hidden', 'submit', 'button', 'reset', 'image', 'checkbox', 'radio', 'file', 'range', 'color', 'search' );
+
+		if ( 'input' === $tag && in_array( $type, $skip_types, true ) ) {
+			return '';
+		}
+
+		$key = strtolower( trim( $raw_name ) );
+
+		// Form builders nest the meaningful name inside brackets - "fields[email]",
+		// "data[User][last_name]". Take the innermost segment that is not a bare
+		// index, so "wpforms[fields][0]" still falls back to the base name.
+		if ( preg_match_all( '/\[([^\]]*)\]/', $key, $segments ) ) {
+			$bracket_pos = (int) strpos( $key, '[' );
+			$key         = substr( $key, 0, $bracket_pos );
+
+			foreach ( array_reverse( $segments[1] ) as $segment ) {
+				$segment = trim( $segment );
+
+				if ( '' !== $segment && ! ctype_digit( $segment ) ) {
+					$key = $segment;
+					break;
+				}
+			}
+		}
+
+		// Normalise separators, then strip the billing_/shipping_ prefixes that
+		// WooCommerce and most checkout plugins put in front of standard names.
+		$key = trim( (string) preg_replace( '/[^a-z0-9]+/', '_', $key ), '_' );
+		$key = (string) preg_replace( '/^(?:billing|shipping|order)_/', '', $key );
+
+		$map = self::get_autocomplete_map();
+
+		if ( isset( $map[ $key ] ) ) {
+			// A country <select> holds ISO codes, not names: "country" is the
+			// token for the code, "country-name" the one for the spelled-out name.
+			if ( 'country-name' === $map[ $key ] && 'select' === $tag ) {
+				return 'country';
+			}
+
+			return $map[ $key ];
+		}
+
+		// Passwords are matched on intent, never by default: handing a password
+		// manager the wrong one makes it overwrite a stored credential.
+		if ( 'password' === $type ) {
+			if ( preg_match( '/\b(?:new|confirm|repeat|retype|verify|again|2)\b/', str_replace( '_', ' ', $key ) ) ) {
+				return 'new-password';
+			}
+			if ( preg_match( '/\b(?:current|old|login)\b/', str_replace( '_', ' ', $key ) ) ) {
+				return 'current-password';
+			}
+			return '';
+		}
+
+		// Fall back to the input type when the name says nothing useful.
+		$by_type = array(
+			'email' => 'email',
+			'tel'   => 'tel',
+			'url'   => 'url',
+		);
+
+		return $by_type[ $type ] ?? '';
+	}
+
+	/**
+	 * Field name to HTML autofill field name map.
+	 *
+	 * Keys are normalised names (lowercase, separators as underscores, any
+	 * billing_/shipping_ prefix already removed). Filterable so a site can teach
+	 * the module the field names of a form plugin or a non-English form.
+	 *
+	 * @return array<string, string>
+	 */
+	private static function get_autocomplete_map(): array {
+		static $map = null;
+
+		if ( null !== $map ) {
+			return $map;
+		}
+
+		$defaults = array(
+			// Name.
+			'name'           => 'name',
+			'full_name'      => 'name',
+			'fullname'       => 'name',
+			'your_name'      => 'name',
+			'author'         => 'name',
+			'first_name'     => 'given-name',
+			'firstname'      => 'given-name',
+			'fname'          => 'given-name',
+			'given_name'     => 'given-name',
+			'last_name'      => 'family-name',
+			'lastname'       => 'family-name',
+			'lname'          => 'family-name',
+			'surname'        => 'family-name',
+			'family_name'    => 'family-name',
+			// Contact.
+			'email'          => 'email',
+			'e_mail'         => 'email',
+			'mail'           => 'email',
+			'email_address'  => 'email',
+			'your_email'     => 'email',
+			'user_email'     => 'email',
+			'tel'            => 'tel',
+			'phone'          => 'tel',
+			'telephone'      => 'tel',
+			'phone_number'   => 'tel',
+			'your_phone'     => 'tel',
+			'mobile'         => 'tel',
+			// Organisation.
+			'company'        => 'organization',
+			'company_name'   => 'organization',
+			'organization'   => 'organization',
+			'organisation'   => 'organization',
+			'job_title'      => 'organization-title',
+			// Address.
+			'address'        => 'street-address',
+			'street'         => 'street-address',
+			'street_address' => 'street-address',
+			'address_1'      => 'address-line1',
+			'address_line1'  => 'address-line1',
+			'address_2'      => 'address-line2',
+			'address_line2'  => 'address-line2',
+			'city'           => 'address-level2',
+			'town'           => 'address-level2',
+			'city_town'      => 'address-level2',
+			'state'          => 'address-level1',
+			'province'       => 'address-level1',
+			'region'         => 'address-level1',
+			'county'         => 'address-level1',
+			'zip'            => 'postal-code',
+			'zipcode'        => 'postal-code',
+			'zip_code'       => 'postal-code',
+			'postcode'       => 'postal-code',
+			'postal_code'    => 'postal-code',
+			'country'        => 'country-name',
+			// Account.
+			'username'       => 'username',
+			'user_login'     => 'username',
+			'user_name'      => 'username',
+			// Other identified purposes.
+			'website'        => 'url',
+			'url'            => 'url',
+			'your_website'   => 'url',
+			'birthday'       => 'bday',
+			'birthdate'      => 'bday',
+			'date_of_birth'  => 'bday',
+			'dob'            => 'bday',
+		);
+
+		/**
+		 * Filters the field name to autocomplete value map.
+		 *
+		 * @param array<string, string> $defaults Normalised field name => autofill field name.
+		 */
+		$map = array_map( 'strval', (array) apply_filters( 'livqacea_autocomplete_map', $defaults ) );
+
+		return $map;
+	}
+
 	/**
 	 * Derives a human-readable label from a URL.
 	 *
@@ -728,7 +1167,7 @@ class LIVQACEA_Frontend {
 		$host = preg_replace( '/^www\./i', '', $host );
 
 		foreach ( $social_map as $domain => $name ) {
-			if ( false !== strpos( $host, $domain ) ) {
+			if ( false !== stripos( $host, $domain ) ) {
 				return $name;
 			}
 		}
@@ -819,7 +1258,7 @@ class LIVQACEA_Frontend {
 			return $block_content;
 		}
 
-		if ( false !== strpos( $block_content, '<img' ) && false === strpos( $block_content, ' alt=' ) ) {
+		if ( false !== stripos( $block_content, '<img' ) && false === stripos( $block_content, ' alt=' ) ) {
 			$block_content = (string) preg_replace(
 				'/(<img\b[^>]*?)(\s*\/?>)/i',
 				'$1 alt=""$2',
@@ -870,7 +1309,7 @@ class LIVQACEA_Frontend {
 		if ( 'html' !== $doctype ) {
 			return $output;
 		}
-		if ( false !== strpos( $output, 'lang=' ) ) {
+		if ( false !== stripos( $output, 'lang=' ) ) {
 			return $output;
 		}
 

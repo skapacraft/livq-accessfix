@@ -116,6 +116,9 @@ final class LIVQACEA_Main {
 			'fix_nameless_links'      => true,
 			'fix_iframe_titles'       => true,
 			'fix_input_labels'        => true,
+			// HTML Output Remediations (v1.1.0 - EAA).
+			'fix_button_labels'       => true,
+			'fix_autocomplete'        => true,
 			// WooCommerce (v1.0.0).
 			'woocommerce_a11y'        => true,
 			// Accessibility Statement (v1.0.0).

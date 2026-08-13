@@ -89,8 +89,7 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history.
 
 ## Author
 
-Built by **LivQ** ([livq.it](https://livq.it)) and **SkapaCraft**
-([skapacraft.com](https://skapacraft.com)).
+Developed and maintained by **SkapaCraft** ([skapacraft.com](https://skapacraft.com)).
 
 ## Licence
 
