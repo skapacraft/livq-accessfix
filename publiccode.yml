@@ -1,0 +1,92 @@
+publiccodeYmlVersion: "0.4"
+
+name: LivQ AccessFix
+applicationSuite: LivQ
+url: "https://github.com/livqtech/livq-accessfix"
+landingURL: "https://skapacraft.com/tools/plugins/livq-accessfix/"
+
+releaseDate: "2026-08-31"
+softwareVersion: "1.1.0"
+
+platforms:
+  - web
+
+categories:
+  - accessibility
+
+developmentStatus: stable
+softwareType: addon
+
+legal:
+  license: GPL-2.0-or-later
+
+maintenance:
+  type: internal
+  contacts:
+    - name: SkapaCraft
+
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - it
+    - en
+
+description:
+  it:
+    localisedName: LivQ AccessFix
+    shortDescription: >-
+      Plugin WordPress che applica in automatico correzioni WCAG 2.2 AA e
+      dell'European Accessibility Act (EAA) lato server, prima che l'HTML
+      raggiunga il browser.
+    longDescription: >-
+      LivQ AccessFix applica correzioni automatiche di accessibilità
+      (WCAG 2.2 AA / EAA) intercettando l'HTML renderizzato lato server via
+      output buffering PHP, invece di patchare il DOM via JavaScript come
+      fanno i widget overlay. Copre skip link, etichettatura dei link
+      esterni, testi alternativi, gerarchia dei titoli, menu ARIA e
+      controlli pre-pubblicazione in Gutenberg. Ogni modulo è
+      attivabile/disattivabile singolarmente da Impostazioni, senza
+      configurazione richiesta per l'uso base.
+    documentation: "https://github.com/livqtech/livq-accessfix#readme"
+    features:
+      - Skip link di navigazione (WCAG 2.4.1)
+      - Etichettatura link esterni (WCAG 2.4.4)
+      - Testi alternativi automatici
+      - Verifica gerarchia titoli
+      - Menu ARIA accessibili
+      - Controlli pre-pubblicazione in Gutenberg
+      - Registro problemi di accessibilità
+      - Generazione dichiarazione di accessibilità
+  en:
+    localisedName: LivQ AccessFix
+    shortDescription: >-
+      WordPress plugin that applies WCAG 2.2 AA and European Accessibility
+      Act (EAA) fixes server-side, before HTML reaches the browser.
+    longDescription: >-
+      LivQ AccessFix applies automated WCAG 2.2 AA and EAA remediations by
+      intercepting the fully rendered HTML via PHP output buffering, rather
+      than patching the DOM client-side like JS overlay widgets. Covers
+      skip links, external link labelling, alt text, heading hierarchy,
+      ARIA menus, and Gutenberg pre-publish checks. Every module can be
+      independently enabled or disabled from Settings, with zero
+      configuration required for baseline use.
+    documentation: "https://github.com/livqtech/livq-accessfix#readme"
+    features:
+      - Skip navigation link (WCAG 2.4.1)
+      - External link labelling (WCAG 2.4.4)
+      - Automated alt text
+      - Heading hierarchy checks
+      - Accessible ARIA menus
+      - Gutenberg pre-publish checks
+      - Accessibility issues log
+      - Accessibility statement generator
+
+it:
+  countryExtensionVersion: "0.2"
+  conforme:
+    lineeGuidaDesign: false
+    modelloInteroperabilita: false
+    misureMinimeSicurezza: false
+    modelloDatiAnpr: false
+  riuso:
+    codiceIPA: ""
