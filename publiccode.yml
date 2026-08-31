@@ -24,6 +24,7 @@ maintenance:
   type: internal
   contacts:
     - name: SkapaCraft
+      email: support@skapacraft.com
 
 localisation:
   localisationReady: true
