@@ -649,17 +649,11 @@ class LIVQACEA_Backend {
 
 			</div><!-- .livqacea-card -->
 
-			<?php LIVQACEA_Plugin_Links::render_review_card(); ?>
-
 			<div class="livqacea-footer" style="margin-top:20px; max-width:800px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:.8rem; color:#8c8f94;">
 				<span>v<?php echo esc_html( LIVQACEA_VERSION ); ?></span>
 				<?php
 				$sep   = '<span aria-hidden="true" style="color:#dcdcde;">·</span>';
 				$style = 'color:#646970; text-decoration:none;';
-
-				$email_subject = rawurlencode(
-					sprintf( 'LivQ AccessFix v%s – Support – %s', LIVQACEA_VERSION, wp_parse_url( get_site_url(), PHP_URL_HOST ) )
-				);
 
 				$links = array(
 					array(
@@ -673,10 +667,6 @@ class LIVQACEA_Backend {
 					array(
 						'label' => 'GitHub',
 						'href'  => 'https://github.com/skapacraft/livq-accessfix',
-					),
-					array(
-						'label' => 'Email',
-						'href'  => 'mailto:support@skapacraft.com?subject=' . $email_subject,
 					),
 				);
 
@@ -1031,7 +1021,6 @@ class LIVQACEA_Backend {
 				</p>
 			<?php endif; ?>
 
-			<?php LIVQACEA_Plugin_Links::render_review_card(); ?>
 		</div>
 		<?php
 	}

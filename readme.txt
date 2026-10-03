@@ -4,13 +4,15 @@ Tags:                    accessibility, wcag, eaa, aria, a11y
 Requires at least:       6.0
 Tested up to:            7.1
 Requires PHP:            7.4
-Stable tag:              1.1.0
+Stable tag:              1.1.1
 License:                 GPLv2 or later
 License URI:             https://www.gnu.org/licenses/gpl-2.0.html
 
 Server-side WCAG 2.2 AA & EAA fixes for WordPress. Skip links, alt text, ARIA menus, heading checks, issues log, Accessibility Statement. Zero config.
 
 == Description ==
+
+**No longer maintained.** 1.1.1 is its last release: it keeps working as it does today, but it will receive no further updates, compatibility fixes or security fixes. If your site relies on it for its accessibility obligations, plan a replacement.
 
 **LivQ AccessFix – EAA & A11y AutoFix** applies WCAG 2.2 AA and European Accessibility Act (EAA) remediations automatically, intercepting the full rendered HTML via PHP output buffering before it reaches the browser - not after, not via JavaScript overlay.
 
@@ -131,6 +133,11 @@ No. The scanner fetches each page as an anonymous visitor would and analyses the
 
 == Changelog ==
 
+= 1.1.1 =
+* This is the last release. LivQ AccessFix is no longer maintained.
+* Added: an admin notice saying so, shown to users who can manage plugins on the Dashboard, the Plugins screen and the plugin's own pages. On the first two it can be dismissed for good, per user.
+* Removed: the review request card and the support email link from the settings page.
+
 = 1.1.0 =
 * Added: nameless button fix (WCAG 4.1.2). Icon-only buttons - hamburger toggles, search, close, carousel arrows, back-to-top - get an aria-label derived from the purpose words in their own class or id and in their icon child. A button whose purpose cannot be recognised is left untouched. Filterable via `livqacea_button_label_map`.
 * Added: Identify Input Purpose (WCAG 1.3.5). Fields collecting information about the user get the matching `autocomplete` attribute. WooCommerce `billing_`/`shipping_` prefixes and form-builder bracket names resolve to the same purpose. Fields already declaring a value, `off` included, are never touched. Filterable via `livqacea_autocomplete_map`.
@@ -179,3 +186,8 @@ No. The scanner fetches each page as an anonymous visitor would and analyses the
 * Accessibility Issues Log admin page with nonce-protected CSV export.
 * Accessibility Statement Generator with shortcode [livqacea_accessibility_statement], one-click page creation, auto-populated active modules, and operator confirmation checkbox with timestamped record.
 * Settings page using WordPress Settings API.
+
+== Upgrade Notice ==
+
+= 1.1.1 =
+Last release. LivQ AccessFix is no longer maintained: it keeps working, but gets no further fixes. Plan a replacement.

@@ -150,6 +150,7 @@ final class LIVQACEA_Main {
 		LIVQACEA_Statement::init();
 		LIVQACEA_Scanner::init();
 		LIVQACEA_Contrast::init();
+		LIVQACEA_End_Of_Life::init();
 
 		add_action( 'wp_ajax_livqacea_detect_skip_target', array( 'LIVQACEA_Backend', 'ajax_detect_skip_target' ) );
 	}

@@ -4,6 +4,20 @@ All notable changes to LivQ AccessFix are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [semantic versioning](https://semver.org/).
 
+## [1.1.1] - 2026-10-03
+
+The last release. LivQ AccessFix is no longer maintained: every module keeps
+working as it does today, but there will be no further updates, compatibility
+fixes or security fixes.
+
+### Added
+- **End-of-life notice.** Shown to users who can manage plugins, on the
+  Dashboard, the Plugins screen and the plugin's own pages. On the first two it
+  can be dismissed for good, per user; on the plugin's own pages it stays.
+
+### Removed
+- The review request card and the support email link on the settings page.
+
 ## [1.1.0] - 2026-08-13
 
 Two new remediation modules, both covering criteria no module reached before,

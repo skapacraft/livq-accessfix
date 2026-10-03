@@ -14,6 +14,10 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 // data-deletion preference - a scheduled event must never outlive the plugin.
 wp_clear_scheduled_hook( 'livqacea_daily_scan' );
 
+// The end-of-life notice dismissal is a UI flag, not user data: it goes with
+// the plugin whatever the data-deletion preference says.
+delete_metadata( 'user', 0, 'livqacea_end_of_life_dismissed', '', true );
+
 $livqacea_options = get_option( 'livqacea_options', array() );
 
 if ( ! empty( $livqacea_options['delete_on_uninstall'] ) ) {

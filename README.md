@@ -6,7 +6,12 @@
 
 Server-side WCAG 2.2 AA & European Accessibility Act (EAA) fixes for WordPress. Skip links, alt text, ARIA menus, heading checks, an issues log, and an Accessibility Statement generator. Zero configuration.
 
-**[Get it on WordPress.org →](https://wordpress.org/plugins/livq-accessfix/)** · **[skapacraft.com/tools/plugins/livq-accessfix →](https://skapacraft.com/tools/plugins/livq-accessfix/)**
+> **No longer maintained.** 1.1.1 is the last release, and the plugin has been
+> closed on WordPress.org. Sites that have it installed keep working as they do
+> today, but there will be no further updates, compatibility fixes or security
+> fixes. If your site relies on it for its accessibility obligations, plan a
+> replacement. The source stays here, under the same licence, for anyone who
+> wants to carry it on.
 
 ## Why server-side
 
@@ -62,16 +67,15 @@ This plugin does not collect, store, or transmit any personal data. No third-par
 
 ## Support
 
-- **Bug reports / feature requests:** [GitHub Issues](https://github.com/skapacraft/livq-accessfix/issues)
-- **Support forum:** [wordpress.org/support/plugin/livq-accessfix](https://wordpress.org/support/plugin/livq-accessfix/)
-- **Translations:** handled via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/livq-accessfix/), contributions welcome.
+None: the project is no longer maintained, and issues and the support forum are
+no longer answered.
 
 ## Reporting a security problem
 
 Not in a public issue: use the **Security** tab, then **Report a vulnerability**.
-This plugin rewrites every page a site serves, so a report stays private until
-there is a fix. What counts as one here, and what does not, is in
-[SECURITY.md](SECURITY.md).
+The project is no longer maintained, so there will be no fix: a confirmed
+vulnerability is published as an advisory, so that sites still running the
+plugin know to remove it. Details in [SECURITY.md](SECURITY.md).
 
 ## Contributing
 
@@ -89,7 +93,7 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history.
 
 ## Author
 
-Developed and maintained by **SkapaCraft** ([skapacraft.com](https://skapacraft.com)).
+Developed by SkapaCraft, now retired.
 
 ## Licence
 

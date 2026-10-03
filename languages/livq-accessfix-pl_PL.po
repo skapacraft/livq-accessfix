@@ -27,7 +27,7 @@ msgstr "LivQ AccessFix – EAA & A11y AutoFix"
 
 #. Plugin URI of the plugin
 #: livq-accessfix.php
-msgid "https://skapacraft.com/tools/plugins/livq-accessfix/"
+msgid "https://wordpress.org/plugins/livq-accessfix/"
 msgstr ""
 
 #. Description of the plugin
@@ -2244,3 +2244,15 @@ msgstr "ostrzeżeń"
 #: assets/js/livqacea-prepublish.js:213
 msgid "No accessibility issues detected in this document."
 msgstr "W tym dokumencie nie wykryto problemów z dostępnością."
+
+#: includes/class-livqacea-end-of-life.php
+msgid "LivQ AccessFix is no longer maintained."
+msgstr ""
+
+#: includes/class-livqacea-end-of-life.php
+msgid "This is its last release. The plugin keeps working as it does today, but it will receive no further updates, compatibility fixes or security fixes. We recommend planning a replacement for your site's accessibility work."
+msgstr ""
+
+#: includes/class-livqacea-end-of-life.php
+msgid "Don't show this again"
+msgstr ""

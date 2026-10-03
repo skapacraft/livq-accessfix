@@ -2,11 +2,11 @@ publiccodeYmlVersion: "0.4"
 
 name: LivQ AccessFix
 applicationSuite: LivQ
-url: "https://github.com/livqtech/livq-accessfix"
-landingURL: "https://skapacraft.com/tools/plugins/livq-accessfix/"
+url: "https://github.com/skapacraft/livq-accessfix"
+landingURL: "https://wordpress.org/plugins/livq-accessfix/"
 
-releaseDate: "2026-08-31"
-softwareVersion: "1.1.0"
+releaseDate: "2026-10-03"
+softwareVersion: "1.1.1"
 
 platforms:
   - web
@@ -14,17 +14,14 @@ platforms:
 categories:
   - accessibility
 
-developmentStatus: stable
+developmentStatus: obsolete
 softwareType: addon
 
 legal:
   license: GPL-2.0-or-later
 
 maintenance:
-  type: internal
-  contacts:
-    - name: SkapaCraft
-      email: support@skapacraft.com
+  type: "none"
 
 localisation:
   localisationReady: true
@@ -48,7 +45,7 @@ description:
       controlli pre-pubblicazione in Gutenberg. Ogni modulo è
       attivabile/disattivabile singolarmente da Impostazioni, senza
       configurazione richiesta per l'uso base.
-    documentation: "https://github.com/livqtech/livq-accessfix#readme"
+    documentation: "https://github.com/skapacraft/livq-accessfix#readme"
     features:
       - Skip link di navigazione (WCAG 2.4.1)
       - Etichettatura link esterni (WCAG 2.4.4)
@@ -71,7 +68,7 @@ description:
       ARIA menus, and Gutenberg pre-publish checks. Every module can be
       independently enabled or disabled from Settings, with zero
       configuration required for baseline use.
-    documentation: "https://github.com/livqtech/livq-accessfix#readme"
+    documentation: "https://github.com/skapacraft/livq-accessfix#readme"
     features:
       - Skip navigation link (WCAG 2.4.1)
       - External link labelling (WCAG 2.4.4)
